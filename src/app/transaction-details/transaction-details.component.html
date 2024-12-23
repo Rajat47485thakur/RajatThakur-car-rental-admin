@@ -1,0 +1,219 @@
+<div class="common-class">
+    <div class="common-class-left">
+      <span class="card-title new-title">
+      </span>
+    
+    </div>
+    <div class="common-class-right">
+      <div class="search-field custom-search">
+        <form>
+          <div class="search-block-outer">
+            <div class="search-icon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+            <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+            (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+            <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="">
+        <button class="btn btn-filters" (click)="openDateRange()">
+          Filters
+        </button>
+      </div>
+    </div>
+  </div>
+<div class="content-wrapper2">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <div class="card-dsh chart-block">
+
+            </div> -->
+            <div class="card-dsh top-customer-list">
+
+                <div class="recent-transactions">
+                    <h5 class="top-customer-heading">Recent Transactions</h5>
+                </div>
+                <div class="table-responsive user-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th>Transaction ID</th>
+                              <th>Customer Name</th>
+                              <th>Merchant Name</th>
+                              <!-- <th> Business ID</th> -->
+                              <th>Business Name</th>
+                              <!-- <th>Customer ID</th> -->
+                              
+                              <th>Transaction Value</th>
+                              <th>Standard LP Earned</th>
+                              <th>Seasonal LP earned</th>
+                              <th>Transation Date</th>
+                            </tr>
+                          </thead>
+                        <tbody *ngFor="let item of statatics; let i = index">
+                            <tr>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2" [routerLink]="['/transactions/transaction-detail',item.transactionId]" style="color: #1B86FE;text-decoration: underline;font-weight: 600; cursor: pointer;">{{item?.transactionId ? item?.transactionId : '--'}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2" [routerLink]="['/user-management/user-profile',item.userId]" style="color: #1B86FE;text-decoration: underline;font-weight: 600; cursor: pointer;">{{item?.actorName ? item?.actorName : '--'}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.merchantName ? item?.merchantName : '--'}}</p>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.subjectManualId ? item?.subjectManualId : '--'}}</p>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2" >{{item?.subjectName ? item?.subjectName : '--'}}</p>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.actorManualId ? item?.actorManualId : '--'}}</p>
+                                    </div>
+                                </td> -->
+                               
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2"><span class="philippines-curency">₱</span>  {{item?.amount ? item?.amount : '--'}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.standardLoyalityPoints ? item?.standardLoyalityPoints : '--'}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.seasonalLoyalityPoints ? item?.seasonalLoyalityPoints : '--'}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.transactionDate ? (item?.transactionDate | date:'dd-MM-yyyy') : '--'}}</p>
+                                    </div>
+                                </td>
+
+                                <!-- <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.subjectName}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2"> {{item?.amount}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name2">{{item?.transactionDate | date:'dd-MM-yyyy'}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="top-customer-third2">
+                                        <p class="top-customer-third-name3">{{item?.transactionTypeName}}</p>
+                                    </div>
+                                </td> -->
+
+                            </tr>
+                           
+
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div class="no-result-found" *ngIf="statatics?.length == 0">
+                    No transaction found
+                  </div>
+                <div class="next-previous-button-block">
+                    <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+                      Previous
+                    </button>
+                    <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+                      *ngIf="totalPage > 1 && totalPage != currentPage">
+                      Next
+                    </button>
+                  </div>
+                  <div class="page-count" *ngIf="totalPage >= 1">
+                    <p>Page {{ currentPage }} of {{ totalPage }}</p>
+                  </div>
+            </div>
+            
+        </div>
+       
+    </div>
+
+   
+</div>
+
+<div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelCalender">
+    <div class="modal-dialog model-calender-block modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attachmentModelCalenderFunction()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="date-range-picker">
+            <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="start-date">Start Date:</label>
+                    <input 
+                      type="date" 
+                      id="start-date" 
+                      [max]="maxDate" 
+                      class="form-control" 
+                      formControlName="startDate">
+                    <div *ngIf="f.startDate.invalid && (f.startDate.dirty || f.startDate.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.startDate.errors?.required">Start Date is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.startDate.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="end-date">End Date:</label>
+                    <input 
+                      type="date" 
+                      id="end-date" 
+                      class="form-control"  
+                      [max]="maxDate" 
+                      formControlName="endDate">
+                    <div *ngIf="f.endDate.invalid && (f.endDate.dirty || f.endDate.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.endDate.errors?.required">End Date is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.endDate.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-submit-calender-upper">
+                <button type="submit" class="btn btn-submit-calender">Submit</button>
+                <button type="reset" class="btn btn-submit-reset ml-3" (click)="reset()">Reset</button>
+              </div>
+            </form>
+            
+          </div>
+          
+                
+               
+        </div>
+      </div>
+    </div>
+  </div>

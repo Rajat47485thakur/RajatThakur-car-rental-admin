@@ -1,0 +1,102 @@
+<div class="card new-card other-pages">
+    <div class="card-body">
+      <h4 style="margin-bottom: 30px;">Referral Settings</h4>
+      <div class="main-form-block">
+        <!-- <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+           
+            <div class="col-md-6 mb-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="email">Min transaction by referee to get referral bonus :</label>
+                </div>
+                <div class="col-md-12">
+                  <input id="booking-per-friend" formControlName="minBooking" type="number">
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6 mb-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="referredUser">Referred User :</label>
+                </div>
+                <div class="col-md-12">
+                  <input id="referredUser" formControlName="referredUser" type="number">
+                  <span class="custom-small">How Many LP Your Friend will be earning LP</span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6 mb-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="refreeUsers">Refree User :</label>
+                </div>
+                <div class="col-md-12">
+                  <input id="refreeUsers" formControlName="refreeUsers" type="number">
+                  <span class="custom-small">How Many LP you will be earning LP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="submit-button-block">
+            <button type="submit" class="submit-button-block-inner">Update</button>
+          </div>
+        </form> -->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="booking-per-friend">Min transaction by referred User to get referral bonus:</label>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="booking-per-friend" formControlName="txnThreshold" type="number" class="form-control" [ngClass]="{'is-invalid': isInvalid('txnThreshold')}">
+                    <div *ngIf="isInvalid('txnThreshold')" class="invalid-feedback">
+                      Please enter a valid number between 1 and 10.
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="col-md-6 mb-3">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="refererLp">Referred User:</label>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="refererLp" formControlName="refererLp" type="number" class="form-control" [ngClass]="{'is-invalid': isInvalid('refererLp')}">
+                    <span class="custom-small">How Many LP Your Friend will be earning LP</span>
+                    <div *ngIf="isInvalid('refererLp')" class="invalid-feedback">
+                      Please enter a valid number between 1 and 500000.
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="col-md-6 mb-3">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="refereeLp">Refree User:</label>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="refereeLp" formControlName="refereeLp" type="number" class="form-control" [ngClass]="{'is-invalid': isInvalid('refereeLp')}">
+                    <span class="custom-small">How Many LP you will be earning LP</span>
+                    <div *ngIf="isInvalid('refereeLp')" class="invalid-feedback">
+                      Please enter a valid number between 1 and 500000.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="submit-button-block">
+              <button type="submit" class="submit-button-block-inner" [disabled]="userForm.invalid">Update</button>
+            </div>
+          </form>
+          
+          
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,451 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+      <div class="header-responsive-block">
+        <h3 class="page-title">Booking 
+          <span style="color:#000" *ngIf="statusType2 == 'ACTIVE'">- Active Merchants</span>
+          <span style="color:red" *ngIf="statusType2 == 'INACTIVE'">- InActive Merchants</span>
+          <!-- <span style="color:red" *ngIf="statusTypeText == 'Rejected'">- Rejected Documents</span>
+          <span style="color:red" *ngIf="statusTypeText == 'Approved'">- Approved Documents</span>
+          <span style="color:red" *ngIf="statusTypeText == 'Not Uploaded'">- Not Uploaded Documents</span>
+          <span style="color:red" *ngIf="statusTypeText == 'Pending by Admin'">- Pending With Admin Documents</span>
+          <span style="color:red" *ngIf="statusTypeText == 'Uploaded'">- Uploaded Documents</span> -->
+        </h3>
+      </div>
+      <div class="common-class-right">
+        <!-- <div class="search-field custom-search">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search here"
+                (keyup)="seach($event)" (keydown)="restrickedWord($event)" />
+            </div>
+          </form>
+        </div> -->
+        <div class="search-field custom-search">
+            <select class="form-select custom-select" aria-label="Default select example" [(ngModel)]="selectedTab">
+                <option *ngFor="let item of bookingArray" [value]="item.id">{{item.value}}</option>
+              </select>
+          </div>
+        <div class="search-field custom-search">
+          <form>
+            <div class="search-block-outer">
+              <div class="search-icon">
+                <i class="mdi mdi-magnify"></i>
+              </div>
+              <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+              (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+              <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+                <i class="mdi mdi-close"></i>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="custom-filter">
+          <ul class="icons2" (click)="showFilterFunction()">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <div class="filter-data" *ngIf="showFilter">
+<form>
+  <div class="filter-data2">
+  <div class="radio-labels">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="ALL" (change)="loadMerchants('ALL')" id="flexRadioDefault1">
+      <label class="form-check-label" for="flexRadioDefault1">
+        All
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="ACTIVE" (change)="loadMerchants('ACTIVE')" id="flexRadioDefault2">
+      <label class="form-check-label" for="flexRadioDefault2">
+        Active
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="INACTIVE" (change)="loadMerchants('INACTIVE')" id="flexRadioDefault3">
+      <label class="form-check-label" for="flexRadioDefault3">
+        InActive
+      </label>
+    </div>
+</div>
+</div>
+<div class="filter-data2">
+  <div class="row">
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value=""  id="flexCheckChecked" (click)="pushTypeChange($event,'Rejected')" [checked]="isReject">
+        <label class="form-check-label" >
+          Rejected Documents
+        </label>
+      </div>
+    </div>
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value=""  id="flexCheckChecked2" (click)="pushTypeChange($event,'Approved')" [checked]="isApproved">
+        <label class="form-check-label" >
+          Approved Documents
+        </label>
+      </div>
+    </div>
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value="" id="flexCheckChecked3" (click)="pushTypeChange($event,'Not Uploaded')" [checked]="isNotUploaded">
+        <label class="form-check-label" >
+          Not Uploaded Documents
+        </label>
+      </div>
+    </div>
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value=""  id="flexCheckChecked4" (click)="pushTypeChange($event,'Pending With Admin')" [checked]="isPendingFromdmin">
+        <label class="form-check-label">
+          Pending With Admin Documents
+        </label>
+      </div>
+    </div>
+    <!-- <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value="" id="flexCheckChecked5" (click)="pushTypeChange($event,'Uploaded')" [checked]="isUploaded">
+        <label class="form-check-label" for="flexCheckChecked5" >
+          Uploaded Documents
+        </label>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="apply-reset-filter-block">
+  <button class="apply-btn" (click)="applyFilter()">Apply</button>
+  <button class="reset-btn" (click)="resetFilter()">Reset</button>
+</div>
+</form>
+          </div>
+        </div>
+        <!-- <div class="three-dots-block">
+          <div class="btn-group dropstart">
+            <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <ul class="icons2">
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="loadMerchants('ALL')">All</a></li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchants('ACTIVE')">Active</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchants('INACTIVE')">InActive</a>
+              </li>
+              <li><a class="dropdown-item" (click)="loadMerchantsDocuments('Rejected')">Rejected Documents</a></li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchantsDocuments('Approved')">Approved Documents</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchantsDocuments('Not Uploaded')">Not Uploaded Documents</a>
+              </li>
+              <li><a class="dropdown-item" (click)="loadMerchantsDocuments('Pending by Admin')">Pending With Admin Documents</a></li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchantsDocuments('Uploaded')">Uploaded Documents</a>
+              </li> 
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-dsh new-card">
+          <div class="card-body">
+            <h4 class="card-title new-title">List of Bookings </h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th style="cursor: pointer;" class="custom-pedding-left" (click)="sorting('name')" class="custom-pointer">
+                      <span class="mdi mdi-unfold-more-horizontal custom-pointer-inner-icon"></span> Host Name</th>
+                    <th>Ride Type</th>
+                    <th>Pickup Time</th>
+                    <th>Drop Time</th>
+                    <th>Verification Status</th>
+                    <th>Request Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="merchants?.totalUsers?.length > 0">
+                 <tr *ngFor="let item of merchants.totalUsers">
+                  <td class="">{{item.manualUserId}}</td>
+                    <td >
+                        <div class="usert-img">
+                            <div class="usert-img-inner">
+                              <img
+                                src="../../assets/img/faces/user.png"
+                                alt="image"
+                              />
+                            </div>
+                            <div class="usert-img-inner-text">
+                              <p class="custom-user-name">{{item?.name}}</p>
+                            </div>
+                          </div>
+                    </td>
+                    <td>{{item?.email}}</td>
+                    <td> <div class="rating-block">
+                      <i class="mdi mdi-star yellow-star"></i>
+                      <i class="mdi mdi-star yellow-star"></i>
+                      <i class="mdi mdi-star yellow-star"></i>
+                      <i class="mdi mdi-star-half yellow-star"></i>
+                      <i class="mdi mdi-star gray-star"></i>
+                     
+                    </div></td>
+                    <td>{{item.countryCode}}{{item?.phone}}</td>
+                    <td [ngStyle]="getStrongStyle(item?.isDocumentUploaded)">{{item?.documentStatusName}}</td>
+                    <!-- <td [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">{{ item.isActive ? "Active" : "Inactive" }}</td> -->
+                    <td>
+                      {{item?.address[0]?.flatNo}}{{ item?.address[0]?.flatNo && item?.address[0]?.streetName ?', ' :'' }} {{item?.address[0]?.streetName}}{{item?.address[0]?.streetName ?', ' :'' }}<br/>
+                      {{item?.address[0]?.city}}{{item?.address[0]?.city && item?.address[0]?.country ?', ' :'' }} {{item?.address[0]?.country}}
+                    </td>
+                    <td> 
+                <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                  <div class="toggle-on-circle"></div>
+                </div>
+                <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                  <div class="toggle-off-circle"></div>
+                </div>
+                  </td>
+                 </tr>
+                </tbody>
+              </table>
+              <div class="no-result-found" *ngIf="merchants?.totalUsers?.length == 0">
+                No result found
+              </div>
+            </div>
+          </div>
+          <div class="next-previous-button-block">
+            <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+              Previous
+            </button>
+            <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+              *ngIf="totalPage > 1 && totalPage != currentPage">
+              Next
+            </button>
+          </div>
+          <div class="page-count" *ngIf="totalPage >= 1">
+            <p>Page {{ currentPage }} of {{ totalPage }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModal" tabindex="-1" role="dialog" [style.display]="documentModelStyle">
+    <div class="modal-dialog modal-dialog2">
+      <div class="modal-content custom-modal-contant">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDocumentModelStyle()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <th>Phone</th>
+                      <!-- <th>Location</th> -->
+                      <th>Billing Address</th>
+                      <!-- <th>Bank account detail</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <tr>
+                      <td>
+                          <div class="usert-img">
+                              <div class="usert-img-inner-text2">
+                                <p class="custom-user-name">{{merchantDataById?.userName?merchantDataById?.userName:'--'}}</p>
+                              </div>
+                            </div>
+                      </td>
+                      <td>{{merchantDataById.countryCode}}{{merchantDataById.phone}}</td>
+                      <td>
+                        <div *ngFor="let item of merchantDataById?.address">
+                        <span>{{ item?.flatNo }}{{ item?.flatNo && item?.streetName ? ', ' : '' }}{{ item?.streetName }}
+                          {{ item?.city }}{{ item?.city && item?.country ? ', ' : '' }}{{ item?.country }}</span>
+                        </div>
+                        </td>
+                        
+                   </tr>
+                  
+                  </tbody>
+                </table>
+              </div>
+              <div class="uploaded-docs">
+                <h4 class="card-title new-title">List of uploaded Docs </h4>
+                <div class="uploaded-docs-inner">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="uploaded-docs-inner-docs">
+                        <p class="document-name">Certificate of Incorporation/Department of Trade and Industry (DTI) Permit (For Corporation/Partnership/Sole Proprietorship)</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="document-attachment" (click)="attachment()">
+                        <button class="veiw-attachment">View Attachment</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uploaded-docs-inner">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="uploaded-docs-inner-docs">
+                            <p class="document-name">Owner/Authorized Representative Valid ID (Sari-sari store and Online business owners)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="document-attachment" (click)="attachment2()">
+                              <button class="veiw-attachment">View Attachment</button>
+                            </div>
+                        </div>
+                       
+    
+                        </div>
+                    </div>
+                   
+
+                            <div class="profile-comment-block mt-4">
+                                <label for="exampleFormControlTextarea1" class="form-label">Reason of rejection</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="comment"></textarea>
+                                <div class="red-color" *ngIf="isComment && comment == ''">
+                                  Comment is required
+                                </div>
+                              </div>
+
+                              <div class="submit-btn-upper-block">
+                                <button class="btn-approve" (click)="approvedDocument()">Approve</button>
+                                <button class="btn-reject" [disabled]="this.comment === null || this.comment === ''" (click)="rejectDocument()">Reject</button>
+                              </div>
+            </div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="documentModalSuccess2" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="custom-modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="attacmentCloseModel()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="profile-upper-block">
+                      <div class="profile-upper-block-first">
+                      </div>
+                      <div class="profile-upper-block-second">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="document-left-block">
+                              <p class="document-left-block-heading">Certificate of Incorporation/Department of Trade and Industry (DTI) Permit (For Corporation/Partnership/Sole Proprietorship)</p>
+                              <div class="document-aadhar-block" *ngIf="!pdfView">
+                                <img [src]="
+                                docs1
+                                    ? docs1
+                                    : '../../../assets/img/faces/aadhar-image.png'
+                                " alt="Customer Image" />
+                              </div>
+                              <div *ngIf="pdfView" class="logo-mail-block">
+                                <div> 
+                                  <iframe [src]="docs1" frameborder="0" style="width: 100%; height: 400px;">
+                                  </iframe>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="col-md-6">
+                            <div class="document-left-block">
+                              <p class="document-left-block-heading">Backside</p>
+                              <div class="document-aadhar-block">
+                                <img src="../../../assets/img/faces/aadhar-image.png" alt="image" />
+                              </div>
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle2">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="custom-modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="attacmentCloseModel2()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="profile-upper-block">
+                      <div class="profile-upper-block-first">
+                      </div>
+                      <div class="profile-upper-block-second">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="document-left-block">
+                              <p class="document-left-block-heading">Owner/Authorized Representative Valid ID (Sari-sari store and Online business owners)</p>
+                              <div class="document-aadhar-block" *ngIf="!pdfView2">
+                                <img [src]="
+                                docs2
+                                    ? docs2
+                                    : '../../../assets/img/faces/aadhar-image.png'
+                              " alt="Customer Image" />
+                              </div>
+                              <div *ngIf="pdfView2" class="logo-mail-block">
+                                <div>
+                                  <iframe [src]="docs2" frameborder="0" style="width: 100%; height: 400px;">
+                                  </iframe>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="col-md-6">
+                            <div class="document-left-block">
+                              <p class="document-left-block-heading">Backside</p>
+                              <div class="document-aadhar-block">
+                                <img src="../../../assets/img/faces/aadhar-image.png" alt="image" />
+                              </div>
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+        <div class="modal-dialog small-modal-custom modal-dialog-centered">
+          <div class="modal-content">
+            <div class="custom-modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="attacmentCloseModel3()"></button>
+            </div>
+            <div class="modal-body p-0">
+                
+                    <div class="profile-upper-block">
+                      Are you sure you want to<br/> {{activeInactiveString}} this Merchant?
+                    </div>
+                    <div class="button-block-yes-no">
+                      <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                      <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>

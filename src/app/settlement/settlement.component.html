@@ -1,0 +1,135 @@
+<div class="common-class">
+    <div class="common-class-left">
+      <span class="card-title new-title">Host
+      </span>
+    </div>
+    <div class="common-class-right">
+      <!-- <div class="search-field custom-search" *ngIf="activeTab === 'home'">
+        <form class="d-flex align-items-center h-100" action="#">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" class="form-control bg-transparent border-0" placeholder="Search here"
+            (keyup)="seach($event)"  (keydown)="restrickedWord($event)"
+         />
+          </div>
+        </form>
+      </div> -->
+      <div class="search-field custom-search" *ngIf="activeTab === 'home'">
+        <form>
+          <div class="search-block-outer">
+            <div class="search-icon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+            <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+            (input)="onSearchChange($event,'1')"  (keydown)="restrickedWord($event)" />
+            <div class="close-search" *ngIf="isShowCross" (click)="closeSearch('1')">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="search-field custom-search" *ngIf="activeTab === 'menu2'">
+        <form class="d-flex align-items-center h-100" action="#">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" class="form-control bg-transparent border-0" placeholder="Search here"
+            (keyup)="seach2($event)"  (keydown)="restrickedWord($event)"
+         />
+          </div>
+        </form>
+      </div> -->
+      <div class="search-field custom-search" *ngIf="activeTab === 'menu2' || activeTab === 'menu3'">
+        <form>
+          <div class="search-block-outer">
+            <div class="search-icon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+            <input #searchInput3 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText5" [@slideInOut]
+            (input)="onSearchChange($event,'2')"  (keydown)="restrickedWord($event)" />
+            <div class="close-search" *ngIf="isShowCross5" (click)="closeSearch('2')">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="custom-dynamic-pills">
+    
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" (click)="onTabChange('home')" data-bs-toggle="tab" href="#home">List of bookings</a>
+        </li>
+        
+        <!-- <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#menu1">MDR Transactions</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" (click)="onTabChange('menu2')" data-bs-toggle="tab" href="#menu2">List of the transactions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onTabChange('menu3')" data-bs-toggle="tab" href="#menu3">List of the Vechicles</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane p-0 container active" id="home">
+            <div class="card-dsh">
+              
+            </div>
+        </div>
+        <div class="tab-pane p-0 container fade" id="menu1">...</div>
+        <div class="tab-pane p-0 container fade" id="menu2"> <div class="card-dsh">
+          
+        </div></div>
+      </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header2">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="reason">Reason</label>
+              <textarea class="form-control" id="reason" formControlName="reason"></textarea>
+              <div *ngIf="f.reason.errors && (myForm.get('reason').dirty || myForm.get('reason').touched)">
+                <small class="text-danger" *ngIf="f.reason.errors.required">Reason is required</small>
+              </div>
+            </div>
+          
+            <!-- <div class="form-group">
+              <label for="image">Image</label>
+              <input type="file" class="form-control-file" id="image" formControlName="image">
+            </div> -->
+            <div class="form-group">
+              <label for="image">Image</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image" formControlName="image" accept="image/png,image/jpeg"
+                (change)="onFileSelected2($event.target.files[0])">
+                <label class="custom-file-label" for="image">Choose file</label>
+              </div>
+              <div class="priviewImageBlock" *ngIf="imageUrl2">
+                <img [src]="imageUrl2" alt="Image Preview" />
+              </div>
+            </div>
+            
+          
+            <div class="button-block-yes-no">
+              <button type="submit" class="btn-yes"  [disabled]="myForm.invalid">OK</button>
+              <button class="btn-no" (click)="attacmentCloseModel3()">Cancel</button>
+            </div>
+          </form>
+          
+               
+        </div>
+      </div>
+    </div>
+  </div>

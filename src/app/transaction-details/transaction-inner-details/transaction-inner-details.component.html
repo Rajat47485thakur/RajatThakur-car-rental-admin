@@ -1,0 +1,126 @@
+<div class="user-go-back-main">
+    <div class="user-go-back-main-inner" (click)="goBack()">
+      <img src="../../assets/img/wallet/user-go-back.png" alt="" />
+    </div>
+    <h4 class="user-profile-heading">Back</h4>
+  </div>
+<div class="card-dsh new-card other-pages">
+    <div class="card-body comman-scroll-block">
+        <div class="main-block-details">
+    <h4 style="margin-bottom: 10px;font-weight: bold;">Transaction Details</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="">
+             <div class="label-and-data">
+                <div class="label-and-data-label">Transaction id</div>
+                <div class="label-and-data-data">: {{user?.transactionId ? user?.transactionId : '--'}}</div>
+             </div>
+             <div class="label-and-data">
+                <div class="label-and-data-label">Amount</div>
+                <div class="label-and-data-data">: <span class="philippines-curency">₱</span>  {{user?.amount ? user?.amount : '--'}}</div>
+             </div>
+             <div class="label-and-data">
+                <div class="label-and-data-label">Transaction Date</div>
+                <div class="label-and-data-data">:  {{user?.transactionDate ? (user?.transactionDate | date:'dd-MM-yyyy') : '--'}}</div>
+             </div>
+            
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="">
+                <div class="label-and-data">
+                    <div class="label-and-data-label">Transaction Status</div>
+                    <div class="label-and-data-data">: {{user?.transactionStatusName ? user?.transactionStatusName :'--'}}</div>
+                 </div>
+                 <div class="label-and-data">
+                    <div class="label-and-data-label">Payment Method</div>
+                    <div class="label-and-data-data">: {{user?.paymentMethod ? user?.paymentMethod : '--'}}</div>
+                 </div>
+                 <div class="label-and-data">
+                    <div class="label-and-data-label">Transaction Type</div>
+                    <div class="label-and-data-data">: {{user?.transactionTypeName ? user?.transactionTypeName : '--'}}</div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-block-details3224" style="">
+   
+    <div class="row">
+        <div class="col-md-6">
+            <div class="main-block-details">
+                <h4 style="margin-bottom: 10px;font-weight: bold;">Sender Details</h4>
+             <div class="label-and-data">
+                <div class="label-and-data-label">Sender Id</div>
+                <div class="label-and-data-data">: {{user?.actorManualId ? user?.actorManualId : '--'}}</div>
+             </div>
+             <div class="label-and-data">
+                <div class="label-and-data-label">Sender Name</div>
+                <div class="label-and-data-data">: {{user?.actorName ? user?.actorName : '--'}}</div>
+             </div>
+             <div class="label-and-data">
+                <div class="label-and-data-label">Sender Role</div>
+                <div class="label-and-data-data">: {{user?.actorRole ? user?.actorRole : '--'}}</div>
+             </div>
+            
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="main-block-details">
+                <h4 style="margin-bottom: 10px;font-weight: bold;">Receiver Details</h4>
+                <div class="label-and-data">
+                    <div class="label-and-data-label">Receiver Id</div>
+                    <div class="label-and-data-data">: {{user?.subjectManualId ? user?.subjectManualId : '--'}}</div>
+                 </div>
+                 <div class="label-and-data">
+                    <div class="label-and-data-label">Receiver Name</div>
+                    <div class="label-and-data-data">: {{user?.subjectName ? user?.subjectName : '--'}}</div>
+                 </div>
+                 <div class="label-and-data">
+                    <div class="label-and-data-label">Receiver Role</div>
+                    <div class="label-and-data-data">: {{user?.subjectRole ? user?.subjectRole : '--'}}</div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-block-details">
+    <h4 style="margin-bottom: 10px;font-weight: bold;">loyalty points Details</h4>
+    <div class="row">
+      
+        <div class="col-md-6">
+            <div class="">
+                <div class="label-and-data">
+                    <div class="label-and-data-label">Special Offer Id</div>
+                    <div class="label-and-data-data">: {{user?.specialOfferId ? user?.specialOfferId : '--'}}</div>
+                 </div>
+                 <div class="label-and-data">
+                    <div class="label-and-data-label">Special Offer Title</div>
+                    <div class="label-and-data-data">: {{user?.specialOfferTitle ? user?.specialOfferTitle : '--'}}</div>
+                 </div>
+                 <div class="label-and-data">
+                    <div class="label-and-data-label">Special Offer Multiplier</div>
+                    <div class="label-and-data-data">: {{user?.specialOfferMultiplier ? user?.specialOfferMultiplier : '--'}}</div>
+                 </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="">
+             <div class="label-and-data">
+                <div class="label-and-data-label">Standard Loyalty Points</div>
+                <div class="label-and-data-data">: {{user?.standardLoyalityPoints ? user?.standardLoyalityPoints : '--'}}</div>
+             </div>
+             <div class="label-and-data">
+                <div class="label-and-data-label">Seasonal Loyalty Points</div>
+                <div class="label-and-data-data">: {{user?.seasonalLoyalityPoints ? user?.seasonalLoyalityPoints : '--'}}</div>
+             </div>
+            
+
+            </div>
+        </div>
+    </div>
+</div>
+      </div>
+      </div>

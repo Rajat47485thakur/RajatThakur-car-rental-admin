@@ -1,0 +1,823 @@
+<div class="common-class">
+    <div class="common-class-left">
+      <span class="card-title new-title">Customer Support
+      </span>
+      <div class="new-custom-button-for-mobile">
+        <a data-toggle="modal" data-target="#AddSubAdminForm" class="custom-button">+ Create New Ticket </a>
+      </div>
+    </div>
+    <div class="common-class-right">
+      <!-- <div class="search-field custom-search">
+        <form class="d-flex align-items-center h-100" action="#">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" class="form-control bg-transparent border-0" placeholder="Search here"
+              (keyup)="seach($event)"  (keydown)="restrickedWord($event)"/>
+          </div>
+        </form>
+      </div> -->
+      <div class="search-field custom-search">
+        <form>
+          <div class="search-block-outer">
+            <div class="search-icon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+            <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+            (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)"/>
+            <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="new-custom-button">
+        <a data-toggle="modal" data-target="#AddSubAdminForm" class="custom-button"
+          >+ Create New Ticket</a>
+      </div>
+      <div class="three-dots-block">
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-three-dots dropdown-toggle" data-toggle="modal" data-target="#filterTicket">
+            <ul class="icons2">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-dsh new-card other-pages">
+    <div class="card-body comman-scroll-block">
+      <div class="table-responsive user-table">
+        <table class="table">
+          <thead>
+            <tr>
+                <th>Ticket Id</th>
+                <th>Name</th>
+                <th>Assign To</th>
+                <th>Email Address</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Type</th>
+                <th>Ticket Status</th>
+                <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of admins.totalUsers">
+              <td>{{ item.manualUserId }}</td>
+              <td >
+                <div  style="max-width: 300px; overflow-x: auto; overflow-y: hidden">
+                  {{ item?.name }}
+                </div>
+              </td>
+              <!-- <td [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">
+                {{ item.isActive ? "Active" : "Inactive" }}
+              </td> -->
+              <td>{{item?.role}} </td>
+              <td>
+                <div class="email-block">
+                <span class="icons-i2"><i class="mdi mdi-email menu-icon"></i></span>
+                {{ item?.email }}</div>
+              </td>
+              <td>{{ item?.phone }}</td>
+              <td>{{ item?.phone }}</td>
+              <td>{{ item?.phone }}</td>
+              <td>{{ item?.phone }}</td>
+              <td style="text-align: center;">
+                <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                  <div class="toggle-on-circle"></div>
+                </div>
+                <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                  <div class="toggle-off-circle"></div>
+                </div>
+                <span style="font-size: 11px;" [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">{{ item.isActive ? "Active" : "Inactive" }}</span>
+              </td>
+              <td>
+                <a class="pencile-green" data-toggle="modal" data-target="#EditSubAdminForm" 
+                ><i class="fa fa-pencil"></i
+              ></a>
+             </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="no-result-found" *ngIf="admins?.totalUsers?.length == 0">
+          No result found
+        </div>
+      </div>
+      <div class="next-previous-button-block">
+        <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+          Previous
+        </button>
+        <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+          *ngIf="totalPage > 1 && totalPage != currentPage">
+          Next
+        </button>
+      </div>
+      <div class="page-count" *ngIf="totalPage >= 1">
+        <p>Page {{ currentPage }} of {{ totalPage }}</p>
+      </div>
+    </div>
+  
+    <!-- Add Form -->
+    <div class="modal fade" id="AddSubAdminForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel">Create New Ticket</h5>
+            <button type="button" class="close closeModel" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="addSubAdmin" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                    <label>Name </label>
+                    <span class="label-title">*</span>
+                    <div class="custom-flex-block">
+                      <select class="form-select custom-select-made" aria-label="Default select example" formControlName="last">
+                        <option value='Mr.'>Mr</option>
+                        <option value='Miss.'>Miss</option>
+                        <option value='Mrs.'>Mrs</option>
+                        <option value='Dr.'>Dr</option>
+                        <option value='Er.'>Er</option>
+                      </select>
+                      <input type="text" class="form-control"  autocomplete="off" autocorrect="off" autocapitalize="off" formControlName="firstName" class="form-control" 
+                      [ngClass]="{
+                        'is-invalid': (submitted && addSubAdmin.get('firstName').hasError('required')) ||
+                        (addSubAdmin.get('firstName').hasError('required') && addSubAdmin.get('firstName').touched) ||
+                        (addSubAdmin.get('firstName').hasError('startsWithSpace') && !addSubAdmin.get('firstName').hasError('required'))
+                      }">
+                    </div>
+                    <div class="form-input-block">
+                     
+                      <div class="invalid-feedback">
+                        <div *ngIf="(submitted && (addSubAdmin.get('firstName').hasError('required')) || 
+                        ( addSubAdmin.get('firstName').hasError('required') &&  addSubAdmin.get('firstName').touched))">
+                          Name is required
+                        </div>
+                       
+                      </div>
+                      <div
+                      *ngIf=" addSubAdmin.get('firstName').touched && addSubAdmin.get('firstName').errors?.startsWithSpace &&
+                       !addSubAdmin.controls['firstName'].errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Cannot start with whitespace
+                    </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <label>Email ID</label>
+                    <span class="label-title">*</span>
+                    <div class="form-input-block">
+                      <input type="text" class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" formControlName="email" class="form-control" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('email').hasError('required')) ||
+                          (addSubAdmin.get('email').hasError('required') && addSubAdmin.get('email').touched) ||
+                          (addSubAdmin.get('email').hasError('startsWithSpace') && !(addSubAdmin.get('email').hasError('required')) && !(addSubAdmin.get('email').hasError('email'))) ||
+                          addSubAdmin.get('email').hasError('invalidEmail') && addSubAdmin.get('email').touched
+                        }" />
+                      <div class="invalid-feedback">
+                        
+                        <div *ngIf="
+                        (submitted && addSubAdmin.controls['email'].errors?.required && !(addSubAdmin.get('email').hasError('invalidEmail') && addSubAdmin.get('email').touched)) || 
+        (addSubAdmin.controls['email'].errors?.required && addSubAdmin.get('email').touched)">
+                          Email is required
+                        </div>
+                        <div *ngIf="
+                        addSubAdmin.get('email').hasError('invalidEmail') && !(addSubAdmin.controls['email'].errors?.required)
+                        ">
+                          Email must be a valid email address
+                        </div>
+                        <div *ngIf="
+                        addSubAdmin.get('email').hasError('startsWithSpace') &&
+                          !(addSubAdmin.controls['email'].errors?.required)  && !(addSubAdmin.get('email').hasError('email'))
+                        ">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Assign To</label>
+                    <span class="label-title">*</span>
+                    <div class="form-input-block">
+                      <select formControlName="assignTo" class="form-select" [ngClass]="{
+                          'is-invalid':
+                            submitted && addSubAdmin.controls['assignTo'].errors
+                        }">
+                        <option *ngFor="let role of assignTiketArray; let i = index" [ngValue]="role.id">
+                          {{ role.value }}
+                        </option>
+                      </select>
+                      <div *ngIf="submitted && addSubAdmin.controls['assignTo'].errors" class="invalid-feedback">
+                        <div *ngIf="addSubAdmin.controls['assignTo'].errors?.required">
+                            This is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-6">
+                  <label>Priority</label>
+                  <span class="label-title">*</span>
+                  <div class="form-input-block">
+                    <select formControlName="p" class="form-select" [ngClass]="{
+                        'is-invalid':
+                          submitted && addSubAdmin.controls['priority'].errors
+                      }">
+                      <option *ngFor="let role of priorityArray; let i = index" [ngValue]="role.id">
+                        {{ role.value }}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && addSubAdmin.controls['priority'].errors" class="invalid-feedback">
+                      <div *ngIf="addSubAdmin.controls['priority'].errors?.required">
+                        Priority is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                    <label>Type</label>
+                    <span class="label-title">*</span>
+                    <div class="form-input-block">
+                      <select formControlName="type" class="form-select" [ngClass]="{
+                          'is-invalid':
+                            submitted && addSubAdmin.controls['type'].errors
+                        }">
+                        <option *ngFor="let role of ticketTypeArray; let i = index" [ngValue]="role.id">
+                          {{ role.value }}
+                        </option>
+                      </select>
+                      <div *ngIf="submitted && addSubAdmin.controls['type'].errors" class="invalid-feedback">
+                        <div *ngIf="addSubAdmin.controls['type'].errors?.required">
+                            Type is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Subject </label>
+                    <span class="label-title">*</span>
+                    <div class="">
+                     
+                      <input type="text" class="form-control"  autocomplete="off" autocorrect="off" autocapitalize="off" formControlName="subject" class="form-control" 
+                      [ngClass]="{
+                        'is-invalid': (submitted && addSubAdmin.get('subject').hasError('required')) ||
+                        (addSubAdmin.get('subject').hasError('required') && addSubAdmin.get('subject').touched) ||
+                        (addSubAdmin.get('subject').hasError('startsWithSpace') && !addSubAdmin.get('subject').hasError('required'))
+                      }">
+                    </div>
+                    <div class="form-input-block">
+                     
+                      <div class="invalid-feedback">
+                        <div *ngIf="(submitted && (addSubAdmin.get('subject').hasError('required')) || 
+                        ( addSubAdmin.get('subject').hasError('required') &&  addSubAdmin.get('subject').touched))">
+                        Subject is required
+                        </div>
+                       
+                      </div>
+                      <div
+                      *ngIf=" addSubAdmin.get('subject').touched && addSubAdmin.get('subject').errors?.startsWithSpace &&
+                       !addSubAdmin.controls['subject'].errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Cannot start with whitespace
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label>Description </label>
+                    <div class="">
+                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="description"></textarea>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer border-top-0 d-flex justify-content-center">
+                <button type="submit" class="btn btn-success modal-button" [disabled]="SERVER.isSubmitting">
+                  <i class="mdi mdi-sim"></i> Save
+                </button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()" data-dismiss="modal"
+                  aria-label="Close">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="EditSubAdminForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Ticket</h5>
+          <button type="button" class="close closeModel" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="addSubAdmin" (ngSubmit)="onSubmit()" autocomplete="off">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                  <label>Name </label>
+                  <span class="label-title">*</span>
+                  <div class="custom-flex-block">
+                    <select class="form-select custom-select-made" aria-label="Default select example" formControlName="last">
+                      <option value='Mr.'>Mr</option>
+                      <option value='Miss.'>Miss</option>
+                      <option value='Mrs.'>Mrs</option>
+                      <option value='Dr.'>Dr</option>
+                      <option value='Er.'>Er</option>
+                    </select>
+                    <input type="text" class="form-control"  autocomplete="off" autocorrect="off" autocapitalize="off" formControlName="firstName" class="form-control" 
+                    [ngClass]="{
+                      'is-invalid': (submitted && addSubAdmin.get('firstName').hasError('required')) ||
+                      (addSubAdmin.get('firstName').hasError('required') && addSubAdmin.get('firstName').touched) ||
+                      (addSubAdmin.get('firstName').hasError('startsWithSpace') && !addSubAdmin.get('firstName').hasError('required'))
+                    }">
+                  </div>
+                  <div class="form-input-block">
+                   
+                    <div class="invalid-feedback">
+                      <div *ngIf="(submitted && (addSubAdmin.get('firstName').hasError('required')) || 
+                      ( addSubAdmin.get('firstName').hasError('required') &&  addSubAdmin.get('firstName').touched))">
+                        Name is required
+                      </div>
+                     
+                    </div>
+                    <div
+                    *ngIf=" addSubAdmin.get('firstName').touched && addSubAdmin.get('firstName').errors?.startsWithSpace &&
+                     !addSubAdmin.controls['firstName'].errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Cannot start with whitespace
+                  </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label>Email ID</label>
+                  <span class="label-title">*</span>
+                  <div class="form-input-block">
+                    <input type="text" class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" formControlName="email" class="form-control" [ngClass]="{
+                        'is-invalid': (submitted && addSubAdmin.get('email').hasError('required')) ||
+                        (addSubAdmin.get('email').hasError('required') && addSubAdmin.get('email').touched) ||
+                        (addSubAdmin.get('email').hasError('startsWithSpace') && !(addSubAdmin.get('email').hasError('required')) && !(addSubAdmin.get('email').hasError('email'))) ||
+                        addSubAdmin.get('email').hasError('invalidEmail') && addSubAdmin.get('email').touched
+                      }" />
+                    <div class="invalid-feedback">
+                      
+                      <div *ngIf="
+                      (submitted && addSubAdmin.controls['email'].errors?.required && !(addSubAdmin.get('email').hasError('invalidEmail') && addSubAdmin.get('email').touched)) || 
+      (addSubAdmin.controls['email'].errors?.required && addSubAdmin.get('email').touched)">
+                        Email is required
+                      </div>
+                      <div *ngIf="
+                      addSubAdmin.get('email').hasError('invalidEmail') && !(addSubAdmin.controls['email'].errors?.required)
+                      ">
+                        Email must be a valid email address
+                      </div>
+                      <div *ngIf="
+                      addSubAdmin.get('email').hasError('startsWithSpace') &&
+                        !(addSubAdmin.controls['email'].errors?.required)  && !(addSubAdmin.get('email').hasError('email'))
+                      ">
+                        Cannot start with whitespace
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Assign To</label>
+                  <span class="label-title">*</span>
+                  <div class="form-input-block">
+                    <select formControlName="assignTo" class="form-select" [ngClass]="{
+                        'is-invalid':
+                          submitted && addSubAdmin.controls['assignTo'].errors
+                      }">
+                      <option value="default">Select</option>
+                      <option *ngFor="let role of priorityArray; let i = index" [ngValue]="role.id">
+                        {{ role.value }}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && addSubAdmin.controls['assignTo'].errors" class="invalid-feedback">
+                      <div *ngIf="addSubAdmin.controls['assignTo'].errors?.required">
+                          This is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="col-md-6">
+                <label>Priority</label>
+                <span class="label-title">*</span>
+                <div class="form-input-block">
+                  <select formControlName="p" class="form-select" [ngClass]="{
+                      'is-invalid':
+                        submitted && addSubAdmin.controls['priority'].errors
+                    }">
+                    <option value="default">Select Priority</option>
+                    <option *ngFor="let role of priorityArray; let i = index" [ngValue]="role.id">
+                      {{ role.value }}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && addSubAdmin.controls['priority'].errors" class="invalid-feedback">
+                    <div *ngIf="addSubAdmin.controls['priority'].errors?.required">
+                      Priority is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                  <label>Type</label>
+                  <span class="label-title">*</span>
+                  <div class="form-input-block">
+                    <select formControlName="type" class="form-select" [ngClass]="{
+                        'is-invalid':
+                          submitted && addSubAdmin.controls['type'].errors
+                      }">
+                      <option value="default">Select</option>
+                      <option *ngFor="let role of priorityArray; let i = index" [ngValue]="role.id">
+                        {{ role.value }}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && addSubAdmin.controls['type'].errors" class="invalid-feedback">
+                      <div *ngIf="addSubAdmin.controls['type'].errors?.required">
+                          Type is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Subject </label>
+                  <span class="label-title">*</span>
+                  <div class="">
+                   
+                    <input type="text" class="form-control"  autocomplete="off" autocorrect="off" autocapitalize="off" formControlName="subject" class="form-control" 
+                    [ngClass]="{
+                      'is-invalid': (submitted && addSubAdmin.get('subject').hasError('required')) ||
+                      (addSubAdmin.get('subject').hasError('required') && addSubAdmin.get('subject').touched) ||
+                      (addSubAdmin.get('subject').hasError('startsWithSpace') && !addSubAdmin.get('subject').hasError('required'))
+                    }">
+                  </div>
+                  <div class="form-input-block">
+                   
+                    <div class="invalid-feedback">
+                      <div *ngIf="(submitted && (addSubAdmin.get('subject').hasError('required')) || 
+                      ( addSubAdmin.get('subject').hasError('required') &&  addSubAdmin.get('subject').touched))">
+                      Subject is required
+                      </div>
+                     
+                    </div>
+                    <div
+                    *ngIf=" addSubAdmin.get('subject').touched && addSubAdmin.get('subject').errors?.startsWithSpace &&
+                     !addSubAdmin.controls['subject'].errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Cannot start with whitespace
+                  </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label>Description </label>
+                  <div class="">
+                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="description"></textarea>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer border-top-0 d-flex justify-content-center">
+              <button type="submit" class="btn btn-success modal-button" [disabled]="SERVER.isSubmitting">
+                <i class="mdi mdi-sim"></i> Save
+              </button>
+              <button class="btn btn-secondary" type="reset" (click)="onReset()" data-dismiss="modal"
+                aria-label="Close">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="filterTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
+        <button type="button" class="close closeModel" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+         <div class="row">
+            <div class="col-md-12 mb-3">
+                <label class="filter-label">Ticket Status</label>
+                <div class="radio-labels radio-labels-demo">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="ticketStatus" value="New" (change)="loadMerchants('New')" id="flexRadioDefault1">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        New
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="ticketStatus" value="Open" (change)="loadMerchants('Open')" id="flexRadioDefault2">
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Open
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="ticketStatus" value="Pending" (change)="loadMerchants('Pending')" id="flexRadioDefault3">
+                      <label class="form-check-label" for="flexRadioDefault3">
+                        Pending
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="ticketStatus" value="Solved" (change)="loadMerchants('Solved')" id="flexRadioDefault4">
+                        <label class="form-check-label" for="flexRadioDefault4">
+                            Solved
+                        </label>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label class="filter-label">Assign Ticket</label>
+                <div class="radio-labels radio-labels-demo">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault2" [(ngModel)]="assignTicket" value="Assignee" (change)="loadMerchants('Assignee')" id="flexRadioDefault5">
+                      <label class="form-check-label" for="flexRadioDefault5">
+                        Assignee
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault2" [(ngModel)]="assignTicket" value="Sub-admin" (change)="loadMerchants('Sub-admin')" id="flexRadioDefault6">
+                      <label class="form-check-label" for="flexRadioDefault6">
+                        Sub-admin
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault2" [(ngModel)]="assignTicket" value="User" (change)="loadMerchants('User')" id="flexRadioDefault7">
+                      <label class="form-check-label" for="flexRadioDefault7">
+                        User
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault2" [(ngModel)]="assignTicket" value="Any" (change)="loadMerchants('Any')" id="flexRadioDefault8">
+                        <label class="form-check-label" for="flexRadioDefault8">
+                            Any
+                        </label>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label class="filter-label">Ticket Type</label>
+                <div class="radio-labels radio-labels-demo">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault3" [(ngModel)]="ticketType" value="Any" (change)="loadMerchants('Any')" id="flexRadioDefault9">
+                      <label class="form-check-label" for="flexRadioDefault9">
+                        Any
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault3" [(ngModel)]="ticketType" value="Question" (change)="loadMerchants('Question')" id="flexRadioDefault10">
+                      <label class="form-check-label" for="flexRadioDefault10">
+                        Question
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault3" [(ngModel)]="ticketType" value="Incident" (change)="loadMerchants('Incident')" id="flexRadioDefault11">
+                      <label class="form-check-label" for="flexRadioDefault11">
+                        Incident
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault3" [(ngModel)]="ticketType" value="Problem" (change)="loadMerchants('Problem')" id="flexRadioDefault12">
+                        <label class="form-check-label" for="flexRadioDefault12">
+                            Problem
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault3" [(ngModel)]="ticketType" value="Task" (change)="loadMerchants('Task')" id="flexRadioDefault13">
+                        <label class="form-check-label" for="flexRadioDefault13">
+                            Task
+                        </label>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label class="filter-label">Priority</label>
+                <div class="radio-labels radio-labels-demo">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault4" [(ngModel)]="priority" value="Low" (change)="loadMerchants('Low')" id="flexRadioDefault14">
+                      <label class="form-check-label" for="flexRadioDefault14">
+                        Low
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault4" [(ngModel)]="priority" value="Normal" (change)="loadMerchants('Normal')" id="flexRadioDefault15">
+                      <label class="form-check-label" for="flexRadioDefault15">
+                        Normal
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault4" [(ngModel)]="priority" value="High" (change)="loadMerchants('High')" id="flexRadioDefault16">
+                      <label class="form-check-label" for="flexRadioDefault16">
+                        High
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault4" [(ngModel)]="priority" value="uregent" (change)="loadMerchants('uregent')" id="flexRadioDefault17">
+                        <label class="form-check-label" for="flexRadioDefault17">
+                            Uregent
+                        </label>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label class="filter-label">Req Date</label>
+                <div class="radio-labels radio-labels-demo">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault5" [(ngModel)]="reqDate" value="Last 24hrs" (change)="loadMerchants('Last 24hrs')" id="flexRadioDefault18">
+                      <label class="form-check-label" for="flexRadioDefault18">
+                        Last 24hrs
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault5" [(ngModel)]="reqDate" value="Last 7 Days" (change)="loadMerchants('Last 7 Days')" id="flexRadioDefault19">
+                      <label class="form-check-label" for="flexRadioDefault19">
+                        Last 7 Days
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault5" [(ngModel)]="reqDate" value="Last 1 month" (change)="loadMerchants('Last 1 month')" id="flexRadioDefault20">
+                      <label class="form-check-label" for="flexRadioDefault20">
+                        Last 1 month
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault5" [(ngModel)]="reqDate" value="Any" (change)="loadMerchants('Any')" id="flexRadioDefault21">
+                        <label class="form-check-label" for="flexRadioDefault21">
+                            Any
+                        </label>
+                      </div>
+                </div>
+            </div>
+         </div>
+          <div class="modal-footer border-top-0 d-flex justify-content-center">
+            <button type="submit" class="btn btn-success modal-button">
+              <i class="mdi mdi-sim"></i> Save
+            </button>
+            <button class="btn btn-secondary" type="reset" (click)="onReset()" data-dismiss="modal"
+              aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+    <!-- Modal -->
+  
+    <!-- Modal 4 document success-->
+    <!-- <div class="modal fade" id="disable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="custom-modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="document-approved-main">
+              <div class="document-approved-main-image">
+                <img src="../../assets/img/wallet/warning.png" />
+              </div>
+              <p class="document-reject-main-successfully">
+                Disable Sub - Admin Account
+              </p>
+              <p class="document-reject-main-id">
+                Do you want to disable sub - admin?
+              </p>
+              <div class="disabled-btn-block">
+                <button class="btn-temporary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button class="btn-permanent" (click)="updateUserStatus()">
+                  Disable
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  
+    <!-- Modal 5 document reject-->
+    <!-- <div class="modal fade" id="enable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="custom-modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="document-approved-main">
+              <div class="document-reject-main-image">
+                <img src="../../assets/img/wallet/fa-regular_user.png" />
+              </div>
+              <p class="document-reject-main-successfully">
+                Enable Sub - admin Account
+              </p>
+              <p class="document-reject-main-id">Do you want to enable ?</p>
+              <button class="btn-enable" (click)="updateUserStatus()">
+                Enable
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Modal 6 permission-->
+  
+    <div class="modal fade" id="permission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog2 modal-dialog-centered">
+        <div class="modal-content modal-content2">
+          <div class="custom-modal-header-permission">
+            <div class="custom-modal-header-permission-inner">
+              <h4>Permissions</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- <p class="custom-heading-label">Lorem ipsum  dolor sit amet </p> -->
+          </div>
+          <div class="modal-body p-0">
+            <div class="border-bottom-block">
+              <form>
+                <div class="main-permissons" *ngFor="let item of permissons">
+                  <div class="main-permissons-label">
+                    <span>{{ item?.manuName }}</span>
+                  </div>
+                  <div class="main-permissons-toggle2">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" [checked]="item.hasPermission" type="checkbox"
+                        (click)="modifyPermission($event, item)" />
+                    </div>
+                  </div>
+                </div>
+                <div class="save-button-block">
+                  <div class="btn btn-save" (click)="updatePermission()">
+                    <img src="../../assets/img/wallet/permision-save.png" />Save
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal fade" id="documentModalSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="custom-modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="document-approved-main">
+              <div class="document-approved-main-image10">
+                <img src="../../assets/img/faces/document-tick.png" />
+              </div>
+              <p class="document-approved-main-successfully">
+                {{ updateUser?.userAction }} Sub - admin Account!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block">
+                  Are you sure you want to<br/> {{activeInactiveString}} this sub-admin?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>

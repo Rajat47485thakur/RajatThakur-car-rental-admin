@@ -1,0 +1,226 @@
+<div class="common-class">
+<div class="merchant_details-heading user-go-back-main">
+    <div class="user-go-back-main-inner" (click)="goBack()">
+        <img src="../../../assets/img/wallet/user-go-back.png" alt="" />
+      </div>
+    <h3>Merchant Details</h3>
+</div>
+<div class="common-class-right">
+  <div class="search-field custom-search">
+    <form>
+      <div class="search-block-outer">
+        <div class="search-icon">
+          <i class="mdi mdi-magnify"></i>
+        </div>
+        <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+        (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+        <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+          <i class="mdi mdi-close"></i>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<div class="merchant-wid">
+    <div class="mercha">
+      <div class="" *ngIf="this.getSettlementDataById2.length > 1">
+      <input class="form-check-input" type="checkbox" value="" [checked]="allSelected" (change)="isAllUser($event)" />
+      Select All
+    </div>
+            <div class="ml-4" *ngIf="userArray.length >= 1">
+              <button class="auto-deduct-button mr-3" (click)="autoDeductAll()">Auto Deduct</button>
+              <button class="auto-deduct-button" (click)="markCompleteAll()">Mark Completed</button>
+            </div>
+         
+    </div>
+    <div class="">
+      <button class="btn btn-filters" (click)="showDateFilter()">
+        Filters
+      </button>
+    </div>
+</div>
+<div class="card-dsh">
+<div class="table-responsive user-table merchant-withdrawal-table">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#
+          </th>
+          <th>Transaction ID</th>
+          <th>Business ID</th>
+          <th>Business Name</th>
+          <th>Business Categories </th>
+          <th>Offer Title</th>
+          <th>Transaction Amount</th>
+          <th>LP Gained</th>
+         <th>Date</th>
+        
+         <th>Settlement Status</th>
+         <!-- <th>Note</th> -->
+         <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of getSettlementDataById">
+          <td>
+            <input *ngIf="item?.markCompleted" class="form-check-input" type="checkbox" value="" [ngStyle]="{'pointer-events': item?.markCompleted ? 'none' : 'auto', 'opacity': item?.markCompleted ? '0.65' : '1'}" [disabled]="item?.markCompleted"/>
+            <input *ngIf="!item?.markCompleted" class="form-check-input" type="checkbox" value="" [checked]="allSelectedList" (change)="singleUser($event,item)"/>
+          </td>
+          <td>{{item?.transactionId}}</td>
+          <td>{{item?.userId}}</td>
+          <td>{{item?.businessName ? item?.businessName : '--'}}</td>
+          <td>{{item?.businessCategory ? item?.businessCategory : '--'}}</td>
+          <td>{{item?.offerTitle ? item?.offerTitle : '--'}}</td>
+          <td><span class="philippines-curency">₱</span> {{item?.amount}}</td>
+          <td>{{item?.loyalityPoint ? item?.loyalityPoint :'--'}}</td>
+          <td style="white-space: nowrap;">{{item?.transactionDate | date:'dd-MM-yyyy'}}</td>
+          <td><span *ngIf="item?.markCompleted" style="color: green;">Completed</span>
+            <span *ngIf="!item?.markCompleted" style="color: red;">Pending</span>
+          </td>
+          <!-- <td>{{item?.note?.transactionRef ? item?.note?.transactionRef :'--'}}</td> -->
+          <td>
+            <div class="action-block">
+              <button class="auto-deduct-button2"  [ngStyle]="{'pointer-events': item?.markCompleted ? 'none' : 'auto', 'opacity': item?.markCompleted ? '0.65' : '1'}" [disabled]="item?.markCompleted" (click)="attachment4(item?.transactionId)">Auto Deduct</button>
+              <button class="mark-complete-button"  [ngStyle]="{'pointer-events': item?.markCompleted ? 'none' : 'auto', 'opacity': item?.markCompleted ? '0.65' : '1'}" [disabled]="item?.markCompleted" (click)="attachment3(item?.transactionId)">Mark Completed</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="no-result-found" *ngIf="getSettlementDataById?.length == 0">
+      No result found
+    </div>
+  </div>
+    <div class="next-previous-button-block">
+      <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+        Previous
+      </button>
+      <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+        *ngIf="totalPage > 1 && totalPage != currentPage">
+        Next
+      </button>
+    </div>
+    <div class="page-count" *ngIf="totalPage >= 1">
+      <p>Page {{ currentPage }} of {{ totalPage }}</p>
+    </div>
+  
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle">
+    <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="custom-modal-header">
+          <h3>Filters</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="attacmentCloseModel()"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <div class="filters-main">
+            <div class="filters-main-select">
+             
+              <div class="select-age-main">
+                <label class="select-age">Select Date range</label>
+               <div class="row">
+                <div class="col-md-6 pr-2">
+                <div class="date-range-filter">
+                  <label>From</label>
+                  <input type="date" [(ngModel)]="fromData">
+                </div>
+              </div>
+                <div class="col-md-6 pl-2">
+                <div class="date-range-filter">
+                  <label>To</label>
+                  <input type="date" [(ngModel)]="toDate">
+                </div>
+              </div>
+               </div>
+              </div>
+              <div class="business-category-filter">
+                <label class="select-age">Select Business Category</label>
+                <ng-multiselect-dropdown
+                [placeholder]="'Select Business'"
+                [settings]="dropdownSettings"
+                [data]="dropdownList"
+                [(ngModel)]="selectedItems"
+                formControlName="selectBusiness"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+              >
+              </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="push-button-block2">
+              <button class="btn-apply" [disabled]="fromData === null || toDate === null" (click)="applyFilter()">Apply</button>
+              <button class="btn-reset" [disabled]="fromData === null || toDate === null" (click)="resetDateFilter()">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header2">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="reason">Reason</label>
+              <textarea class="form-control" id="reason" formControlName="reason"></textarea>
+              <div *ngIf="f.reason.errors && (myForm.get('reason').dirty || myForm.get('reason').touched)">
+                <small class="text-danger" *ngIf="f.reason.errors.required">Reason is required</small>
+              </div>
+            </div>
+          
+            <!-- <div class="form-group">
+              <label for="image">Image</label>
+              <input type="file" class="form-control-file" id="image" formControlName="image">
+            </div> -->
+            <div class="form-group">
+              <label for="image">Image</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image" formControlName="image" accept="image/png,image/jpeg"
+                (change)="onFileSelected2($event.target.files[0])">
+                <label class="custom-file-label" for="image">Choose file</label>
+              </div>
+              <div class="priviewImageBlock" *ngIf="imageUrl2">
+                <img [src]="imageUrl2" alt="Image Preview" />
+              </div>
+            </div>
+            
+          
+            <div class="button-block-yes-no">
+              <button type="submit" class="btn-yes"  [disabled]="myForm.invalid">OK</button>
+              <button class="btn-no" (click)="attacmentCloseModel3()">Cancel</button>
+            </div>
+          </form>
+          
+               
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle4">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel4()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block">
+                  Are you sure you want to Auto Deduct this
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="autoDeductYes()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel4()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>

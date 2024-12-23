@@ -1,0 +1,421 @@
+<div class="card new-card other-pages">
+  <div class="card-body">
+    <div class="user-go-back-main">
+      <div class="user-go-back-main-inner" (click)="goBack()">
+        <img src="../../assets/img/wallet/user-go-back.png" alt="" />
+      </div>
+      <h4 class="user-profile-heading">Sub-Admin Profile</h4>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="user-profile-image-block border-bottom-block">
+          <div class="nav-profile-img prof-full">
+            <img
+              src="{{
+                user?.picture?.profilePic
+                  ? user?.picture?.profilePic
+                  : './assets/img/faces/user.png'
+              }}"
+              alt="Admin Image"
+            />
+          </div>
+          <div class="nav-profile-text user-detail">
+            <p class="mb-1 text-black user-name-custom">
+              {{ user?.name?.first }} <span *ngIf="user?.userName">({{ user?.userName }})</span>
+            </p>
+            <p class="user-detail-custom-heading">{{ user?.role?.name }}</p>
+            <p class="user-detail-custom">{{ user?.email?.email }}</p>
+            <p class="user-detail-custom">
+              {{ user?.phone?.countryCode }}{{ user?.phone?.phoneNumber }}
+            </p>
+          </div>
+        </div>
+        <div class="border-bottom-block">
+          <form [formGroup]="profile_form">
+            <h4>Profile Settings</h4>
+            <div class="form-group row">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >Name</label
+              >
+              <div class="col-md-8">
+                <div class="custom-flex-block">
+                  <select class="form-select custom-select-made" aria-label="Default select example" formControlName="last">
+                    <option value='Mr.'>Mr</option>
+                    <option value='Miss.'>Miss</option>
+                    <option value='Mrs.'>Mrs</option>
+                    <option value='Dr.'>Dr</option>
+                    <option value='Er.'>Er</option>
+                  </select>
+                <input
+                  type="text"
+                  id="fame"
+                  class="form-control background border-colr fame"
+                  formControlName="first_name"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    profile_form.controls['first_name'].hasError('required') &&
+                    (profile_form.controls['first_name'].dirty ||
+                      profile_form.controls['first_name'].touched)
+                  "
+                >
+                  Name is required
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    profile_form.get('first_name').errors?.startsWithSpace &&
+                    !profile_form.controls['first_name'].errors?.required
+                  "
+                  >Cannot start with whitespace</span
+                >
+              </div>
+              </div>
+              <!-- <div class="col-md-4 pl-1">
+                            <input type="text" class="form-control background  lname border-colr" id="lname"
+                                formControlName="last_name">
+                            <span class="text-danger"
+                                *ngIf="profile_form.controls['last_name'].hasError('required') && profile_form.controls['last_name'].touched">
+                                Last name is required
+                            </span>
+                            <span  class="text-danger" *ngIf="profile_form.get('last_name').errors?.startsWithSpace && !(profile_form.controls['last_name'].errors?.required)">Cannot start with whitespace</span>
+                        </div> -->
+            </div>
+
+            <div class="form-group row updown">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >Email</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  id="current-password1 width-re1"
+                  class="form-control background current-password2 width-re2 border-colr"
+                  formControlName="email"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    profile_form.controls['email'].hasError('required') &&
+                    profile_form.controls['email'].touched
+                  "
+                >
+                  Email name is required
+                </span>
+                <!-- <span class="edit-pencile"><i class="fa fa-pencil"></i></span> -->
+              </div>
+            </div>
+            <div class="form-group row updown">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >Role</label
+              >
+              <div class="col-md-8">
+                <!-- <input
+                  type="text"
+                  class="form-control background border-colr"
+                  id="current-password3 width-re3"
+                  formControlName="role"
+                /> -->
+                <select class="form-select custom-select-made2" aria-label="Default select example" formControlName="role">
+                  <option value='Customer'>Customer</option>
+                  <option value='Admin'>Admin</option>
+                  <option value='Sales'>Sales</option>
+                  <option value='Sub Admin'>Sub Admin</option>
+                </select>
+                <!-- <span class="edit-pencile"><i class="fa fa-pencil"></i></span> -->
+              </div>
+            </div>
+            <div class="form-group row updown">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >Mobile No.</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  id="current-password4 width-re4"
+                  class="form-control background current-password width-re border-colr"
+                  formControlName="phone_number"
+                />
+                <span
+                  class="text-danger float-end"
+                  *ngIf="
+                    profile_form.controls['phone_number'].hasError(
+                      'required'
+                    ) && profile_form.controls['phone_number'].touched
+                  "
+                >
+                  Phone Number is required
+                </span>
+                <!-- <span class="edit-pencile"><i class="fa fa-pencil"></i></span> -->
+              </div>
+            </div>
+            <!-- <div class="form-group row updown">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >DOB</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="date"
+                  max="{{ today | date: 'yyyy-MM-dd' }}"
+                  class="form-control background border-colr"
+                  id="current-password5 width-re5"
+                  formControlName="dateOfBirth"
+                />
+              </div>
+            </div> -->
+            <!-- <label
+              for="exampleInputUsername2"
+              class="col-form-label float-leftss"
+              >Gender</label
+            >
+            <label for="radio_1" class="mr-3">
+              <input
+                type="radio"
+                formControlName="gender"
+                [checked]="user.gender == 1"
+                id="radio_1"
+                value="1"
+              />
+              Male
+            </label>
+            <label for="radio_2">
+              <input
+                type="radio"
+                formControlName="gender"
+                [checked]="user.gender == 2"
+                id="radio_2"
+                value="2"
+              />
+              Female
+            </label> -->
+          </form>
+        </div>
+        <div class="border-bottom-block">
+          <!-- <form>
+            <h4>Reset Password</h4>
+            <div class="form-group row mb-3">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >Enter Password</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="password"
+                  class="form-control background border-colr"
+                  id="current-password2"
+                  value=""
+                />
+              </div>
+            </div>
+            <div class="custom-button-setting-upper">
+              <button  class="custom-button-setting" >Reset</button>
+            </div>
+          </form> -->
+          <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit3()" novalidate>
+            <h4>Reset Password</h4>
+            <div class="form-group row mb-3">
+              <label for="new-password" class="col-md-4 col-form-label">New Password</label>
+              <div class="col-md-8">
+                <div class="password-eye-block">
+                  <input
+                    type="{{ showPassword ? 'text' : 'password' }}"
+                    placeholder="Set Password"
+                    (keydown)="onKeyPress($event)"
+                    class="form-control background border-colr"
+                    id="new-password"
+                    formControlName="newPassword"
+                    [ngClass]="{'is-invalid': submitted && f.newPassword.errors}"
+                  />
+                  <div
+                    class="eye-icon"
+                    (click)="togglePasswordVisibility()"
+                  >
+                    <div class="password-tooltip">
+                      <i
+                        class="{{
+                          showPassword ? 'mdi mdi-eye' : 'mdi mdi-eye-off'
+                        }}"
+                      ></i>
+                      <span class="password-tooltip-text"
+                        >Password must be at least 8 characters, 1
+                        uppercase letter, 1 lowercase letter, 1 special
+                        character</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                
+                <div *ngIf="submitted && f.newPassword.errors" class="invalid-feedback">
+                  <div *ngIf="f.newPassword.errors.required">New Password is required</div>
+                  <div *ngIf="f.newPassword.errors.invalidPassword && !(f.newPassword.errors.required)">Invalid password format.</div>
+                </div>
+              </div>
+            </div>
+            <div class="custom-button-setting-upper">
+              <button type="submit" class="custom-button-setting">Reset</button>
+            </div>
+          </form>
+          
+        </div>
+        <div class="border-bottom-block">
+          <form>
+            <div class="account-status-heading">
+              <h4 style="margin-bottom: 0px;">Account Status</h4>
+              <div class="deactivate-account">
+                <span class="" *ngIf="user.isActive">Deactive Account</span>
+                <span class="" *ngIf="!user.isActive">Activate Account</span>
+              </div>
+            </div>
+            <div class="main-permissons">
+              <div class="main-permissons-label">
+                <span>Active</span>
+              </div>
+              <div class="main-permissons-toggle">
+                <div class="form-check form-switch custom-switch-checkbox">
+                  <input
+                    class="form-check-input"
+                    [(ngModel)]="user.isActive"
+                    type="checkbox"
+                    (click)="activeInactiveChange($event)"
+                  />
+              </div>
+              
+            </div>
+           
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="border-bottom-block">
+          <form>
+            <h4>Reset Password</h4>
+            <div class="form-group row mb-3">
+              <label for="exampleInputUsername2" class="col-md-4 col-form-label"
+                >Enter Password</label
+              >
+              <div class="col-md-8">
+                <input
+                  type="password"
+                  class="form-control background border-colr"
+                  id="current-password2"
+                  value=""
+                />
+              </div>
+            </div>
+           
+            <div class="custom-button-setting-upper">
+              <button  class="custom-button-setting" >Reset</button>
+            </div>
+          </form>
+        </div>
+      </div> 
+      <div class="col-md-6">
+      
+      </div> -->
+      <div class="col-md-6 mt-3">
+        <div class="border-bottom-block">
+          <form>
+            <h4>Account Permissions</h4>
+            <!-- <div class="form-group row" *ngFor="let item of permissons">
+                        <span for="exampleInputUsername2" class="col-md-7 col-form-label">{{item?.manuName}}</span>
+                        <div class="col-md-1">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                                <input class="form-check-input" [checked]="item.isActive" type="checkbox">
+                              </div>
+                        </div>
+                    </div> -->
+            <div class="main-permissons" *ngFor="let item of permissons">
+              <div class="main-permissons-label">
+                <span>{{ item?.manuName }}</span>
+              </div>
+              <div class="main-permissons-toggle">
+                <div class="form-check form-switch custom-switch-checkbox">
+                  <input
+                    class="form-check-input"
+                    [checked]="item?.hasPermission"
+                    type="checkbox"
+                    [disabled]="item?.manuName === 'Dashboard'"
+                    [ngStyle]="{ 'opacity': item?.manuName === 'Dashboard' ? 0.5 : 1 }"
+                    (click)="modifyPermission($event, item)"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6 rest-pass">
+        <!-- <form>
+          <h4>Account Status</h4>
+          <div class="main-permissons">
+            <div class="main-permissons-label">
+              <span>Active</span>
+            </div>
+            <div class="main-permissons-toggle">
+              <div class="form-check form-switch custom-switch-checkbox">
+                <input
+                  class="form-check-input"
+                  [(ngModel)]="user.isActive"
+                  type="checkbox"
+                  (click)="activeInactiveChange($event)"
+                />
+            </div>
+            <div class="deactivate-account">
+              <span class=""
+                >Deactive Account</span
+              >
+            </div>
+          </div>
+         
+          </div>
+        </form> -->
+      </div>
+      <div class="col-md-6 mt-3">
+        <form [formGroup]="preference">
+          <h4>Email Notification</h4>
+          <!-- <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-md-7 col-form-label">Notify me updates throught
+                            email</label>
+                        <div class="col-md-1">
+                            <span class="toggle-class noti-to"><input type="checkbox" formControlName="email"></span>
+                        </div>
+                    </div> -->
+          <div class="main-permissons">
+            <div class="main-permissons-label">
+              <label>Notify me updates throught email</label>
+            </div>
+            <div class="main-permissons-toggle">
+              <div
+                class="form-check form-switch custom-switch-checkbox custom-switch-checkbox2"
+              >
+                <input
+                  class="form-check-input form-check-input2"
+                  type="checkbox"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row updown-dt">
+            <div class="col-md-6">
+              <a class="custom-button-rest"
+                >Reset All</a
+              >
+            </div>
+            <div class="col-md-6">
+              <a
+
+                class="custom-button-setting"
+                (click)="submitAll()"
+                >Save Setting</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

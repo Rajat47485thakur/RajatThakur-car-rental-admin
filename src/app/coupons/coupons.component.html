@@ -1,0 +1,569 @@
+<div class="common-class">
+    <div class="common-class-left">
+      <span class="card-title new-title">Coupons
+      </span>
+      <div class="new-custom-button-for-mobile">
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#AddSubAdminForm" class="custom-button"
+          (click)="resetForm()">+ Add Coupons</a>
+      </div>
+    </div>
+    <div class="common-class-right">
+      <!-- <div class="search-field custom-search">
+        <form class="d-flex align-items-center h-100" action="#">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" class="form-control bg-transparent border-0" placeholder="Search here"
+              (keyup)="seach($event)"  (keydown)="restrickedWord($event)"/>
+          </div>
+        </form>
+      </div> -->
+      <div class="search-field custom-search">
+        <form>
+          <div class="search-block-outer">
+            <div class="search-icon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+            <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+            (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)"/>
+            <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="new-custom-button">
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#AddSubAdminForm" class="custom-button"
+          (click)="resetForm()">+ Add Coupons</a>
+      </div>
+      <div class="three-dots-block">
+        <div class="btn-group dropstart">
+          <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <ul class="icons2">
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="loadAdmins('ALL')">All</a></li>
+            <li>
+              <a class="dropdown-item" (click)="loadAdmins('ACTIVE')">Active</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="loadAdmins('INACTIVE')">InActive</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-dsh new-card other-pages">
+    <div class="card-body comman-scroll-block">
+      <div class="table-responsive user-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Coupon Id</th>
+              <th (click)="sorting('name')" class="custom-pointer">
+                <span class="mdi mdi-unfold-more-horizontal custom-pointer-inner-icon"></span> Coupon Name
+              </th>
+              <!-- <th>Active/Inactive</th> -->
+              <th>Discount type</th>
+              <th>Min Order Amount</th>
+              <th>MAx Discount Amount</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Total Users</th>
+              <th>Status</th>
+              <th class="action">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of admins.totalUsers">
+              <td>{{ item.manualUserId }}</td>
+              <td >
+                <div  style="max-width: 300px; overflow-x: auto; overflow-y: hidden">
+                  {{ item?.name }}
+                </div>
+              </td>
+              <!-- <td [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">
+                {{ item.isActive ? "Active" : "Inactive" }}
+              </td> -->
+              <td>{{item?.role}} </td>
+              <td>
+                <div class="email-block">
+                <span class="icons-i2"><i class="mdi mdi-email menu-icon"></i></span>
+                {{ item?.email }}</div>
+              </td>
+              <td>{{ item?.phone }}</td>
+              <td>{{ item?.phone }}</td>
+              <td>{{ item?.phone }}</td>
+              <td>{{ item?.phone }}</td>
+              <td style="text-align: center;">
+                <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                  <div class="toggle-on-circle"></div>
+                </div>
+                <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                  <div class="toggle-off-circle"></div>
+                </div>
+                <span style="font-size: 11px;" [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">{{ item.isActive ? "Active" : "Inactive" }}</span>
+              </td>
+              <td>
+                <a class="pencile-green" [routerLink]="['/subadmin-management/edit-subadmin',item._id]"
+                ><i class="fa fa-pencil"></i
+              ></a>
+                <!-- <div class="three-dots-block">
+                  <div class="btn-group dropstart">
+                    <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <ul class="icons2">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" [routerLink]="[
+                            '/sub-admin-management/edit-subadmin',
+                            item._id
+                          ]">Edit</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#enable"
+                          (click)="changeAdminStatus('enable', item._id)">Enable</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#disable"
+                          (click)="changeAdminStatus('disable', item._id)">Disable</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#permission"
+                          (click)="checkPermission(item._id)">Permission</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="no-result-found" *ngIf="admins?.totalUsers?.length == 0">
+          No result found
+        </div>
+      </div>
+      <div class="next-previous-button-block">
+        <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+          Previous
+        </button>
+        <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+          *ngIf="totalPage > 1 && totalPage != currentPage">
+          Next
+        </button>
+      </div>
+      <div class="page-count" *ngIf="totalPage >= 1">
+        <p>Page {{ currentPage }} of {{ totalPage }}</p>
+      </div>
+    </div>
+  
+    <!-- Add Form -->
+    <div class="modal fade" id="AddSubAdminForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel">Add Coupon</h5>
+            <button type="button" class="close closeModel" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="radio-labels2">
+            <div class="form-check2">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="discountType" value="percentage" (change)="getDiscountType('percentage')" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Percentage Discount
+              </label>
+            </div>
+            <div class="form-check2">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="discountType" value="flat" (change)="getDiscountType('flat')" id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                Flat Discount
+              </label>
+            </div>
+        </div>
+          <form [formGroup]="addSubAdmin" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="modal-body">
+               
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Coupon Code</label>
+                  <div class="form-input-block">
+                    <input type="text" class="form-control"  formControlName="couponCode" [ngClass]="{
+                        'is-invalid': (submitted && addSubAdmin.get('couponCode').hasError('required')) ||
+                        (addSubAdmin.get('couponCode').hasError('required') && addSubAdmin.get('couponCode').touched) ||
+                        addSubAdmin.get('couponCode').hasError('minlength') ||
+                        addSubAdmin.get('couponCode').hasError('maxlength') ||
+                        (addSubAdmin.get('couponCode').hasError('startsWithSpace') && !addSubAdmin.get('couponCode').hasError('required'))
+                      }" />
+                    <div class="invalid-feedback">
+                      <div
+                        *ngIf="(submitted && addSubAdmin.get('couponCode').hasError('required')) || (addSubAdmin.get('couponCode').hasError('required') && addSubAdmin.get('couponCode').touched)">
+                        Coupon Code is required
+                      </div>
+                      <div *ngIf="addSubAdmin.get('couponCode').hasError('minlength')">
+                        Coupon Code must be at least 6 characters
+                      </div>
+                      <div *ngIf="addSubAdmin.get('couponCode').hasError('maxlength')">
+                        Coupon Code must not exceed 20 characters
+                      </div>
+                      <div
+                        *ngIf="addSubAdmin.get('couponCode').hasError('startsWithSpace') && !addSubAdmin.get('couponCode').hasError('required')">
+                        Cannot start with whitespace
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Discount</label>
+                    <div class="form-input-block">
+                      <input type="number" class="form-control"  formControlName="discountValue" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('discountValue').hasError('required')) ||
+                          (addSubAdmin.get('discountValue').hasError('required') && addSubAdmin.get('discountValue').touched) ||
+                          (addSubAdmin.get('discountValue').hasError('startsWithSpace') && !addSubAdmin.get('discountValue').hasError('required'))
+                        }" />
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="(submitted && addSubAdmin.get('discountValue').hasError('required')) || (addSubAdmin.get('discountValue').hasError('required') && addSubAdmin.get('discountValue').touched)">
+                          Discount value is required
+                        </div>
+                        <!-- <div *ngIf="addSubAdmin.get('discountValue').hasError('min')">
+                          Discount value must be at least 1
+                        </div>
+                        <div *ngIf="addSubAdmin.get('discountValue').hasError('max')">
+                          Discount value max 100
+                        </div> -->
+                        <div
+                          *ngIf="addSubAdmin.get('discountValue').hasError('startsWithSpace') && !addSubAdmin.get('discountValue').hasError('required')">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label>Discription</label>
+                    <div class="form-input-block">
+                      <textarea row="5" class="form-control"  formControlName="discription" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('discription').hasError('required')) ||
+                          (addSubAdmin.get('discription').hasError('required') && addSubAdmin.get('discription').touched) ||
+                          (addSubAdmin.get('discription').hasError('startsWithSpace') && !addSubAdmin.get('discription').hasError('required'))
+                        }"></textarea>
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="(submitted && addSubAdmin.get('discription').hasError('required')) || (addSubAdmin.get('discription').hasError('required') && addSubAdmin.get('discountValue').touched)">
+                          Discount value is required
+                        </div>
+                        <!-- <div *ngIf="addSubAdmin.get('discountValue').hasError('min')">
+                          Discount value must be at least 1
+                        </div>
+                        <div *ngIf="addSubAdmin.get('discountValue').hasError('max')">
+                          Discount value max 100
+                        </div> -->
+                        <div
+                          *ngIf="addSubAdmin.get('discription').hasError('startsWithSpace') && !addSubAdmin.get('discription').hasError('required')">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>From Date</label>
+                    <div class="form-input-block">
+                      <input type="date" class="form-control" formControlName="fromDate" class="form-control" />
+                      <div class="invalid-feedback">
+                        
+                        <div *ngIf="
+                        (submitted && addSubAdmin.controls['fromDate'].errors?.required) || 
+        (addSubAdmin.controls['fromDate'].errors?.required && addSubAdmin.get('fromDate').touched)">
+        fromDate is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>To Date</label>
+                    <div class="form-input-block">
+                      <input type="date" class="form-control" formControlName="toDate" class="form-control" />
+                      <div class="invalid-feedback">
+                        
+                        <div *ngIf="
+                        (submitted && addSubAdmin.controls['toDate'].errors?.required) || 
+        (addSubAdmin.controls['toDate'].errors?.required && addSubAdmin.get('toDate').touched)">
+        ToDate is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Max Discount Amount</label>
+                    <div class="form-input-block">
+                      <input type="number" class="form-control"  formControlName="maxDiscountAmount" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('maxDiscountAmount').hasError('required')) ||
+                          (addSubAdmin.get('maxDiscountAmount').hasError('required') && addSubAdmin.get('maxDiscountAmount').touched) ||
+                          (addSubAdmin.get('maxDiscountAmount').hasError('startsWithSpace') && !addSubAdmin.get('maxDiscountAmount').hasError('required'))
+                        }" />
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="(submitted && addSubAdmin.get('maxDiscountAmount').hasError('required')) || (addSubAdmin.get('maxDiscountAmount').hasError('required') && addSubAdmin.get('maxDiscountAmount').touched)">
+                          Max Discount Amount Code is required
+                        </div>
+                       
+                        <div
+                          *ngIf="addSubAdmin.get('maxDiscountAmount').hasError('startsWithSpace') && !addSubAdmin.get('maxDiscountAmount').hasError('required')">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Max Number Of User Allowed</label>
+                    <div class="form-input-block">
+                      <input type="number" class="form-control"  formControlName="maxNumberOfUserAllowed" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('maxNumberOfUserAllowed').hasError('required')) ||
+                          (addSubAdmin.get('maxNumberOfUserAllowed').hasError('required') && addSubAdmin.get('maxNumberOfUserAllowed').touched) ||
+                          (addSubAdmin.get('maxNumberOfUserAllowed').hasError('startsWithSpace') && !addSubAdmin.get('maxNumberOfUserAllowed').hasError('required'))
+                        }" />
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="(submitted && addSubAdmin.get('maxNumberOfUserAllowed').hasError('required')) || (addSubAdmin.get('maxNumberOfUserAllowed').hasError('required') && addSubAdmin.get('maxNumberOfUserAllowed').touched)">
+                          Max Number Of User Allowed is required
+                        </div>
+                       
+                        <div
+                          *ngIf="addSubAdmin.get('maxNumberOfUserAllowed').hasError('startsWithSpace') && !addSubAdmin.get('maxNumberOfUserAllowed').hasError('required')">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Min Order Amount</label>
+                    <div class="form-input-block">
+                      <input type="number" class="form-control"  formControlName="minOrderAmount" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('minOrderAmount').hasError('required')) ||
+                          (addSubAdmin.get('minOrderAmount').hasError('required') && addSubAdmin.get('minOrderAmount').touched) ||
+                          (addSubAdmin.get('minOrderAmount').hasError('startsWithSpace') && !addSubAdmin.get('minOrderAmount').hasError('required'))
+                        }" />
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="(submitted && addSubAdmin.get('minOrderAmount').hasError('required')) || (addSubAdmin.get('minOrderAmount').hasError('required') && addSubAdmin.get('minOrderAmount').touched)">
+                          Min Order Amount is required
+                        </div>
+                       
+                        <div
+                          *ngIf="addSubAdmin.get('minOrderAmount').hasError('startsWithSpace') && !addSubAdmin.get('minOrderAmount').hasError('required')">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Per Day User</label>
+                    <div class="form-input-block">
+                      <input type="number" class="form-control"  formControlName="perDayUser" [ngClass]="{
+                          'is-invalid': (submitted && addSubAdmin.get('perDayUser').hasError('required')) ||
+                          (addSubAdmin.get('perDayUser').hasError('required') && addSubAdmin.get('perDayUser').touched) ||
+                          (addSubAdmin.get('perDayUser').hasError('startsWithSpace') && !addSubAdmin.get('perDayUser').hasError('required'))
+                        }" />
+                      <div class="invalid-feedback">
+                        <div
+                          *ngIf="(submitted && addSubAdmin.get('perDayUser').hasError('required')) || (addSubAdmin.get('perDayUser').hasError('required') && addSubAdmin.get('perDayUser').touched)">
+                          Per Day User is required
+                        </div>
+                       
+                        <div
+                          *ngIf="addSubAdmin.get('perDayUser').hasError('startsWithSpace') && !addSubAdmin.get('perDayUser').hasError('required')">
+                          Cannot start with whitespace
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-12">
+                  <label>Allow Single User To Use The Code Multiple Times</label>
+                  <div class="form-input-block">
+                    <select formControlName="role" class="form-select" [ngClass]="{
+                        'is-invalid':
+                          submitted && addSubAdmin.controls['role'].errors
+                      }">
+                      <option value="default"></option>
+                      <option ngValue="yes">
+                       Yes
+                      </option>
+                      <option ngValue="no">
+                        No
+                       </option>
+                    </select>
+                    <div *ngIf="submitted && addSubAdmin.controls['role'].errors" class="invalid-feedback">
+                      <div *ngIf="addSubAdmin.controls['role'].errors?.required">
+                        Role is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+             
+              </div>
+              <div class="modal-footer border-top-0 d-flex justify-content-center">
+                <button type="submit" class="btn btn-success modal-button" [disabled]="SERVER.isSubmitting">
+                 Save
+                </button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()" data-dismiss="modal"
+                  aria-label="Close">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Button trigger modal -->
+  
+    <!-- Modal -->
+  
+    <!-- Modal 4 document success-->
+    <!-- <div class="modal fade" id="disable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="custom-modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="document-approved-main">
+              <div class="document-approved-main-image">
+                <img src="../../assets/img/wallet/warning.png" />
+              </div>
+              <p class="document-reject-main-successfully">
+                Disable Sub - Admin Account
+              </p>
+              <p class="document-reject-main-id">
+                Do you want to disable sub - admin?
+              </p>
+              <div class="disabled-btn-block">
+                <button class="btn-temporary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button class="btn-permanent" (click)="updateUserStatus()">
+                  Disable
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  
+    <!-- Modal 5 document reject-->
+    <!-- <div class="modal fade" id="enable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="custom-modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="document-approved-main">
+              <div class="document-reject-main-image">
+                <img src="../../assets/img/wallet/fa-regular_user.png" />
+              </div>
+              <p class="document-reject-main-successfully">
+                Enable Sub - admin Account
+              </p>
+              <p class="document-reject-main-id">Do you want to enable ?</p>
+              <button class="btn-enable" (click)="updateUserStatus()">
+                Enable
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Modal 6 permission-->
+  
+    <div class="modal fade" id="permission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog2 modal-dialog-centered">
+        <div class="modal-content modal-content2">
+          <div class="custom-modal-header-permission">
+            <div class="custom-modal-header-permission-inner">
+              <h4>Permissions</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- <p class="custom-heading-label">Lorem ipsum  dolor sit amet </p> -->
+          </div>
+          <div class="modal-body p-0">
+            <div class="border-bottom-block">
+              <form>
+                <div class="main-permissons" *ngFor="let item of permissons">
+                  <div class="main-permissons-label">
+                    <span>{{ item?.manuName }}</span>
+                  </div>
+                  <div class="main-permissons-toggle2">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" [checked]="item.hasPermission" type="checkbox"
+                        (click)="modifyPermission($event, item)" />
+                    </div>
+                  </div>
+                </div>
+                <div class="save-button-block">
+                  <div class="btn btn-save" (click)="updatePermission()">
+                    <img src="../../assets/img/wallet/permision-save.png" />Save
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal fade" id="documentModalSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="custom-modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="document-approved-main">
+              <div class="document-approved-main-image10">
+                <img src="../../assets/img/faces/document-tick.png" />
+              </div>
+              <p class="document-approved-main-successfully">
+                {{ updateUser?.userAction }} Sub - admin Account!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block">
+                  Are you sure you want to<br/> {{activeInactiveString}} this sub-admin?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>

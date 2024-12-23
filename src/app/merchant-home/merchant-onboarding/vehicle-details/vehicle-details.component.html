@@ -1,0 +1,543 @@
+<div class="common-class">
+    <div class="header">
+        <div class="common-class-left">
+            <div class="merchant_details-heading user-go-back-main">
+                <div class="user-go-back-main-inner" (click)="goBack()">
+                    <img src="../../../assets/img/wallet/user-go-back.png" alt="" />
+                </div>
+                <h4 class="m-0 cx_heading">Vehicle Details</h4>
+            </div>
+        </div>
+        <div class="common-class-right">
+            <span [ngClass]="vehicle?.isVerifiedByAdmin ? 'text-green' : 'text-red'">
+                {{ vehicle?.isVerifiedByAdmin ? 'Vehicle Approved' : 'Vehicle Not Approved' }}
+            </span>
+
+            <!-- Button to View Reason -->
+            <button *ngIf="!vehicle?.isVerifiedByAdmin" class="view-reason-btn" (click)="viewReason()">
+                Reason
+            </button>
+        </div>
+
+    </div>
+    <div class="vehicle_details">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="vehicle_info">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="vehicle_imgs">
+                                <div class="vehicle_right_top d-flex flex-column">
+                                    <div class="vehicle_name d-flex">
+                                        <span class="car_name"> {{vehicle?.brandName+' '}}{{vehicle?.modelName}} </span>
+                                        <span class="car_numb"> {{vehicle?.plateNumber}} </span>
+                                    </div>
+                                    <div class="vehicle_img">
+                                        <img [src]="selectedImage || (vehicle?.images?.front )" alt="Vehicle Image" />
+                                    </div>
+                                </div>
+                                <div class="all_images d-flex">
+                                    <div class="thumbnail front"
+                                        [class.highlight]="selectedImage === vehicle?.images?.front"
+                                        (click)="setSelectedImage(vehicle?.images?.front)">
+                                        <img [class.highlightImg]="selectedImage === vehicle?.images?.front"
+                                            [src]="vehicle?.images?.front " alt="Front View" />
+                                    </div>
+
+                                    <div class="thumbnail left"
+                                        [class.highlight]="selectedImage === vehicle?.images?.left"
+                                        (click)="setSelectedImage(vehicle?.images?.left)">
+                                        <img [class.highlightImg]="selectedImage === vehicle?.images?.left"
+                                            [src]="vehicle?.images?.left " alt="Left View" />
+                                    </div>
+
+                                    <div class="thumbnail top"
+                                        [class.highlight]="selectedImage === vehicle?.images?.top"
+                                        (click)="setSelectedImage(vehicle?.images?.top)">
+                                        <img [class.highlightImg]="selectedImage === vehicle?.images?.top"
+                                            [src]="vehicle?.images?.top " alt="Top View" />
+                                    </div>
+
+                                    <div class="thumbnail right"
+                                        [class.highlight]="selectedImage === vehicle?.images?.right"
+                                        (click)="setSelectedImage(vehicle?.images?.right)">
+                                        <img [class.highlightImg]="selectedImage === vehicle?.images?.right"
+                                            [src]="vehicle?.images?.right " alt="Right View" />
+                                    </div>
+
+                                    <div class="thumbnail back"
+                                        [class.highlight]="selectedImage === vehicle?.images?.back"
+                                        (click)="setSelectedImage(vehicle?.images?.back)">
+                                        <img [class.highlightImg]="selectedImage === vehicle?.images?.back"
+                                            [src]="vehicle?.images?.back " alt="Back View" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="vehicle_specification_heading h4">Vehicle Specification</span>
+                            <div class="vehicle_specification d-flex flex-column">
+
+                                <div class="model_year">
+                                    <span class="title">Model Year:</span>
+                                    <span class="response">{{vehicle?.modelYear}}</span>
+                                </div>
+
+                                <div class="seating_capacity">
+                                    <span class="title">Seating Capacity:</span>
+                                    <span class="response">{{vehicle?.sittingCapacity}}</span>
+                                </div>
+
+                                <div class="engine_capacity">
+                                    <span class="title">Engine Capacity:</span>
+                                    <span class="response">{{vehicle?.engineCC}} CC</span>
+                                </div>
+
+                                <div class="vehicle_type">
+                                    <span class="title">Vehicle Type:</span>
+                                    <span class="response"> {{ vehicle?.type == 1 ? 'Car' : (vehicle?.type == 2 ? 'Bike'
+                                        : 'Unknown') }}</span>
+                                </div>
+
+                                <div class="color">
+                                    <span class="title">Color:</span>
+                                    <span class="response">{{vehicle?.color}}</span>
+                                </div>
+
+                                <div class="odo_reading">
+                                    <span class="title">ODO Reading:</span>
+                                    <span class="response">{{vehicle?.kmRun}} KM</span>
+                                </div>
+                                <div class="odo_reading">
+                                    <span class="title">Extension Allowed:</span>
+                                    <span class="response">{{vehicle?.extensionAvailable ? 'Yes':'No'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="host_details">
+                    <span class="host_details_heading h4">Host Details</span>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="host_img">
+                                <img src="/assets/img/new_logo.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="host_name">
+                                <span class="name h6 text-secondary">#ID-{{vehicle?.hostData?.manualUserId}}</span>
+                                <span class="name">{{vehicle?.hostData?.name?.first}}{{'
+                                    '+vehicle?.hostData?.name?.middle}}{{' '+vehicle?.hostData?.name?.last}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="host_info">
+
+                            <div class="phone_email">
+                                <div class="phone_number">
+                                    <span class="title">Phone Number:</span>
+                                    <span class="response">{{vehicle?.hostData?.phone?.countryCode}} {{'
+                                        '+vehicle?.hostData?.phone?.phoneNumber}}</span>
+                                </div>
+
+                                <div class="email_address">
+                                    <span class="title">Email Address:</span>
+                                    <span class="response">{{vehicle?.hostData?.email?.email}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main_vehicle_docs">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="doc_info">
+                    <span class="main_vehicle_docs_heading h4">Vehicle Document Info</span>
+                    <div class="mv_file_no">
+                        <span class="title">MV File No:</span>
+                        <span class="response">{{vehicle?.mvFileNumber}}</span>
+                    </div>
+
+                    <div class="registration_expiry">
+                        <span class="title">Engine Number:</span>
+                        <span class="response">{{vehicle?.engineNumber}}</span>
+                    </div>
+
+                    <div class="registration_expiry">
+                        <span class="title">Chasis Number:</span>
+                        <span class="response">{{vehicle?.chasisNumber}}</span>
+                    </div>
+
+                    <div class="registration_date">
+                        <span class="title">Registration Date:</span>
+                        <span class="response">{{formatDate(vehicle?.registrationDate)}}</span>
+                    </div>
+
+                    <div class="registration_expiry">
+                        <span class="title">Registration Expiry:</span>
+                        <span class="response">{{formatDate(vehicle?.expiryRegistrationDate)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="vehicle_doc_img">
+                    <span class="vehicle_doc_img_heading h4">View Vehicle Document</span>
+                    <div class="document_rows">
+                        <div class="document-row">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="title">TPL Insurance</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="img_count">
+                                        ({{vehicle?.tpl?.images?.length}}) {{vehicle?.tpl?.images?.length >1 ?
+                                        'Photos':'Photo'}}
+                                    </span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="view-button" (click)="showTPL()">View</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="document-row">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="title">CR Photo</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="img_count">
+                                        ({{vehicle?.crImages?.length}}) {{vehicle?.crImages?.length >1 ?
+                                        'Photos':'Photo'}}
+                                    </span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="view-button" (click)="showCR()">View</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="document-row">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="title">OR Photo</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="img_count">
+                                        ({{vehicle?.orImages?.length}}) {{vehicle?.orImages?.length >1 ?
+                                        'Photos':'Photo'}}
+                                    </span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="view-button" (click)="showOR()">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pickup_price_related">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="vehicle_pickup">
+
+                    <span class="vehicle_pickup_heading h4">Vehicle Pickup Details</span>
+                    <div class="vehicle_pickup_details">
+                        <div class="pickup_location">
+
+                            <span class="title">Pickup Location:</span>
+
+                            <span class="response">{{vehicle?.pickupAddress?.address?.address}}</span>
+
+                        </div>
+
+                        <div class="daily_availability_details">
+                            <span class="daily_availability_heading">Daily Availability</span>
+                            <div class="daily_availability">
+
+                                <div class="time">
+                                    <span class="title">Start Time:</span>
+
+                                    <span class="response">{{ vehicle?.dailyAvailability?.start }}</span>
+                                </div>
+
+                                <div class="time">
+                                    <span class="title">End Time:</span>
+
+                                    <span class="response">{{ vehicle?.dailyAvailability?.end }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="weekly_availability_details">
+                            <span class="weekly_availability_heading">Weekly Availability</span>
+                            <div class="weekly_availability">
+
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.monday" disabled />
+                                        Monday
+                                    </label>
+                                </div>
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.tuesday" disabled />
+                                        Tuesday
+                                    </label>
+                                </div>
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.wednesday" disabled />
+                                        Wednesday
+                                    </label>
+                                </div>
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.thursday" disabled />
+                                        Thursday
+                                    </label>
+                                </div>
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.friday" disabled />
+                                        Friday
+                                    </label>
+                                </div>
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.saturday" disabled />
+                                        Saturday
+                                    </label>
+                                </div>
+                                <div class="day">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="weeklyAvailability.sunday" disabled />
+                                        Sunday
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="vehicle_rental_charges">
+
+                    <span class="vehicle_rental_charges_heading h4">Vehicle Charges</span>
+                    <div class="charges_details">
+                        <div class="pricing-container">
+                            <div class="pricing_item">
+                                <span class="title">Daily Price:</span>
+                                <span class="response">₱{{vehicle?.pricing?.daily}}</span>
+                            </div>
+                            <div class="pricing_item">
+                                <span class="title">Weekly Price:</span>
+                                <span class="response">₱{{vehicle?.pricing?.weekly}}</span>
+                            </div>
+                            <div class="pricing_item">
+                                <span class="title">Monthly Price:</span>
+                                <span class="response">₱{{vehicle?.pricing?.monthly}}</span>
+                            </div>
+                            <div class="pricing_item" *ngIf="vehicle?.pricing?.halfDayBookingAvailable">
+                                <span class="title">Half Day Price:</span>
+                                <span class="response">₱{{vehicle?.pricing?.halfDay}}</span>
+                            </div>
+                        </div>
+                        <div class="vehicle_addons_related" *ngIf="vehicle?.addOnPricing?.length > 0">
+                            <div class="vehicle_addons">
+                                <span class="vehicle_addons_heading h5">Vehicle Addons Details</span>
+
+                                <div class="all_addons">
+                                    <div class="each_addon" *ngFor="let addons of vehicle?.addOnPricing">
+                                        <div class="addons">
+                                            <div class="addons_title">
+                                                <span class="title">{{addons?.title}}</span>
+                                                <span class="response">₱{{addons?.pricePerDay}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="vehicle_approvel">
+
+        <form [formGroup]="vehicleReviewForm" class="vehicle-review-form">
+            <div class="form-group">
+                <label class="h4" for="reason">Reason for Disapproving the Vehicle</label>
+                <textarea id="reason" formControlName="reason" placeholder="Enter your reason..." rows="4"
+                    required></textarea>
+
+                <div
+                    *ngIf="vehicleReviewForm.get('reason')?.errors?.['required'] && vehicleReviewForm.get('reason')?.touched">
+                    <small class="error-message px-3">
+                        Reason is required.
+                    </small>
+                </div>
+
+                <div
+                    *ngIf="vehicleReviewForm.get('reason')?.errors?.['minlength'] && vehicleReviewForm.get('reason')?.touched">
+                    <small class="error-message px-3">
+                        Reason must be at least 10 characters long.
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="approve-button" (click)="onApprove()">Approve</button>
+                <button type="button" class="reject-button" (click)="onReject()">Reject</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyleTPL">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal-contant">
+            <div class="custom-modal-header">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="attachmentModelStyleTPLHide()"></button>
+            </div>
+            <div class="modal-body mt-0">
+                <div class="profile-upper-block">
+                    <div class="profile-upper-block-second">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="document-left-block">
+                                    <h4 class="document-left-block-heading2">TPL Document</h4>
+                                    <div class="doc_id d-flex">
+                                        <span class="document-left-block-heading2 m-0">TPL Id :</span>
+                                        <span class="doc_no_style">{{'#-- '+vehicle?.tpl?.tplId}}</span>
+                                    </div>
+                                    <div class="doc_img">
+                                        <span class="document-left-block-heading2 m-0">Document Images</span>
+                                        <div class="document-aadhar-block2 d-flex">
+                                            <img class="cstm_img"
+                                                [src]="vehicle?.tpl?.images[0]|| 'assets/img/no-img.png'" alt="image" />
+                                            <img class="cstm_img"
+                                                [src]="vehicle?.tpl?.images[1] || 'assets/img/no-img.png'"
+                                                alt="image" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyleCR">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal-contant">
+            <div class="custom-modal-header">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="attachmentModelStyleCRHide()"></button>
+            </div>
+            <div class="modal-body mt-0">
+                <div class="profile-upper-block">
+                    <div class="profile-upper-block-second">
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <div class="document-left-block">
+                                    <h4 class="document-left-block-heading2">CR Documents</h4>
+                                    <div class="doc_img">
+                                        <span class="document-left-block-heading2 m-0">Document Images</span>
+                                        <div class="document-aadhar-block2 d-flex">
+                                            <img class="cstm_img" [src]="vehicle?.crImages[0]|| 'assets/img/no-img.png'"
+                                                alt="image" />
+                                            <img class="cstm_img"
+                                                [src]="vehicle?.crImages[1] || 'assets/img/no-img.png'" alt="image" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyleOR">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal-contant">
+            <div class="custom-modal-header">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="attachmentModelStyleORHide()"></button>
+            </div>
+            <div class="modal-body mt-0">
+                <div class="profile-upper-block">
+                    <div class="profile-upper-block-second">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="document-left-block">
+                                    <h4 class="document-left-block-heading2">OR Documents</h4>
+                                    <div class="doc_img">
+                                        <span class="document-left-block-heading2 m-0">Document Images</span>
+                                        <div class="document-aadhar-block2 d-flex">
+                                            <img class="cstm_img" [src]="vehicle?.orImages[0]|| 'assets/img/no-img.png'"
+                                                alt="image" />
+                                            <img class="cstm_img"
+                                                [src]="vehicle?.orImages[1] || 'assets/img/no-img.png'" alt="image" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyleReason">
+    <div class="modal-dialog modal-dialog-centered model_width">
+        <div class="modal-content custom-modal-contant">
+            <div class="custom-modal-header">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="hideReason()"></button>
+            </div>
+            <div class="modal-body mt-0">
+                <div class="profile-upper-block">
+                    <div class="profile-upper-block-second">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="document-left-block">
+                                    <h4 class="document-left-block-heading2">Rejection Reason for Vehicle</h4>
+                                    <div class="doc_img">
+                                        <div class="document-aadhar-block3 d-flex">
+                                            <span class="reson_reject">{{vehicle?.rejectReason}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

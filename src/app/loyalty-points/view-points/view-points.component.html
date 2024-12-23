@@ -1,0 +1,183 @@
+
+<div class="common-class">
+  <div class="common-class-left">
+    <!-- <span class="card-title new-title" [routerLink]="['/loyalty-points']" style="cursor: pointer;">Loyalty Points
+     
+    </span> -->
+    <div class="user-go-back-main">
+      <div class="user-go-back-main-inner" (click)="goBack()">
+        <img src="../../assets/img/wallet/user-go-back.png" alt="" />
+      </div>
+      <h4 class="user-profile-heading">Loyalty Points</h4>
+    </div>
+    <!-- <div class="new-custom-button-for-mobile">
+      <a [routerLink]="['/cms/add-cms']" class="custom-button"
+       >Save</a>
+    </div> -->
+  </div>
+  <!-- <div class="common-class-right">
+    <div class="search-field custom-search">
+      <form class="d-flex align-items-center h-100" action="#">
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <i class="input-group-text border-0 mdi mdi-magnify"></i>
+          </div>
+          <input type="text" class="form-control bg-transparent border-0" placeholder="Search here">
+        </div>
+      </form>
+    </div>
+    <div class="new-custom-button">
+      <a [routerLink]="['/loyalty-points/edit-points']" class="custom-button"
+      >Save</a>
+    </div>
+  </div> -->
+</div>
+<div class="card-dsh new-card other-pages">
+  
+  <div class="card-body comman-scroll-block">
+    <div class="row justify-content-between align-items-center w-100 m-0">
+      <div class="col-md-4 custom-padding-right">
+        <div class="loylaty-points-block">
+          <div class="loylaty-points-block-left"  [ngStyle]="{'background-image': 'url(' + (users?.profilePicture ? users?.profilePicture : '../../../assets/img/faces/user.png') + ')'}">
+            <!-- <img [src]="users?.profilePicture ? users?.profilePicture : '../../../assets/img/faces/user.png'"> -->
+          </div>
+          <div class="loylaty-points-block-right">
+            <p class="loyalty-name">{{users?.name}} ({{users?.userName}})</p>
+            <p class="loyalty-id">{{users?.manualUserId}}</p>
+            <p [ngClass]="users?.isActive === 1 ? 'loyalty-status2':'loyalty-status3'" class="loyalty-status"><span [ngClass]="users?.isActive === 1 ? 'color-block':'color-block2'"></span> {{users?.isActive === 1 ? 'Active' : 'Inactive'}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 custom-padding-both">
+        <div class="total-point-earned-block">
+            <p class="total-point-earned-block-number">{{users?.totalCount}}</p>
+            <p class="total-point-earned-block-heading">Total Points Earned</p>
+        </div>
+      </div>
+      <div class="col-md-2 custom-padding-both">
+        <div class="current-point-earned-block">
+            <p class="current-point-earned-block-number">{{users?.currentPoints}}</p>
+            <p class="current-point-earned-block-heading">Current Points</p>
+        </div>
+      </div>
+      <div class="col-md-2 custom-padding-both">
+        <div class="spent-point-earned-block">
+            <p class="spent-point-earned-block-number">{{users?.totalPointsSpent}}</p>
+            <p class="spent-point-earned-block-heading">Total Points Spent</p>
+        </div>
+      </div>
+      <!-- <div class="col-md-2 custom-padding-left">
+        <div class="expired-point-earned-block">
+            <p class="expired-point-earned-block-number">87,541</p>
+            <p class="expired-point-earned-block-heading">Total Points Expired</p>
+        </div>
+      </div> -->
+    </div>
+    <div class="type-block">
+      <label>Type</label>
+      <div class="type-block-inner">
+        <div class="type-block-inner-deep">
+          <select class="form-select" aria-label="Default select example" (change)="onOptionChange2($event.target.value)">
+            <option value=1>Debit</option>
+            <option value=0 selected>Credit</option>
+          </select>
+        </div>
+        <!-- <button class="edit-button-point">Edit Points</button> -->
+      </div>
+    </div>
+    <div class="table-responsive">
+      <h5 class="table-heading">Last Transactions</h5>
+      <table class="table">
+        <thead>
+            <tr>
+              <!-- <th>Description</th> -->
+              <th>Type</th>
+              <th>Points</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of users.list">
+            <!-- <td>{{item?.reason ? item?.reason : '--'}}</td> -->
+            <!-- <td>{{item?.markCompleted === 1 ? 'Credit' : 'Debit'}}</td> -->
+            <td>Credit</td>
+           <td>{{item?.loyalityPoint}}</td>
+           <td>{{item.transactionDate | date:'dd-MM-yyyy'}}</td>
+            <td>{{item?.transactionStatusName}}</td>
+          </tr>
+         
+         
+        </tbody>
+      </table>
+      <div class="no-result-found" *ngIf="users?.list?.length == 0">
+        No result found
+      </div>
+      <div class="next-previous-button-block">
+        <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+          Previous
+        </button>
+        <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+          *ngIf="totalPage > 1 && totalPage != currentPage">
+          Next
+        </button>
+      </div>
+      <div class="page-count" *ngIf="totalPage >= 1">
+        <p>Page {{ currentPage }} of {{ totalPage }}</p>
+      </div>
+    </div>
+   <hr>
+   <!-- <div class="type-block">
+    <h5>Edit Points</h5>
+    <div class="row align-items-center">
+      <div class="col-md-6 col-12">
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-3">
+           <div class="end-point-label">
+            <label>Enter Points</label>
+           </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="end-point-input">
+              <input type="number">
+             </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="end-point-label">
+             <label>Type</label>
+            </div>
+           </div>
+           <div class="col-md-6 mb-3">
+             <div class="end-point-input">
+               <input type="text">
+              </div>
+           </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div class="update-points-upper">
+          <button class="update-points" data-bs-toggle="modal" data-bs-target="#points-added">Update Points</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  </div>
+  </div>
+ 
+  <div class="modal fade" id="points-added" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog small-dialog-modal modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+            <div class="point-edit-block">
+              <p class="point-and-image">100 pts <img src="../../../assets/img/faces/document-tick.png"></p>
+              <p class="point-succesfully">Points have beed added succesfully for </p>
+              <p class="transactionId">Transaction Id : THYJ425165IKL</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

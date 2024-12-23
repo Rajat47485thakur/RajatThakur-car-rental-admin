@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/* You can add global styles to this file, and also import other style files */
+.page-count {
+  padding: 0px 20px 20px 20px;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+}

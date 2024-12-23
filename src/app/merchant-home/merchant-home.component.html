@@ -1,0 +1,136 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+      <div class="header-responsive-block">
+        <h3 class="page-title">Home</h3>
+      </div>
+   
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3 custom-padding-manage-right">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{statatics.active_merchant}}</h5>
+            <p class="">Active Merchants</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{statatics.inactive_merchant}}</h5>
+            <p class="">Inactive Merchants</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{statatics.active_business}}</h5>
+            <p class="">Active Businesses</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-left">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{statatics.inactive_business}}</h5>
+            <p class="">Inactive Businesses</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-dsh new-card">
+          <div class="card-body">
+            <h4 class="card-title new-title">List of Merchants </h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th class="custom-pedding-left">Name</th>
+                    <th>Email ID</th>
+                    <th>Phone</th>
+                    <th> Reg. Date</th>
+                    <th>No. of Active Business</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let item of merchants.totalUsers">
+                  <td>{{item.manualUserId}}</td>
+                    <td>
+                        <div class="usert-img">
+                            <div class="usert-img-inner">
+                              <img
+                                src="../../assets/img/faces/user.png"
+                                alt="image"
+                              />
+                            </div>
+                            <div class="usert-img-inner-text">
+                              <p class="custom-user-name">{{item.name}}</p>
+                            </div>
+                          </div>
+                    </td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.countryCode}}{{item.phone}}</td>
+                   
+                    <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                    <td >{{item.noOfActiveBusiness}}</td>
+                    <td>
+                      <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                        <div class="toggle-on-circle"></div>
+                      </div>
+                      <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                        <div class="toggle-off-circle"></div>
+                      </div>
+                    </td>
+                 </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="custom-button-block">
+            <button class="btn viewAllButton" [routerLink]="'/merchant-onboarding'">
+              View all
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block">
+                  Are you sure you want to<br/> {{activeInactiveString}} this Merchant?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,187 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+        <div class="header-responsive-block">
+          <h3 class="page-title">Special Days
+          </h3>
+          <button class="btn-new-category-mobile" (click)="createNewCategory()"> + Create Special Day</button>
+        </div>
+        <div class="custom-right-nav">
+          <div class="search-field custom-search">
+            <form>
+              <div class="search-block-outer">
+                <div class="search-icon">
+                  <i class="mdi mdi-magnify"></i>
+                </div>
+                <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+                (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+                <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+                  <i class="mdi mdi-close"></i>
+                </div>
+              </div>
+            </form>
+          </div>
+          <button class="btn btn-create-new-category" (click)="createNewCategory()">+ Create Special Day</button>
+          
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-dsh new-card">
+          <div class="card-body">
+            <h4 class="card-title new-title">List of Special Days </h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                      <th class="custom-pointer" (click)="sorting('title')">
+                        <span class="mdi mdi-unfold-more-horizontal custom-pointer-inner-icon"></span> Title</th>
+                    <th>Reg Date</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let item of specialDays">
+                  <td>{{item?.title}}</td>
+                    <td>{{item?.createdAt | date:'dd/MM/yyyy'}}</td>
+                    <td>{{item?.date | date:'dd/MM/yyyy'}}</td>
+                    <td> 
+                      
+                        <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                          <div class="toggle-on-circle"></div>
+                        </div>
+                        <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                          <div class="toggle-off-circle"></div>
+                        </div>
+                      
+                        </td>
+                        <td>
+                          <a
+                            class="pencile-green" (click)="editCategory(item)"
+                            ><i class="fa fa-pencil"></i
+                          ></a>
+                          <a class="delete-red" (click)="openDeleteModel(item)"
+                          ><i class="fa fa-trash"></i
+                        ></a>
+                        </td>
+                 </tr>
+               
+                </tbody>
+              </table>
+              <div class="no-result-found" *ngIf="specialDays?.length == 0">
+                No result found
+              </div>
+            </div>
+          </div>
+          <div class="next-previous-button-block">
+            <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+              Previous
+            </button>
+            <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+              *ngIf="totalPage > 1 && totalPage != currentPage">
+              Next
+            </button>
+          </div>
+          <div class="page-count" *ngIf="totalPage >= 1">
+            <p>Page {{ currentPage }} of {{ totalPage }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle">
+    <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="attacmentCloseModel()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="category-popup">
+            <h5 *ngIf="!updateCategory">New day</h5>
+            <h5 *ngIf="updateCategory">Update day</h5>
+            
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+              <div class=""style="margin-bottom:10px">
+              <input type="text" placeholder="Day Name" formControlName="categoryName">
+              <div *ngIf="categoryForm.controls['categoryName'].invalid && (categoryForm.controls['categoryName'].dirty || categoryForm.controls['categoryName'].touched)">
+                <span class="error-block" *ngIf="categoryForm.controls['categoryName'].errors?.required">Day name is required</span>
+                <span class="error-block" *ngIf="categoryForm.controls['categoryName'].errors?.whitespace && !(categoryForm.controls['categoryName'].errors?.required)">Cannot start with whitespace</span>
+              </div>
+            </div>
+              <div class="">
+              <input type="date" placeholder="Date" formControlName="date">
+              <div *ngIf="categoryForm.controls['date'].invalid && (categoryForm.controls['date'].dirty || categoryForm.controls['date'].touched)">
+                <span class="error-block" *ngIf="categoryForm.controls['date'].errors?.required">Date is required</span>
+              </div>
+            </div>
+              <button class="btn-save" type="submit" *ngIf="!updateCategory"  [disabled]="this.categoryForm.invalid">Save</button>
+              <button class="btn-save" type="submit" *ngIf="updateCategory"  [disabled]="this.categoryForm.invalid">Update</button>
+            </form>
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+                <div class="profile-upper-block2">
+                  Are you sure you want to<br/> {{activeInactiveString}} this Day?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+<div
+class="modal"
+id="deleteUserModel"
+tabindex="-1"
+role="dialog"
+[style.display]="modelStyle"
+>
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content custom-modal-content">
+    <div class="modal-body">
+      <div class="main-delete-block">
+        <div class="delete-main-image">
+          <img src="../../assets/img/faces/material-symbols_delete.png" />
+        </div>
+        <p class="point-text2">
+          Oops! Do you really want to delete this day -
+          <span>{{ deleteUserId }} </span> ?
+        </p>
+        <div class="custom-delete-modal-footer">
+          <button
+            type="submit"
+            class="btn btn-cancel"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="closeModel()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-yes" (click)="deleteUser()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+ 
+  

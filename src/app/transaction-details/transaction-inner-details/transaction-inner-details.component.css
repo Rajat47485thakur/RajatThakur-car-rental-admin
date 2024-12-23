@@ -1,0 +1,52 @@
+
+  .card-dsh {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+  }
+ 
+  .user-go-back-main {
+    display: flex;
+    /* align-items: center;
+    margin-bottom: 20px; */
+  }
+  .green-tik-image img {
+    width: 100%;
+  }
+  .user-go-back-main-inner {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #1B86FE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    cursor: pointer;
+  }
+  
+  .user-go-back-main-inner img {
+    width: 100%;
+    max-width: 12px;
+  }
+  .label-and-data {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.label-and-data-label {
+    width: 40%;
+}
+.label-and-data-data {
+    font-weight: 600;
+    width: 60%;
+}
+.main-block-details {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

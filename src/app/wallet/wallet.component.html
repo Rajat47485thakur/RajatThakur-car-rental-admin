@@ -1,0 +1,518 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+      <div class="header-responsive-block">
+        <h3 class="page-title">Wallet</h3>
+        <div class="mobile-data-export">
+          <nav aria-label="breadcrumb" class="ndash-icon new">
+            <ul class="breadcrumb mobile-breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="download"
+                  ><img src="./assets/img/wallet/download.png"
+                /></span>
+                Export Data
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="custom-right-nav">
+        <nav aria-label="breadcrumb" class="ndash-icon change">
+          <ul class="breadcrumb" (click)="openDateRange()">
+            <li class="breadcrumb-item active" aria-current="page">
+              <span class="clandar"
+                ><i class="fa fa-calendar" aria-hidden="true"></i></span
+              ><span class="change-periode">Change Period</span>
+              <span
+                class="change-per dropdown-toggle custom-dropdown-toggle"
+              ></span>
+              <div class="change-text-data" *ngIf="startDate1 !== null">{{startDate1 | date:'dd MMM yyyy'}} - {{endDate1 | date:'dd MMM yyyy'}}</div>
+              <div class="change-text-data" *ngIf="startDate1 === null">All</div>
+            </li>
+          </ul>
+        </nav>
+        <div class="dropdown">
+          <button class="btn btn-export dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Export
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="exportCSV()">Export to CSV</a></li>
+            <li><a class="dropdown-item" (click)="exportPDF()">Export to PDF</a></li>
+            <li><a class="dropdown-item" (click)="exportToExcel()">Export to XLSX</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+     
+      <div class="col-md-4 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{ statatics.new_users }}</h5>
+            <p class="">How much total money cash in</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{ statatics.total_merchants }}</h5>
+            <p class="">How much balance in wallet for CUSTOMER</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 custom-padding-manage-left">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{ statatics.total_businesses }}</h5>
+            <p class="">How much money is spend</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{ statatics.registered_users }}</h5>
+            <p class="">How much balance in wallet for HOST</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.new_users }}</h5>
+            <p class="">Freeze Amount in Hosts Wallet</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- <span class="philippines-curency">₱</span> -->
+  
+  <!-- 
+  
+  
+      <div class="col-md-3 mb-3 custom-padding-manage-right">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.registered_users }}</h5>
+            <p class="">Registered User</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.new_users }}</h5>
+            <p class="">New Users</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.total_merchants }}</h5>
+            <p class="">Total Merchants</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-left">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.total_businesses }}</h5>
+            <p class="">Total Businesses</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-right">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">                           
+            <h5 class=""><span class="philippines-curency">₱ </span>{{ statatics.total_merchant_balance % 1 === 0 ? statatics.total_merchant_balance : (statatics.total_merchant_balance | number:'1.2-2') }}</h5>
+            <p class="">Total Merchant Balance</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱ </span> {{ statatics.total_business_balance % 1 === 0 ? statatics.total_business_balance : (statatics.total_business_balance | number:'1.2-2') }}</h5>
+            <p class="">Total Business Sales</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{ statatics.pending_invoices_amount % 1 === 0 ? statatics.pending_invoices_amount : (statatics.pending_invoices_amount | number:'1.2-2') }}</h5>
+            <p class="">Total Amount - Pending LP Invoices
+  
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-left">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{ statatics.total_customer_balance % 1 === 0 ? statatics.total_customer_balance : (statatics.total_customer_balance | number:'1.2-2') }}</h5>
+            <p class="">Total Customer’s Wallet Balance</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3 custom-padding-manage-right">
+        <div class="prgressImage-upper-joint">
+          <div class="prgressImage6">
+            <div class="prgressImage-left">
+              <img src="./assets/img/wallet/progress.png" alt="..." />
+            </div>
+            <div class="prgressImage-right2">
+              <p class="total-balance">Total Balance</p>
+              <h3 class=""><span class="philippines-curency">₱</span>
+                {{
+                  statatics.total_balance | number:'1.2-2' 
+                }}
+              </h3>
+            </div>
+          </div>
+          <div class="prgressImage6">
+            <div class="prgressImage-right4">
+              <p class="average-from-last-month">Average From Last Month</p>
+              <div class="average-from-last-month-inner">
+                <img src="../../assets/img/wallet/average-icon.png" /><span
+                  class=""
+                  >+0.5%</span
+                >invoices sent
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="../../assets/img/wallet/total-tansaction.png" alt="..." />
+          </div>
+          <div class="prgressImage-right2">
+            <p class="total-balance">Total Transactions</p>
+            <h5 class=""> {{ statatics.total_tnx }}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-left">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="../../assets/img/wallet/pending-invoce.png" alt="..." />
+          </div>
+          <div class="prgressImage-right2">
+            <p class="total-balance">Pending Invoice</p>
+            <h5 class="">{{ statatics.pending_invoices }}</h5>
+            <p class="loyaltyPoints">Loyalty Points</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-right">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{statatics?.totalCashIn ? statatics?.totalCashIn : '--'}}</h5>
+            <p class="">Cash In</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class=""><span class="philippines-curency">₱</span> {{statatics?.totalCashOut ? statatics?.totalCashOut :'--'}}</h5>
+            <p class="">Cash Out</p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="custom-search-upper">
+        <div class="search-field custom-search">
+            <form>
+              <div class="search-block-outer">
+                <div class="search-icon">
+                  <i class="mdi mdi-magnify"></i>
+                </div>
+                <input type="search" aria-label="Search" class="form-control bg-transparent border-0" placeholder="Search By"/>
+                <div class="close-search">
+                  <i class="mdi mdi-close"></i>
+                </div>
+              </div>
+            </form>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-dsh new-card">
+          <div class="card-body">
+            <h4 class="card-title new-title">Transactions</h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>HostID</th>
+                    <th class="custom-pedding-left">Email</th>
+                    <th>Phone No.</th>
+                    <th>Verification Status</th>
+                    <th>Referral Count</th>
+                    <th>Wallet Balance</th>
+                    <!-- <th> Logins</th> -->
+                    <th>Last Login</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of users?.totalUsers">
+                    <td style="color: #1B86FE;text-decoration: underline;font-weight: 600; cursor: pointer;" [routerLink]="['/user-management/user-profile', item._id]">{{ item?.manualUserId ? item?.manualUserId : '--' }}</td>
+                    <td>
+                      <div class="usert-img">
+                        <div class="usert-img-inner" *ngIf="item?.picture?.profilePic === ''">
+                          <img
+                          src="../../assets/img/faces/user.png"
+                            alt="image"
+                          />
+                        </div>
+                        <div class="usert-img-inner" *ngIf="item?.picture?.profilePic !== ''">
+                          <img
+                            [src]="item?.picture?.profilePic"
+                            alt="image"
+                          />
+                        </div>
+                        <div class="usert-img-inner-text">
+                          <p class="custom-user-name">{{ item?.name?.first }}</p>
+                          <p class="custom-user-email">{{ item?.email?.email }}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="white-space: nowrap;">{{item?.phone?.countryCode}} {{item?.phone?.phoneNumber}}</td>
+                    <td [ngStyle]="getStrongStyle(item?.isDocumentUploaded)">{{item?.documentStatusName}}</td>
+                    <td>{{item?.referralCodeUsedCount ? item?.referralCodeUsedCount : '--'}}</td>
+                    
+                    <td><span class="philippines-curency">₱</span> {{ item?.balance?.mainWallet }}</td>
+                    <!-- <td>5425</td> -->
+                    <td *ngIf="item?.lastLoginAt !== ''">{{item?.lastLoginAt}}</td>
+                    <td *ngIf="item?.lastLoginAt === ''">'--'</td>
+                    <td style="text-align: center;">
+                      <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                        <div class="toggle-on-circle"></div>
+                      </div>
+                      <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                        <div class="toggle-off-circle"></div>
+                      </div>
+                      <span style="font-size: 11px;" [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">{{ item.isActive ? "Active" : "Inactive" }}</span>
+                    </td>
+                    <td>
+                      <a
+                        [routerLink]="['/user-management/user-profile', item._id]"
+                        class="pencile-green"
+                        ><i class="fa fa-pencil"></i
+                      ></a>
+                      <a class="delete-red" (click)="openDeleteModel(item)"
+                        ><i class="fa fa-trash"></i
+                      ></a>
+                    </td>
+                  </tr>
+                </tbody>
+               
+              </table>
+              <div class="no-result-found" *ngIf="users?.totalUsers?.length === 0 && anauthorised === true ">
+                No result found
+              </div>
+              <div class="no-result-found" *ngIf="anauthorised === false  ">
+                Unauthorized Access
+              </div>
+            </div>
+          </div>
+          <div class="custom-button-block"  *ngIf="anauthorised === true && users?.totalUsers?.length !== 0">
+            <button class="btn viewAllButton" [routerLink]="'/user-management'">
+              View all
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div
+      class="modal"
+      id="deleteUserModel"
+      tabindex="-1"
+      role="dialog"
+      [style.display]="modelStyle"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custom-modal-content">
+          <div class="modal-body">
+            <div class="main-delete-block">
+              <div class="delete-main-image">
+                <i class="fa fa-trash"></i>
+              </div>
+              <p class="point-text2">
+                Oops! Do you really want to delete this account -
+                <span>{{ deleteUserId }} </span> ?
+              </p>
+              <div class="custom-delete-modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-cancel"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  (click)="closeModel()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-yes" (click)="deleteUser()">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="modal fade" id="deleteUserModel" tabindex="-1"  [style.display]="modelStyle">
+          <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="custom-modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="main-delete-block">
+                      <div class="delete-main-image">
+                          <img src="../../assets/img/faces/material-symbols_delete.png">
+                        </div>
+                      <p class="point-text2">Oops! Do you really want to delete the account - <span>{{deleteUserId}} </span> ?</p>
+                      <div class="custom-delete-modal-footer">
+                          <button type="submit" class="btn btn-cancel"  data-dismiss="modal" aria-label="Close" (click)="closeModel()">Cancel </button>
+                          <button type="submit" class="btn btn-yes" (click)="deleteUser()"> Delete</button>
+                      </div>
+                  </div>
+              </div>
+             
+            </div>
+          </div>
+        </div> -->
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block">
+                  Are you sure you want to<br/> {{activeInactiveString}} this User?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelCalender">
+    <div class="modal-dialog model-calender-block modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attachmentModelCalenderFunction()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="date-range-picker">
+            <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="start-date">Start Date:</label>
+                    <input 
+                      type="date" 
+                      id="start-date" 
+                      [max]="maxDate" 
+                      class="form-control" 
+                      formControlName="startDate">
+                    <div *ngIf="f.startDate.invalid && (f.startDate.dirty || f.startDate.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.startDate.errors?.required">Start Date is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.startDate.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="end-date">End Date:</label>
+                    <input 
+                      type="date" 
+                      id="end-date" 
+                      class="form-control"  
+                      [max]="maxDate" 
+                      formControlName="endDate">
+                    <div *ngIf="f.endDate.invalid && (f.endDate.dirty || f.endDate.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.endDate.errors?.required">End Date is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.endDate.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-submit-calender-upper">
+                <button type="submit" class="btn btn-submit-calender">Submit</button>
+                <button type="reset" class="btn btn-submit-reset ml-3" (click)="reset()">Reset</button>
+              </div>
+            </form>
+            
+          </div>
+          
+                
+               
+        </div>
+      </div>
+    </div>
+  </div>
+  

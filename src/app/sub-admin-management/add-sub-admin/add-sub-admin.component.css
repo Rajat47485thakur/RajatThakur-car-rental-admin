@@ -1,0 +1,187 @@
+.custom-switch-checkbox .form-check-input:checked {
+  background-color: #00ed64 !important; /* Your custom green color */
+  border-color: #00ed64 !important; /* Your custom green color */
+}
+.custom-switch-checkbox .form-check-input {
+  height: 22px !important;
+  width: 44px !important;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 1px rgb(0 0 0 / 20);
+}
+
+/* .custom-switch-checkbox2 .form-check-input2:checked {
+  background-color: #a532d8 !important;
+  border-color: #a532d8 !important;
+} */
+.main-permissons {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.custom-button-setting-upper
+{
+  text-align: right;
+}
+.custom-button-setting
+{
+  background-color: #1B86FE;
+  border:1px solid #1B86FE;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.custom-button-rest
+{
+  background-color: #ffffff;
+  border:1px solid #1B86FE !important;
+  color: #1B86FE !important;
+  font-size: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.account-status-heading
+{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.deactivate-account
+{
+  white-space: nowrap;
+  margin-left: -36px;
+  margin-top: 10px;
+}
+.main-permissons-label {
+  min-width: 70%;
+  width: 70%;
+}
+.main-permissons-toggle
+{
+  width: 30%;
+}
+.user-profile-image-block {
+  display: flex;
+  align-items: center;
+}
+.no-result-found {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.rset-pass2,
+.rset-pass2:hover {
+  text-decoration: none;
+  color: #a532d8 !important;
+}
+.rset-pass2-upper {
+  text-align: right;
+}
+.border-bottom-block {
+  border-bottom: 1px solid #f1f1f1 !important;
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
+}
+.custom-select-made
+{
+  width: 106px;
+    margin-right: 5px;
+    height: 42px;
+    font-size: 0.8125rem;
+    padding: 6px;
+    background-color: #f6efff;
+    border: 1px solid #dbbeff;
+}
+.custom-select-made2
+{
+    height: 42px;
+    font-size: 0.8125rem;
+    padding: 6px;
+    background-color: #f6efff;
+    border: 1px solid #dbbeff;
+}
+.custom-flex-block
+{
+  display: flex;
+  align-items: center;
+}
+.password-tooltip-text {
+  position: absolute;
+  background-color: black;
+  color: #ffffff;
+  display: none;
+  font-size: 10px;
+  width: 263px;
+  padding: 10px;
+  border-radius: 10px;
+  top: -61px;
+  left: -162px;
+}
+.error-block-password {
+  position: relative;
+}
+.password-tooltip:hover .password-tooltip-text {
+  display: block;
+}
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.password-eye-block {
+  position: relative;
+}
+.nav-profile-img img {
+  width: 100%;
+  max-width: 100px;
+  height: 100%;
+  max-height: 100px;
+  object-fit: contain;
+}
+.user-name-custom {
+  font-weight: 600;
+  font-size: 17px;
+}
+.user-detail-custom {
+  font-size: 12px;
+  color: #a5a5a5;
+  margin-bottom: 0px !important;
+}
+.user-detail-custom-heading {
+  font-size: 12px;
+  color: #a5a5a5;
+  font-weight: 600;
+  margin-bottom: 0px !important;
+}
+.user-profile-heading {
+  margin-bottom: 0px;
+}
+.user-go-back-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.user-go-back-main-inner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #1B86FE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+.user-go-back-main-inner img {
+  width: 100%;
+  max-width: 12px;
+}

@@ -1,0 +1,309 @@
+.custom-right-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .custom-card {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  .custom-card .sales {
+    font-size: 15px;
+    color: #a5a5a5;
+    font-weight: 600;
+  }
+  .custom-card .sales-price {
+    font-size: 20px;
+    color: #000;
+    font-weight: 700;
+  }
+  table,
+  th,
+  td {
+    border: none !important;
+  }
+  .sales-main {
+    position: relative;
+  }
+  .percentage {
+    position: absolute;
+    bottom: 6px;
+    right: 14px;
+  }
+  .percentage-plus {
+    font-size: 14px;
+    font-weight: 700;
+    color: #38e25d;
+  }
+  .percentage-plus img {
+    width: 100%;
+    max-width: 15px;
+  }
+  .percentage-minus img {
+    width: 100%;
+    max-width: 15px;
+  }
+  .percentage-minus {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f14336;
+  }
+  .chart-block {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+  }
+  .recent-transactions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 11px 13px 11px;
+  }
+  .recent-transactions-inner {
+    color: #1B86FE;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .recent-transactions-inner img {
+    position: absolute;
+    right: -9px;
+    width: 5px;
+    top: 8px;
+    height: 7px;
+    object-fit: contain;
+  }
+  .prgressImage {
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 95px;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .prgressImage-left {
+    width: 35%;
+  }
+  
+  .prgressImage-left img {
+    width: 100% !important;
+    margin-left: 0px !important;
+    max-width: 100px;
+  }
+  
+  .prgressImage-right p {
+    margin-bottom: 0px;
+  }
+  
+  .prgressImage-right {
+    width: 65%;
+    padding-left: 10px;
+  }
+  .top-customer-sub-heading {
+    font-size: 12px;
+    color: #969ba0;
+    margin-bottom: 0px;
+  }
+  
+  .card-dsh {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+  }
+  .top-customer-list {
+    padding: 20px;
+  }
+  .top-customer-heading {
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+  .table thead tr th
+  {
+    font-size: 15px !important;
+    border-bottom: 1px solid #ebedf2 !important;
+  }
+  .view-all {
+    text-align: right;
+  }
+  .btn-filters {
+    background-color: #ffffff;
+    color: #1B86FE;
+    border: 1px solid #1B86FE;
+    margin-left: 12px;
+    padding: 11px 23px;
+    border-radius: 20px;
+    font-size: 16px;
+  }
+  .btn-filters:hover {
+    background-color: #1B86FE;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    margin-left: 12px;
+    padding: 11px 23px;
+    border-radius: 20px;
+    font-size: 16px;
+  }
+  .view-all span {
+    color: #969ba0;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .mobile-data-export {
+    display: none;
+  }
+  .custom-button-block {
+    text-align: right;
+  }
+  
+  .top-customer-first img {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+  }
+  .top-customer-second {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .top-customer-third .top-customer-third-name {
+    margin-bottom: 0px;
+    font-size: 13px;
+    color: #000;
+    font-weight: 600;
+  }
+  .top-customer-third2 .top-customer-third-name2 {
+    margin-bottom: 0px;
+    font-size: 14px;
+    color: #000;
+    font-weight: 400;
+  }
+  .top-customer-third2 .top-customer-third-name3 {
+    margin-bottom: 0px;
+    font-size: 14px;
+    color: #34c657;
+    font-weight: 600;
+  }
+  .no-result-found {
+    text-align: center;
+}
+  .top-customer-third .top-customer-third-email,
+  .top-customer-forth-right-transaction {
+    margin-bottom: 0px;
+    font-size: 10px;
+    color: #a5a5a5;
+  }
+  .top-customer-forth {
+    display: flex;
+  }
+  .top-customer-forth img {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    margin-top: 6px;
+    margin-right: 6px;
+  }
+  .common-class {
+    display: flex;
+    justify-content: space-between;
+  }
+  .top-customer-forth-right-amount {
+    margin-bottom: 0px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1B86FE;
+  }
+  .table tbody tr {
+    padding: 10px 0px;
+  }
+  .model-calender-block
+{
+  width: 100%;
+  max-width: 400px;
+}
+.custom-modal-header {
+  width: 100%;
+  text-align: right;
+}
+.btn-submit-calender
+{
+  background-color: #1B86FE;
+  color: #fff;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+.btn-submit-reset
+{
+  background-color: #ffffff;
+  border:1px solid #1B86FE;
+  color: #1B86FE;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+.btn-submit-calender-upper
+{
+  margin-top: 10px;
+  text-align: center;
+}
+  @media only screen and (max-width: 767px) {
+    .content-wrapper {
+      background: #f2edf3;
+      padding: 2.75rem 10px;
+      width: 100%;
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+    }
+  
+    .page-header {
+      display: block !important;
+    }
+  
+    .page-header .page-title {
+      margin-bottom: 10px !important;
+      font-size: 22px !important;
+    }
+  
+    .mobile-data-export {
+      display: initial !important;
+    }
+  
+    .web-data-export {
+      display: none !important;
+    }
+  
+    .header-responsive-block {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .mobile-breadcrumb {
+      padding: 5px 10px !important;
+    }
+  
+    nav.ndash-icon.change {
+      margin-right: 0px !important;
+      background-color: #fff !important;
+      width: 100% !important;
+      margin-top: 10px !important;
+    }
+  
+    .prgressImage-left {
+      width: 20%;
+    }
+  
+    .prgressImage-left img {
+      width: 100% !important;
+      margin-left: 0px !important;
+      max-width: 50px;
+    }
+  }
+  

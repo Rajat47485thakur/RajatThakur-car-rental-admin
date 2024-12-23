@@ -1,0 +1,364 @@
+
+<div class="common-class">
+  <div class="common-class-left">
+    <span class="card-title new-title" >Loyalty Points
+     
+    </span>
+    <div class="new-custom-button-for-mobile">
+      <a [routerLink]="['/cms/add-cms']" class="custom-button"
+       >Configure</a>
+    </div>
+  </div>
+  <div class="common-class-right">
+    <div class="search-field custom-search">
+      <!-- <form class="d-flex align-items-center h-100" action="#">
+        <div class="input-group">
+          <div class="input-group-prepend bg-transparent">
+            <i class="input-group-text border-0 mdi mdi-magnify"></i>
+          </div>
+          <input type="text" class="form-control bg-transparent border-0" placeholder="Search here">
+        </div>
+      </form> -->
+      <form>
+        <div class="search-block-outer">
+          <div class="search-icon">
+            <i class="mdi mdi-magnify"></i>
+          </div>
+          <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+          (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+          <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+            <i class="mdi mdi-close"></i>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="new-custom-button2">
+      <a [routerLink]="['/loyalty-points/reports']" class="custom-button"
+      >Generate Reports </a>
+    </div>
+    <!-- <div class="new-custom-button">
+      <a [routerLink]="['/loyalty-points/edit-points']" class="custom-button"
+      >Configure</a>
+    </div> -->
+    <!-- <div class="three-dots-block">
+      <div class="btn-group dropstart">
+        <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <ul class="icons2">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" >Points earned history</a></li>
+          <li>
+            <a class="dropdown-item" >Reward History</a>
+          </li>
+          <li>
+            <a class="dropdown-item">Redeemed History</a>
+          </li>
+          <li>
+            <a class="dropdown-item">Expired History</a>
+          </li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="card-dsh new-card other-pages">
+  <div class="card-body comman-scroll-block">
+    <div class="table-responsive user-table">
+      <table class="table">
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone no</th>
+              <th>Points Earned</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+        </thead>
+        <!-- <tbody>
+          <tr>
+            <td>#INV-0001234</td>
+            <td>Alen breef</td>
+            
+            <td><span class="icons-i2">
+              <i class="mdi mdi-email menu-icon"></i> </span>highspeed@mail.com</td>
+              <td>9876581900</td>
+           <td> 54,569</td>
+           <td><div class="form-check form-switch custom-switch-checkbox">
+            <div class="form-check form-switch custom-switch-checkbox">
+              <input
+                class="form-check-input"
+               checked
+                type="checkbox"
+              />
+            </div>
+          </div></td>
+           <td><div class="view-button"><button class="view-button-inner" [routerLink]="['/loyalty-points/view-points']">View</button></div></td>
+          </tr>
+          <tr>
+            <td>#INV-0001234</td>
+            <td>Alen breef</td>
+            
+            <td><span class="icons-i2">
+              <i class="mdi mdi-email menu-icon"></i> </span>highspeed@mail.com</td>
+              <td>9876581900</td>
+           <td> 54,569</td>
+           <td><div class="form-check form-switch custom-switch-checkbox">
+            <div class="form-check form-switch custom-switch-checkbox">
+              <input
+                class="form-check-input"
+               checked
+                type="checkbox"
+              />
+            </div>
+          </div></td>
+           <td><div class="view-button"><button class="view-button-inner" [routerLink]="['/loyalty-points/view-points']">View</button></div></td>
+          </tr>
+          <tr>
+            <td>#INV-0001234</td>
+            <td>Alen breef</td>
+            
+            <td><span class="icons-i2">
+              <i class="mdi mdi-email menu-icon"></i> </span>highspeed@mail.com</td>
+              <td>9876581900</td>
+           <td> 54,569</td>
+           <td><div class="form-check form-switch custom-switch-checkbox">
+            <div class="form-check form-switch custom-switch-checkbox">
+              <input
+                class="form-check-input"
+               checked
+                type="checkbox"
+              />
+            </div>
+          </div></td>
+           <td><div class="view-button"><button class="view-button-inner" [routerLink]="['/loyalty-points/view-points']" >View</button></div></td>
+          </tr>
+          <tr>
+            <td>#INV-0001234</td>
+            <td>Alen breef</td>
+            
+            <td><span class="icons-i2">
+              <i class="mdi mdi-email menu-icon"></i> </span>highspeed@mail.com</td>
+              <td>9876581900</td>
+           <td> 54,569</td>
+           <td><div class="form-check form-switch custom-switch-checkbox">
+            <div class="form-check form-switch custom-switch-checkbox">
+              <input
+                class="form-check-input"
+               checked
+                type="checkbox"
+              />
+            </div>
+          </div></td>
+           <td><div class="view-button"><button class="view-button-inner">View</button></div></td>
+          </tr>
+          <tr>
+            <td>#INV-0001234</td>
+            <td>Alen breef</td>
+            
+            <td><span class="icons-i2">
+              <i class="mdi mdi-email menu-icon"></i> </span>highspeed@mail.com</td>
+              <td>9876581900</td>
+           <td> 54,569</td>
+           <td><div class="form-check form-switch custom-switch-checkbox">
+            <div class="form-check form-switch custom-switch-checkbox">
+              <input
+                class="form-check-input"
+               checked
+                type="checkbox"
+              />
+            </div>
+          </div></td>
+           <td><div class="view-button"><button class="view-button-inner">View</button></div></td>
+          </tr>
+        </tbody> -->
+        <tbody>
+          <tr *ngFor="let item of users">
+            <td style="color: #1B86FE;text-decoration: underline;font-weight: 600; cursor: pointer;" [routerLink]="['/loyalty-points/view-points',item.userId]">{{ item?.manualUserId ? item?.manualUserId :'--'}}</td>
+            <td>
+              <div class="usert-img">
+                <!-- <div class="usert-img-inner" *ngIf="item?.profilePic === ''">
+                  <img
+                  src="../../assets/img/faces/user.png"
+                    alt="image1"
+                  />
+                </div> -->
+                <div class="usert-img-inner">
+                  <img
+                    [src]="item?.profilePic ? item?.profilePic :'../../assets/img/faces/user.png'"
+                    alt="image2"
+                  />
+                </div>
+                <div class="usert-img-inner-text">
+                  <p class="custom-user-name">{{ item?.name ? item?.name:'--'}}</p>
+                  <p class="custom-user-email">{{ item?.email ? item?.email:'--' }}</p>
+                </div>
+              </div>
+            </td>
+            <td style="white-space: nowrap;">{{item?.phoneNumber ? item?.phoneNumber:'--'}}</td>
+            <td>{{item?.pointsEarned ? item?.pointsEarned : '--'}}</td>
+        
+           
+                  <!-- <td>5425</td> -->
+                  <!-- <td *ngIf="item?.lastLoginAt !== ''">{{item?.lastLoginAt | date:'dd-MM-yyyy'}}</td> -->
+                  
+            <td style="text-align: center;">
+              <span style="font-size: 11px;" [ngStyle]="{ color: item.isActive === 1 ? '#00ed64' : 'red' }">{{ item.isActive === 1 ? "Active" : "Inactive" }}</span>
+            </td>
+          
+            <td><div class="view-button"><button class="view-button-inner" [routerLink]="['/loyalty-points/view-points',item.userId]" >View</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="no-result-found" *ngIf="users?.length == 0">
+        No result found
+      </div>
+
+    </div>
+    <div class="next-previous-button-block">
+      <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+        Previous
+      </button>
+      <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+        *ngIf="totalPage > 1 && totalPage != currentPage">
+        Next
+      </button>
+    </div>
+    <div class="page-count" *ngIf="totalPage >= 1">
+      <p>Page {{ currentPage }} of {{ totalPage }}</p>
+    </div>
+  </div>
+  </div>
+  <div class="modal fade" id="preview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog large-dialog-modal modal-dialog-centered">
+      <div class="modal-content modal-content-priview">
+        <div class="row align-items-center">
+<div class="col-md-7">
+  <span class="preview-condion">Terms & Conditions</span>
+</div>
+<div class="col-md-2 ml-auto">
+  <span class="preview-condion">25/11/203</span>
+</div>
+<div class="col-md-1">
+  <div class="form-check form-switch custom-switch-checkbox">
+    <div class="form-check form-switch custom-switch-checkbox">
+      <input
+        class="form-check-input"
+       checked
+        type="checkbox"
+      />
+    </div>
+  </div>
+</div>
+<div class="col-md-1">
+  <span class="mdi mdi-eye-outline"></span>
+</div>
+<div class="col-md-1">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+        </div>
+        <div class="modal-body p-0">
+          <div class="preview-cms-data">
+          <ol>
+            <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. </li>
+            <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. </li>
+            <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. </li>
+            <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. </li>
+            <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. </li>
+            <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. </li>
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="errorNotUpdated" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog small-dialog-modal modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="preview-cms-data">
+          <div class="error-block">
+            <div class="error-block-image-left">
+              <img src="../../assets/img/faces/document-reject.png">
+            </div>
+            <div class="error-block-image-right">
+              <span>Error !</span> FAQ’s have not been updated/added.<br/> Please try again.
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="errorAddingPage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog small-dialog-modal modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="preview-cms-data">
+          <div class="error-block">
+            <div class="error-block-image-left">
+              <img src="../../assets/img/faces/document-reject.png">
+            </div>
+            <div class="error-block-image-right">
+              <span>Error !</span> in adding a page. Please try again.
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="privacyPolicy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog small-dialog-modal modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="preview-cms-data">
+          <div class="error-block">
+            <div class="error-block-image-left">
+              <img src="../../assets/img/faces/document-tick.png">
+            </div>
+            <div class="error-block-image-right">
+              Privacy Policy has updated successfully.
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="terms&condion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog small-dialog-modal modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="preview-cms-data">
+          <div class="error-block">
+            <div class="error-block-image-left">
+              <img src="../../assets/img/faces/document-tick.png">
+            </div>
+            <div class="error-block-image-right">
+              Terms & Conditions added successfully.
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

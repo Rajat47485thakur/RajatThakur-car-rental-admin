@@ -1,0 +1,588 @@
+<div class="common-class">
+  <div class="common-class-left">
+    <span class="card-title new-title">User Management
+      <span *ngIf="statusType != 'ALL'" [ngStyle]="{ color: statusType == 'ACTIVE' ? '#00ed64' : 'red' }">
+        <ng-container *ngIf="statusType == 'ACTIVE'; then activeUsers; else inactiveUsers">
+        </ng-container>
+
+        <ng-template #activeUsers>
+          <span>- Active Users</span>
+        </ng-template>
+        <ng-template #inactiveUsers>
+          <span>- <span class="custon-red">InActive Users</span></span>
+        </ng-template>
+      </span>
+    </span>
+    <div class="new-custom-button-for-mobile">
+      <a href="javascript:void(0);" data-toggle="modal" data-target="#AddForm" class="custom-button"
+        (click)="resetForm()">+ Add New User</a>
+    </div>
+  </div>
+  <div class="common-class-right">
+    <div class="search-field custom-search">
+      <form>
+        <div class="search-block-outer">
+          <div class="search-icon">
+            <i class="mdi mdi-magnify"></i>
+          </div>
+          <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+          (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+          <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+            <i class="mdi mdi-close"></i>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="new-custom-button">
+      <a href="javascript:void(0);" data-toggle="modal" data-target="#AddForm" class="custom-button"
+        (click)="resetForm()">+Add New User</a>
+    </div>
+    <div class="three-dots-block">
+      <div class="btn-group dropstart">
+        <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <ul class="icons2">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="loadUsers('ALL')">All Users</a></li>
+          <li>
+            <a class="dropdown-item" (click)="loadUsers('ACTIVE')">Active Users</a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="loadUsers('INACTIVE')">InActive Users</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-dsh new-card other-pages">
+  <div class="card-body comman-scroll-block">
+    <div class="table-responsive user-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th (click)="sorting('name')" class="custom-pointer custom-pedding-left">
+              <span class="mdi mdi-unfold-more-horizontal custom-pointer-inner-icon"></span>Name
+            </th>
+            <th>Phone no</th>
+            <th>Referral Count</th>
+            <th>Verification Status</th>
+            <th>Wallet Balance</th>
+            <th>Last Login</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of users.totalUsers">
+            <td [routerLink]="['/user-management/user-profile',item._id]" style="color: #1B86FE;text-decoration: underline;font-weight: 600; cursor: pointer;">{{ item.manualUserId
+            }}</td>
+            <td>
+              <div class="usert-img">
+                <div class="usert-img-inner" *ngIf="item?.picture?.profilePic === ''">
+                  <img
+                  src="../../assets/img/faces/user.png"
+                    alt="image"
+                  />
+                </div>
+                <div class="usert-img-inner" *ngIf="item?.picture?.profilePic !== ''">
+                  <img
+                    [src]="item?.picture?.profilePic"
+                    alt="image"
+                  />
+                </div>
+                <div class="usert-img-inner-text">
+                  <p class="custom-user-name">{{ item?.name?.first }}</p>
+                  <p class="custom-user-email">{{ item.email.email }}</p>
+                </div>
+              </div>
+            </td>
+            <td style="white-space: nowrap;">{{item?.phone?.countryCode}} {{item?.phone?.phoneNumber}}</td>
+            <td>{{item?.referralCodeUsedCount ? item?.referralCodeUsedCount : '--'}}</td>
+            <td [ngStyle]="getStrongStyle(item?.isDocumentUploaded)">{{item?.documentStatusName}}</td>
+            <td>{{ item.balance.mainWallet }}</td>
+                  <!-- <td>5425</td> -->
+                  <!-- <td *ngIf="item?.lastLoginAt !== ''">{{item?.lastLoginAt | date:'dd-MM-yyyy'}}</td> -->
+                  <td *ngIf="item?.lastLoginAt !== '' && item?.lastLoginAt !== null">{{item?.lastLoginAt | relativeTimePipe}}</td>
+                  <td *ngIf="item?.lastLoginAt === '' || item?.lastLoginAt === null">--</td>
+            <td style="text-align: center;">
+              <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                <div class="toggle-on-circle"></div>
+              </div>
+              <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                <div class="toggle-off-circle"></div>
+              </div>
+              <span style="font-size: 11px;" [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">{{ item.isActive ? "Active" : "Inactive" }}</span>
+            </td>
+            <td>
+              <a
+                [routerLink]="['/user-management/user-profile', item._id]"
+                class="pencile-green"
+                ><i class="fa fa-pencil"></i
+              ></a>
+              <a class="delete-red" (click)="openDeleteModel(item)"
+                ><i class="fa fa-trash"></i
+              ></a>
+            </td>
+            <!-- <td>
+              <a class="pencile-green" 
+              ><i class="fa fa-pencil"></i
+            ></a> -->
+              <!-- <div class="three-dots-block">
+                <div class="btn-group dropstart">
+                  <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <ul class="icons2">
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" [routerLink]="[
+                          '/user-management/user-profile',
+                          item._id
+                        ]">Edit</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#enable"
+                        (click)="changeAdminStatus('enable', item._id)">Enable</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#disable"
+                        (click)="changeAdminStatus('disable', item._id)">Disable</a>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+            <!-- </td> -->
+          </tr>
+        </tbody>
+      </table>
+      <div class="no-result-found" *ngIf="users?.totalUsers?.length == 0">
+        No result found
+      </div>
+    </div>
+  </div>
+  <div class="next-previous-button-block">
+    <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+      Previous
+    </button>
+    <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+      *ngIf="totalPage > 1 && totalPage != currentPage">
+      Next
+    </button>
+  </div>
+  <div class="page-count" *ngIf="totalPage >= 1">
+    <p>Page {{ currentPage }} of {{ totalPage }}</p>
+  </div>
+</div>
+
+<!-- Add Form -->
+<div class="modal fade" id="AddForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="close closeModel" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="sub-title">Add User Details</div>
+      <form [formGroup]="addUser" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Username</label>
+              <span class="label-title">-mandatory</span>
+              <div class="form-input-block">
+                <input type="text" class="form-control disable-autocomplete" formControlName="userName"
+                    [ngClass]="{
+                    'is-invalid': (submitted && addUser.get('userName').hasError('required')) ||
+                    (addUser.get('userName').hasError('required') && addUser.get('userName').touched) ||
+                    addUser.get('userName').hasError('minlength') ||
+                    addUser.get('userName').hasError('maxlength') ||
+                    (addUser.get('userName').hasError('startsWithSpace') && !addUser.get('userName').hasError('required'))
+                  }" autocomplete="off"/>
+                <div class="invalid-feedback">
+                  <div
+                    *ngIf="(submitted && addUser.get('userName').hasError('required')) || (addUser.get('userName').hasError('required') && addUser.get('userName').touched)">
+                    Username is required
+                  </div>
+                  <div *ngIf="addUser.get('userName').hasError('minlength')">
+                    Username must be at least 6 characters
+                  </div>
+                  <div *ngIf="addUser.get('userName').hasError('maxlength')">
+                    Username must not exceed 20 characters
+                  </div>
+                  <div
+                    *ngIf="addUser.get('userName').hasError('startsWithSpace') && !addUser.get('userName').hasError('required')">
+                    Cannot start with whitespace
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Name </label>
+              <span class="label-title">-mandatory</span>
+              <div class="form-input-block">
+                <div class="custom-flex-block">
+                  <select class="form-select custom-select-made" aria-label="Default select example" formControlName="last">
+                    <option value='Mr.'>Mr</option>
+                    <option value='Miss.'>Miss</option>
+                    <option value='Mrs.'>Mrs</option>
+                    <option value='Dr.'>Dr</option>
+                    <option value='Er.'>Er</option>
+                  </select>
+                  <input type="text" class="form-control"
+                  formControlName="firstName" class="form-control" [ngClass]="{
+                    'is-invalid': (submitted && addUser.get('firstName').hasError('required')) ||
+                    (addUser.get('firstName').hasError('required') && addUser.get('firstName').touched) ||
+                    (addUser.get('firstName').hasError('startsWithSpace') && !addUser.get('firstName').hasError('required'))
+                  }" autocomplete="off"/>
+                </div>
+                
+                <div class="invalid-feedback">
+                  <div *ngIf="(submitted && (addUser.get('firstName').hasError('required')) || 
+                  ( addUser.get('firstName').hasError('required') &&  addUser.get('firstName').touched))">
+                    First name is required
+                  </div>
+                </div>
+                <div *ngIf="addUser.get('firstName').touched && addUser.get('firstName').errors?.startsWithSpace &&
+                   !addUser.controls['firstName'].errors?.required" class="invalid-feedback">
+                  Cannot start with whitespace
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6 mb-3">
+              <label>Last Name</label>
+              <div class="form-input-block">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lastName"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': (submitted && addUser.get('lastName').hasError('startsWithSpace') && addUser.get('lastName').touched) ||
+                    (addUser.get('lastName').hasError('startsWithSpace') && addUser.get('lastName').touched)
+                  }"
+                />
+                <div class="invalid-feedback">
+                  <div
+                    *ngIf="
+                    addUser.get('lastName').hasError('startsWithSpace') && addUser.get('lastName').touched
+                    "
+                  >
+                    Cannot start with whitespace
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="col-md-6 mb-3">
+              <label>Email ID</label>
+              <span class="label-title">-mandatory</span>
+              <div class="form-input-block">
+                <input type="text" class="form-control" formControlName="email" class="form-control disable-autocomplete" [ngClass]="{
+                    'is-invalid': (submitted && addUser.get('email').hasError('required')) ||
+                    (addUser.get('email').hasError('required') && addUser.get('email').touched) ||
+                    (addUser.get('email').hasError('startsWithSpace') && !(addUser.get('email').hasError('required')) && !(addUser.get('email').hasError('email'))) ||
+                    addUser.get('email').hasError('email') || (addUser.get('email').hasError('invalidEmail') && addUser.get('email').touched)
+                  }" autocomplete="off"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="
+                      (submitted && addUser.controls['email'].errors?.required && !(addUser.get('email').hasError('invalidEmail') && addUser.get('email').touched)) || 
+                      (addUser.controls['email'].errors?.required && addUser.get('email').touched) &&
+                      !(addUser.get('email').hasError('invalidEmail') && addUser.get('email').touched)  ">
+                    Email is required
+                  </div>
+                  <div *ngIf="
+                     addUser.get('email').hasError('invalidEmail') && !addUser.controls['email'].errors?.required
+                    ">
+                    Email must be a valid email address
+                  </div>
+                  <div *ngIf="
+                    addUser.get('email').hasError('startsWithSpace') &&
+                      !(addUser.controls['email'].errors?.required)  && !(addUser.get('email').hasError('email'))
+                    ">
+                    Cannot start with whitespace
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Phone NO.</label>
+              <span class="label-title">-mandatory</span>
+              <ngx-intl-tel-input [cssClass]="'custom'"
+                [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.India" [phoneValidation]="true" name="phoneNumber"
+                formControlName="phoneNumber" autocomplete="off"></ngx-intl-tel-input>
+              <div class="invalid-feedback" *ngIf="
+             (addUser.controls['phoneNumber'].errors && addUser.get('phoneNumber').touched) ||
+             (submitted && addUser.controls['phoneNumber'].errors)
+                      ">
+                Please enter valid number
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Password</label>
+              <div class="form-input-block">
+                <input type="password" class="form-control" formControlName="password" class="form-control"
+                  placeholder="Example&123" [ngClass]="{
+                    'is-invalid': (submitted && addUser.get('password').hasError('required')) ||
+                    (addUser.get('password').hasError('required') && addUser.get('password').touched) ||
+                    addUser.get('password').hasError('minlength')
+                  }" autocomplete="off"/>
+                <div class="invalid-feedback">
+                  <div *ngIf="
+                      (submitted && addUser.controls['password'].errors?.required) ||
+                      (addUser.controls['password'].errors?.required && addUser.get('password').touched) &&
+                      !(addUser.get('password').hasError('invalidPassword') && addUser.get('password').touched)
+                     
+                    ">
+                    Password is required
+                  </div>
+                  <!-- <div *ngIf="addUser.controls['password'].errors?.minlength && !(addUser.get('password').errors?.startsWithSpace)">Password must be
+                                        at least 6 characters</div> -->
+                  <div *ngIf="addUser.get('password').hasError('minlength')">Password must be at least 8 characters
+                  </div>
+                  <div *ngIf="
+                      addUser.get('password').errors?.startsWithSpace &&
+                      !addUser.controls['password'].errors?.required
+                    ">
+                    Cannot start with whitespace
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+                            <label>Confirm Password</label>
+                            <span class="label-title">-mandatory</span>
+                            <div class="form-group row">
+                                <input type="text" class="form-control" formControlName="password"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && addUser.controls['confirmPassword'].errors }" />
+                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                        <div *ngIf="addUser.controls['confirmPassword'].errors?.required">Password is required</div>
+                                        <div *ngIf="addUser.controls['confirmPassword'].mustMatch">Passwords must match</div>
+                                    </div>
+                            </div>
+                        </div> -->
+          </div>
+          <div class="modal-footer border-top-0 d-flex justify-content-center">
+            <button type="submit" class="btn btn-success modal-button" [disabled]="SERVER.isSubmitting">
+              <i class="mdi mdi-sim"></i> Save
+            </button>
+            <button class="btn btn-secondary" type="reset" (click)="onReset()" data-dismiss="modal" aria-label="Close">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Form -->
+<div class="modal fade" id="EditForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="sub-title">Update User Details</div>
+      <form>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label>First Name </label>
+              <span class="label-title">-mandatory</span>
+              <div class="form-group row">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>Last Name</label>
+              <div class="form-group row">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Email ID</label>
+              <span class="label-title">-mandatory</span>
+              <div class="form-group row">
+                <input type="email" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>Phone NO.</label>
+              <span class="label-title">-mandatory</span>
+              <div class="form-group row">
+                <input type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Password</label>
+              <div class="form-group row">
+                <input type="password" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0 d-flex justify-content-center">
+            <button type="submit" class="btn btn-success modal-button">
+              <i class="mdi mdi-sim"></i> Update
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 4 document success-->
+<!-- <div class="modal fade" id="disable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="custom-modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="document-approved-main">
+          <div class="document-approved-main-image">
+            <img src="../../assets/img/wallet/warning.png" />
+          </div>
+          <p class="document-reject-main-successfully">Disable User</p>
+          <p class="document-reject-main-id">
+            Do you want to disable this user?
+          </p>
+          <div class="disabled-btn-block">
+            <button class="btn btn-temporary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            <button class="btn btn-permanent" (click)="updateUserStatus()">
+              Disable
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Modal 5 document reject-->
+<!-- <div class="modal fade" id="enable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="custom-modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="document-approved-main">
+          <div class="document-reject-main-image">
+            <img src="../../assets/img/wallet/fa-regular_user.png" />
+          </div>
+          <p class="document-reject-main-successfully">Enable User</p>
+          <p class="document-reject-main-id">Do you want to enable ?</p>
+          <button class="btn btn-enable" (click)="updateUserStatus()">
+            Enable
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- Modal 6 permission-->
+
+<div class="modal fade" id="documentModalSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="custom-modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="document-approved-main">
+          <div class="document-approved-main-image10">
+            <img src="../../assets/img/faces/document-tick.png" />
+          </div>
+          <p class="document-approved-main-successfully">
+            User {{ updateUser?.userAction }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+  <div class="modal-dialog small-modal-custom modal-dialog-centered">
+    <div class="modal-content">
+      <div class="custom-modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="attacmentCloseModel3()"></button>
+      </div>
+      <div class="modal-body p-0">
+          
+              <div class="profile-upper-block">
+                Are you sure you want to<br/> {{activeInactiveString}} this User?
+              </div>
+              <div class="button-block-yes-no">
+                <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+              </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+class="modal"
+id="deleteUserModel"
+tabindex="-1"
+role="dialog"
+[style.display]="modelStyle"
+>
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content custom-modal-content">
+    <div class="modal-body">
+      <div class="main-delete-block">
+        <div class="delete-main-image">
+          <img src="../../assets/img/faces/material-symbols_delete.png" />
+        </div>
+        <p class="point-text2">
+          Oops! Do you really want to delete this account -
+          <span>{{ deleteUserId }} </span> ?
+        </p>
+        <div class="custom-delete-modal-footer">
+          <button
+            type="submit"
+            class="btn btn-cancel"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="closeModel()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-yes" (click)="deleteUser()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

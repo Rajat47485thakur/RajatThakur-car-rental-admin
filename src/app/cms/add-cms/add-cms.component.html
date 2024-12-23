@@ -1,0 +1,131 @@
+
+<div class="common-class">
+  <!-- <div class="common-class-left"> -->
+    <div class="user-go-back-main">
+      <div class="user-go-back-main-inner" (click)="goBack()">
+        <img src="../../assets/img/wallet/user-go-back.png" alt="" />
+      </div>
+      <h4 class="user-profile-heading mb-0" *ngIf="!updateFormValue">Add CMS</h4>
+      <h4 class="user-profile-heading mb-0" *ngIf="updateFormValue">Edit CMS</h4>
+    </div>
+  <!-- </div> -->
+</div>
+<div class="card-dsh">
+  <h5 class="new-page-heading">New Page</h5>
+  <!-- <form>
+  <div class="row">
+    <div class="col-md-6">
+        <div class="mb-4 new-page-combind">
+          <label for="" class="form-label">Page title</label>
+          <input type="text" class="form-control" >
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-4 new-page-combind">
+        <label for="" class="form-label">Page Sub - title</label>
+        <input type="text" class="form-control" >
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div class="mb-4 new-page-combind">
+      <label for="" class="form-label">Type</label>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>select Type</option>
+        <option value="1">Terms and conditions</option>
+        <option value="2">Privacy policy</option>
+        <option value="3">About us</option>
+        <option value="5">Others</option>
+      </select>
+    </div>
+</div>
+  <div class="col-md-12">
+    <div class="mb-4 new-page-combind">
+      <label for="" class="form-label">Body Text</label>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+        <ngx-editor [editor]="editor" [ngModel]="html" [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="custom-csm-button-block">
+<button class="btn btn-priview">Preview</button>
+<button class="btn btn-create" (click)="submitForm()">Create</button>
+    </div>
+  </form> -->
+  <form [formGroup]="createForm" (ngSubmit)="submitForm()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-4 new-page-combind">
+          <label for="pageTitle" class="form-label">Page Title</label>
+          <input type="text" class="form-control" id="pageTitle" formControlName="pageTitle">
+          <div *ngIf="createForm.get('pageTitle').invalid && createForm.get('pageTitle').touched" class="text-danger">
+            Page title is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-4 new-page-combind">
+          <label for="pageSubTitle" class="form-label">Page Sub - Title</label>
+          <input type="text" class="form-control" id="pageSubTitle" formControlName="pageSubTitle">
+          <!-- <div *ngIf="createForm.get('pageSubTitle').invalid && createForm.get('pageSubTitle').touched" class="text-danger">
+            Page Sub - title is required
+          </div> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-4 new-page-combind">
+          <label for="type" class="form-label">Type</label>
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="typeData" id="type" formControlName="type">
+            <option [value]="null" disabled selected>Select Type</option>
+            <option value=1>Terms and conditions</option>
+            <option value=2>Privacy policy</option>
+            <option value=3>About us</option>
+            <option value=5>Others</option>
+          </select>
+          <div *ngIf="createForm.get('type').invalid && createForm.get('type').touched" class="text-danger">
+            Type is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-4 new-page-combind">
+          <label for="bodyText" class="form-label">Body Text</label>
+          <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor [editor]="editor" [ngModel]="html" formControlName="description" [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-csm-button-block">
+      <button type="button" class="btn btn-priview" (click)="showPreview()">Preview</button>
+      <button type="submit" class="btn btn-create" [disabled]="createForm.invalid">{{!updateFormValue ? 'Create':'Update'}}</button>
+    </div>
+  </form>
+  
+    
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle4">
+    <div class="modal-dialog large-dialog-modal modal-dialog-centered">
+      <div class="modal-content modal-content-priview">
+        <div class="main-condition-block">
+<div class="main-condition-block-terms">
+  <span class="preview-condion preview-condion2" *ngIf="typeData==1">Terms & Conditions</span>
+  <span class="preview-condion preview-condion2" *ngIf="typeData==2">Privacy policy</span>
+  <span class="preview-condion preview-condion2" *ngIf="typeData==3">About us</span>
+  <span class="preview-condion preview-condion2" *ngIf="typeData==5">Others</span>
+</div>
+
+<div class="main-condition-block-terms-cross">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="attacmentCloseModel4()"></button>
+</div>
+        </div>
+        <div class="modal-body p-0">
+          <div class="preview-cms-data"  [innerHTML]="getTrustedHtml(previewHtml)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,150 @@
+.card-dsh {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    padding: 20px;
+  }
+  .new-page-heading
+  {
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  .new-page-combind input, .new-page-combind textarea, .new-page-combind select
+  {
+    background-color: #F3F4F6;
+    border: 1px solid #DFE4EA;
+  }
+  .custom-csm-button-block
+  {
+    text-align: right;
+  }
+  ::ng-deep .NgxEditor__Wrapper {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 300px;
+    padding: 10px;
+  }
+  .large-dialog-modal
+  {
+    width: 100%;
+    max-width: 51% !important;
+    margin: auto;
+  }
+  ngx-editor {
+    width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+  }
+  .main-condition-block-terms-cross {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+  .preview-condion2
+  {
+    font-size: 16px;
+    color: #000000;
+    font-weight: bold;
+  }
+  .main-condition-block-terms {
+    text-align: center;
+}
+  .main-condition-block {
+    position: relative;
+}
+  .custom-csm-button-block .btn-priview
+  {
+    color: #202020;
+    background-color: #ffffff;
+    border:1px solid #DFE4EA;
+    margin-right: 10px;
+  }
+  .custom-csm-button-block .btn-create
+  {
+    color: #ffffff;
+    background-color: #1B86FE;
+    border:1px solid #1B86FE;
+  }
+  
+
+/* Style the custom label to resemble a button or text */
+.custom-file-input2 {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px dashed #D1D5DB;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+.inner-content-of-image
+{
+    text-align: center;
+    padding: 10px 0px;
+}
+.inner-content-of-image img{
+    width: 100%;
+    max-width: 40px;
+}
+.inner-content-of-image p{
+   margin-bottom: 0px;
+   color: #4B5563;
+   font-size: 12px;
+}
+.inner-content-of-image p span{
+    color: #4F46E5;
+ }
+ .preview-cms-data {
+  margin-top: 20px;
+  text-align: center;
+}
+/* Hide the default file input */
+.custom-file-input2 input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px; /* Adjust the font size to make the input button larger */
+  cursor: pointer;
+  opacity: 0;
+}
+/* ::ng-deep .NgxEditor__Wrapper .NgxEditor {
+  height: 200px !important;
+} */
+.user-profile-heading
+{
+  font-weight: 600;
+}
+.user-go-back-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.green-tik-image img {
+  width: 100%;
+}
+.user-go-back-main-inner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #1B86FE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.user-go-back-main-inner img {
+  width: 100%;
+  max-width: 12px;
+}

@@ -1,0 +1,474 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+      <div class="header-responsive-block">
+        <h3 class="page-title">Business Onboarding
+          <span style="color:#000" *ngIf="statusType == 'ACTIVE'">- Active Business</span>
+          <span style="color:red" *ngIf="statusType == 'INACTIVE'">- InActive Business</span>
+
+        </h3>
+      </div>
+      <div class="common-class-right">
+        <!-- <div class="search-field custom-search mr-3">
+          <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input type="text" class="form-control bg-transparent border-0" placeholder="Search here"
+                (keyup)="seach($event)" (keydown)="restrickedWord($event)" />
+            </div>
+          </form>
+        </div> -->
+        <div class="search-field custom-search">
+          <form>
+            <div class="search-block-outer">
+              <div class="search-icon">
+                <i class="mdi mdi-magnify"></i>
+              </div>
+              <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+              (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+              <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+                <i class="mdi mdi-close"></i>
+              </div>
+            </div>
+          </form>
+        </div>
+          
+        <!-- <div class="three-dots-block">
+          <div class="btn-group dropstart">
+            <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <ul class="icons2">
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="loadMerchants('ALL')">All</a></li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchants('ACTIVE')">Active</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="loadMerchants('INACTIVE')">InActive</a>
+              </li>
+             
+            </ul>
+          </div>
+        </div> -->
+        <div class="custom-filter">
+          <ul class="icons2" (click)="showFilterFunction()">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <div class="filter-data" *ngIf="showFilter">
+<form>
+  <div class="filter-data2">
+  <div class="radio-labels">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="ALL" (change)="loadMerchants('ALL')" id="flexRadioDefault1">
+      <label class="form-check-label" for="flexRadioDefault1">
+        All
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="ACTIVE" (change)="loadMerchants('ACTIVE')" id="flexRadioDefault2">
+      <label class="form-check-label" for="flexRadioDefault2">
+        Active
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="INACTIVE" (change)="loadMerchants('INACTIVE')" id="flexRadioDefault3">
+      <label class="form-check-label" for="flexRadioDefault3">
+        InActive
+      </label>
+    </div>
+</div>
+</div>
+<div class="filter-data2">
+  <div class="row">
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value=""  id="flexCheckChecked" (click)="pushTypeChange($event,'Rejected')" [checked]="isReject">
+        <label class="form-check-label" >
+          Rejected Documents
+        </label>
+      </div>
+    </div>
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value=""  id="flexCheckChecked2" (click)="pushTypeChange($event,'Approved')" [checked]="isApproved">
+        <label class="form-check-label" >
+          Approved Documents
+        </label>
+      </div>
+    </div>
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value="" id="flexCheckChecked3" (click)="pushTypeChange($event,'Not Uploaded')" [checked]="isNotUploaded">
+        <label class="form-check-label">
+          Not Uploaded Documents
+        </label>
+      </div>
+    </div>
+    <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value=""  id="flexCheckChecked4" (click)="pushTypeChange($event,'Pending With Admin')" [checked]="isPendingFromdmin">
+        <label class="form-check-label" >
+          Pending With Admin Documents
+        </label>
+      </div>
+    </div>
+    <!-- <div class="col-6 mb-3 col-md-12">
+      <div class="form-check pl-0">
+        <input class="form-check-input form-check-input2" type="checkbox" value="" id="flexCheckChecked5" (click)="pushTypeChange($event,'Uploaded')" [checked]="isUploaded">
+        <label class="form-check-label" for="flexCheckChecked5" >
+          Uploaded Documents
+        </label>
+      </div>
+    </div> -->
+  </div>
+</div>
+<div class="apply-reset-filter-block">
+  <button class="apply-btn" (click)="applyFilter()">Apply</button>
+  <button class="reset-btn" (click)="resetFilter()">Reset</button>
+</div>
+</form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-dsh new-card">
+          <div class="card-body">
+            <h4 class="card-title new-title">List of Business </h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th class="custom-pedding-left">Business Name</th>
+                    <th>Merchant Name</th>
+                    <th>Business Types</th>
+                    <th>Verification Status</th>
+                    <th>Reg Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let item of users">
+                  <td class="custom-open-link "style="cursor: pointer;font-weight: 600;" (click)="viewMerchantDetails(item?._id,item?.categoryName)">{{item.businessId}}</td>
+                    <td>
+                        <div class="usert-img">
+                            <div class="usert-img-inner">
+                              <img
+                                src="../../assets/img/faces/user.png"
+                                alt="image"
+                              />
+                            </div>
+                            <div class="usert-img-inner-text">
+                              <p class="custom-user-name">{{item?.businessName}}</p>
+                            </div>
+                          </div>
+                    </td>
+                    <td>{{item?.merchantName}}</td>
+                    
+                    <!-- <td [ngStyle]="getStrongStyle(item?.isDocumentUploaded)">{{item?.documentStatusName}}</td> -->
+                    <td>{{item?.categoryName ? item?.categoryName :'--'}}</td>
+                    <td [ngStyle]="getStrongStyle(item?.isDocumentUploaded)">{{item?.documentStatusName}}</td>
+                    <td>{{item?.createdAt | date:'dd-MM-yyyy'}}</td>
+                    <td>
+                      <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                        <div class="toggle-on-circle"></div>
+                      </div>
+                      <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                        <div class="toggle-off-circle"></div>
+                      </div>
+                    </td>
+                 </tr>
+                
+                </tbody>
+              </table>
+              <div class="no-result-found" *ngIf="users?.length == 0">
+                No result found
+              </div>
+            </div>
+          </div>
+          <div class="next-previous-button-block">
+            <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+              Previous
+            </button>
+            <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+              *ngIf="totalPage > 1 && totalPage != currentPage">
+              Next
+            </button>
+          </div>
+          <div class="page-count" *ngIf="totalPage >= 1">
+            <p>Page {{ currentPage }} of {{ totalPage }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle4">
+    <div class="modal-dialog modal-dialog2">
+      <div class="modal-content custom-modal-contant">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="attacmentCloseModel4()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="seprate-block">
+            <h4>Merchant Information</h4>
+            <div class="merchant-info-card">
+            <div class="table-responsive">
+                <table class="table custom-table-size">
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <!-- <th>Merchant Name</th> -->
+                      <th>Phone</th>
+                      <th>Billing Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <tr data-bs-toggle="modal" data-bs-target="#viewMerchant">
+                    <td>
+                      {{getData?.merchantInfo?.userName}}
+                    </td>
+                      <!-- <td>
+                        {{getData?.merchantInfo?.name?.first}}
+                      </td> -->
+                      <td>{{getData?.merchantInfo?.phone?.countryCode}}{{getData?.merchantInfo?.phone?.phoneNumber}}</td>
+                     
+                        <td> {{getData?.merchantInfo?.businessConfig?.location?.location_name ? getData?.merchantInfo?.businessConfig?.location?.location_name :'N/A'}}</td>
+                      
+                   </tr>
+                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+        <div class="seprate-block">
+            <h4>Business Information</h4>
+            <div class="merchant-info-card">
+            <div class="table-responsive">
+                <table class="table custom-table-size">
+                  <thead>
+                    <tr>
+                      <th>Business Name</th>
+                      <th>Business Location</th>
+                      <th>Business Types</th>
+                      <th>Business Mail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <tr >
+                    <td>{{getData?.userName}}</td>
+                    <td>{{getData?.businessConfig?.location?.location_name}}</td>
+                   
+                    
+                   
+                    <td>{{categoryName}}</td>
+                    <td>
+                      <div class="email-block">
+                      <span class="icons-i2">
+                        <i class="mdi mdi-email menu-icon"></i> </span> {{getData?.email?.email}}</div>
+                     </td>
+                   </tr>
+                
+                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+              <div class="uploaded-docs">
+                <h4 class="card-title new-title">List of uploaded Docs </h4>
+                <div class="uploaded-docs-inner">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="uploaded-docs-inner-docs">
+                        <p class="document-name">Certificate of Registration (BIR 2303 Form)</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="document-attachment" (click)="attachment()">
+                        Attachment
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <div class="">
+<button class="btn-approve">Approve</button>
+<button class="btn-reject">Reject</button>
+                        </div>
+                    </div> -->
+
+                    </div>
+                </div>
+                <div class="uploaded-docs-inner">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="uploaded-docs-inner-docs">
+                            <p class="document-name">Logo</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="document-attachment" (click)="attachment2()">
+                                Attachment
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="">
+    <button class="btn-approve">Approve</button>
+    <button class="btn-reject">Reject</button>
+                            </div>
+                        </div> -->
+    
+                        </div>
+                    </div>
+                    <div class="qrCodeBlock">
+                      <h2>QR Code</h2>
+                      <img [src]="getData?.qrCode">
+                    </div>
+                   
+
+                            <div class="profile-comment-block mt-4">
+                                <label for="exampleFormControlTextarea1" class="form-label">Reason of rejection</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="comment"></textarea>
+                                <div class="red-color" *ngIf="isComment && comment == ''">
+                                  Comment is required
+                                </div>
+                              </div>
+
+                              <!-- <div class="submit-btn-upper-block">
+                                <button class="btn btn-submit">
+                                    Submit
+                                </button>
+                              </div> -->
+                              <div class="modal-footer cutom-modal-button-block">
+                                <button type="button" class="btn btn-approve" (click)="approvedDocument()">
+                                  Approve
+                                </button>
+                                <button type="button" class="btn btn-reject" [disabled]="this.comment === null || this.comment === ''" (click)="rejectDocument()">
+                                  Reject
+                                </button>
+                              </div>
+            </div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="custom-modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="attacmentCloseModel()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="profile-upper-block">
+                      <div class="profile-upper-block-first">
+                      </div>
+                      <div class="profile-upper-block-second">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="document-left-block">
+                              <p class="document-left-block-heading">Certificate of Registration (BIR 2303 Form)</p>
+                              <div class="document-aadhar-block">
+                                <img [src]="getData?.document?.businessDoc[0]?.logoUrl" alt="image" />
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle2">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="custom-modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="attacmentCloseModel2()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="profile-upper-block">
+                      <div class="profile-upper-block-first">
+                      </div>
+                      <div class="profile-upper-block-second">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="document-left-block">
+                              <p class="document-left-block-heading">Logo</p>
+                              <div class="document-aadhar-block">
+                                <img [src]="getData?.document?.businessLogo?.logoUrl" alt="image" />
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+        <div class="modal-dialog small-modal-custom modal-dialog-centered">
+          <div class="modal-content">
+            <div class="custom-modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="attacmentCloseModel3()"></button>
+            </div>
+            <div class="modal-body p-0">
+                
+                    <div class="profile-upper-block">
+                      Are you sure you want to<br/> {{activeInactiveString}} this Business?
+                    </div>
+                    <div class="button-block-yes-no">
+                      <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                      <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+  class="modal"
+  id="documentModalSuccess"
+  tabindex="-1"
+  role="dialog"
+  [style.display]="attachmentModelStyle5"
+>
+  <div class="modal-dialog small-modal-custom modal-dialog-centered">
+    <div class="modal-content">
+      <div class="custom-modal-header">
+        <span>Error</span>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="attacmentCloseModel5()"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="profile-upper-block2">
+         {{responseMessage}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  

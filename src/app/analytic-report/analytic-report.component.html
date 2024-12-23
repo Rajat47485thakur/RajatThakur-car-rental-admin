@@ -1,0 +1,306 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+      <div class="header-responsive-block">
+        <h3 class="page-title">Analytics</h3>
+        <div class="mobile-data-export">
+          <nav aria-label="breadcrumb" class="ndash-icon new">
+            <ul class="breadcrumb mobile-breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="download"
+                  ><img src="./assets/img/wallet/download.png"
+                /></span>
+                Export Data
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="custom-right-nav">
+        <nav aria-label="breadcrumb" class="ndash-icon change">
+          <ul class="breadcrumb" (click)="openDateRange()">
+            <li class="breadcrumb-item active" aria-current="page">
+              <span class="clandar"
+                ><i class="fa fa-calendar" aria-hidden="true"></i></span
+              ><span class="change-periode">Change Period</span>
+              <span
+                class="change-per dropdown-toggle custom-dropdown-toggle"
+              ></span>
+              <div class="change-text-data" *ngIf="startDate1 !== null">{{startDate1 | date:'dd MMM yyyy'}} - {{endDate1 | date:'dd MMM yyyy'}}</div>
+              <div class="change-text-data" *ngIf="startDate1 === null">All</div>
+            </li>
+          </ul>
+        </nav>
+        <div class="dropdown">
+          <button class="btn btn-export dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Export
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="exportCSV()">Export to CSV</a></li>
+            <li><a class="dropdown-item" (click)="exportPDF()">Export to PDF</a></li>
+            <li><a class="dropdown-item" (click)="exportToExcel()">Export to XLSX</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3 custom-padding-manage-right">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.registered_users }}</h5>
+            <p class="">Total Hosts</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.new_users }}</h5>
+            <p class="">Total Customers</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-both">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.total_merchants }}</h5>
+            <p class="">Total Vehicle Registered</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3 custom-padding-manage-left">
+        <div class="prgressImage">
+          <div class="prgressImage-left">
+            <img src="./assets/img/wallet/progress.png" alt="..." />
+          </div>
+          <div class="prgressImage-right">
+            <h5 class="">{{ statatics.total_businesses }}</h5>
+            <p class="">Total Number of bookings</p>
+          </div>
+        </div>
+      </div>
+     
+  
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="">
+                <div id="chart2" class="chart-container">
+                    <apx-chart
+                      [series]="chartOptions2.series"
+                      [chart]="chartOptions2.chart"
+                      [dataLabels]="chartOptions2.dataLabels"
+                      [plotOptions]="chartOptions2.plotOptions"
+                      [yaxis]="chartOptions2.yaxis"
+                      [legend]="chartOptions2.legend"
+                      [title]="chartOptions2.title"
+                      [fill]="chartOptions2.fill"
+                      [stroke]="chartOptions2.stroke"
+                      [tooltip]="chartOptions2.tooltip"
+                      [xaxis]="chartOptions2.xaxis"
+                    ></apx-chart>
+                  </div>
+            </div>
+          </div>
+      <div class="col-md-6 pr-1 mb-3">
+        <div class="">
+            <div id="chart" class="chart-container">
+                <apx-chart
+                  [series]="chartOptions.series"
+                  [chart]="chartOptions.chart"
+                  [dataLabels]="chartOptions.dataLabels"
+                  [plotOptions]="chartOptions.plotOptions"
+                  [yaxis]="chartOptions.yaxis"
+                  [legend]="chartOptions.legend"
+                  [fill]="chartOptions.fill"
+                  [title]="chartOptions.title"
+                  [stroke]="chartOptions.stroke"
+                  [tooltip]="chartOptions.tooltip"
+                  [xaxis]="chartOptions.xaxis"
+                ></apx-chart>
+              </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 pl-1 mb-3">
+        <div class="">
+            <div id="chart3" class="chart-container">
+                <apx-chart
+                [series]="chartOptions3.series"
+                [chart]="chartOptions3.chart"
+                [labels]="chartOptions3.labels"
+                [tooltip]="chartOptions3.tooltip"
+                [legend]="chartOptions3.legend"
+                [title]="chartOptions3.title"
+                [plotOptions]="chartOptions3.plotOptions"
+                ></apx-chart>
+              </div>
+        </div>
+      </div>
+      <div class="col-md-6 pr-1 mb-3">
+        <div class="">
+            <div id="chart4" class="chart-container">
+                <apx-chart
+                  [series]="chartOptions4.series"
+                  [chart]="chartOptions4.chart"
+                  [dataLabels]="chartOptions4.dataLabels"
+                  [plotOptions]="chartOptions4.plotOptions"
+                  [yaxis]="chartOptions4.yaxis"
+                  [legend]="chartOptions4.legend"
+                  [title]="chartOptions4.title"
+                  [fill]="chartOptions4.fill"
+                  [stroke]="chartOptions4.stroke"
+                  [tooltip]="chartOptions4.tooltip"
+                  [xaxis]="chartOptions4.xaxis"
+                ></apx-chart>
+              </div>
+        </div>
+      </div>
+    </div>
+  
+    <div
+      class="modal"
+      id="deleteUserModel"
+      tabindex="-1"
+      role="dialog"
+      [style.display]="modelStyle"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custom-modal-content">
+          <div class="modal-body">
+            <div class="main-delete-block">
+              <div class="delete-main-image">
+                <i class="fa fa-trash"></i>
+              </div>
+              <p class="point-text2">
+                Oops! Do you really want to delete this account -
+                <span>{{ deleteUserId }} </span> ?
+              </p>
+              <div class="custom-delete-modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-cancel"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  (click)="closeModel()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-yes" (click)="deleteUser()">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="modal fade" id="deleteUserModel" tabindex="-1"  [style.display]="modelStyle">
+          <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="custom-modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="main-delete-block">
+                      <div class="delete-main-image">
+                          <img src="../../assets/img/faces/material-symbols_delete.png">
+                        </div>
+                      <p class="point-text2">Oops! Do you really want to delete the account - <span>{{deleteUserId}} </span> ?</p>
+                      <div class="custom-delete-modal-footer">
+                          <button type="submit" class="btn btn-cancel"  data-dismiss="modal" aria-label="Close" (click)="closeModel()">Cancel </button>
+                          <button type="submit" class="btn btn-yes" (click)="deleteUser()"> Delete</button>
+                      </div>
+                  </div>
+              </div>
+             
+            </div>
+          </div>
+        </div> -->
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block">
+                  Are you sure you want to<br/> {{activeInactiveString}} this User?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelCalender">
+    <div class="modal-dialog model-calender-block modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attachmentModelCalenderFunction()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="date-range-picker">
+            <form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="start-date">Start Date:</label>
+                    <input 
+                      type="date" 
+                      id="start-date" 
+                      [max]="maxDate" 
+                      class="form-control" 
+                      formControlName="startDate">
+                    <div *ngIf="f.startDate.invalid && (f.startDate.dirty || f.startDate.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.startDate.errors?.required">Start Date is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.startDate.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="end-date">End Date:</label>
+                    <input 
+                      type="date" 
+                      id="end-date" 
+                      class="form-control"  
+                      [max]="maxDate" 
+                      formControlName="endDate">
+                    <div *ngIf="f.endDate.invalid && (f.endDate.dirty || f.endDate.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.endDate.errors?.required">End Date is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.endDate.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-submit-calender-upper">
+                <button type="submit" class="btn btn-submit-calender">Submit</button>
+                <button type="reset" class="btn btn-submit-reset ml-3" (click)="reset()">Reset</button>
+              </div>
+            </form>
+            
+          </div>
+          
+                
+               
+        </div>
+      </div>
+    </div>
+  </div>
+  

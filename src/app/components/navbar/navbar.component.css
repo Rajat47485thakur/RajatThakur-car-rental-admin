@@ -1,0 +1,36 @@
+.logout-cancel-button {
+  border: 1px solid #1B86FE;
+  color: #1B86FE;
+  background-color: #ffffff;
+  width: 30%;
+}
+.btn-logout
+{
+  border: 1px solid #1B86FE;
+  color: #ffffff;
+  background-color: #1B86FE;
+  width: 30%;
+}
+ul{
+  padding-left: 0px;
+}
+ul li
+{
+  list-style-type: none;
+}
+li img
+{
+  width: 20px;
+ height: 20px;
+}
+img
+{
+  width: 20px;
+ height: 20px;
+}
+.sidebar .nav .nav-item.active > .nav-link .custom-active {
+ display: block;
+}
+.sidebar .nav .nav-item > .nav-link .custom-active, .sidebar .nav .nav-item.active > .nav-link .custom-inactive {
+ display: none;
+}

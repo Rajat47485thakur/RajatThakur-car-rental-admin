@@ -1,0 +1,370 @@
+.common-class {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .merchant-wid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+  }
+  .nav-tabs li a{
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+ 
+  .nav-tabs li a.active{
+    background-color: #1B86FE !important;
+    color: #fff !important;
+  }
+ 
+  .nav-tabs
+  {
+    border-bottom: none !important;
+  }
+  .card-dsh {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    padding: 20px;
+  }
+  .pending-invoice tbody td:first-child {
+    font-weight: 600;
+  }
+  .auto-deduct-button
+  {
+    color: #ffffff;
+    background-color: #1B86FE;
+    padding: 2px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 14px;
+    margin-right: 10px;
+    border: none;
+  }
+  .auto-deduct-button2
+  {
+    color: #ffffff;
+    background-color: #1B86FE;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-right: 10px;
+    border: none;
+  }
+  .mark-complete-button
+  {
+    color: #ffffff;
+    background-color: #1B86FE;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+  }
+  .action-block
+  {
+    display: flex;
+    align-items: center;
+  }
+  tbody td {
+    padding: 20px 0.9375rem;
+  }
+  .table-hover tbody tr:hover {
+    background-color: #ffffff !important;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.merchant-wid-left span{
+    color: #000;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+.merchant-wid-right
+{
+    display: flex;
+    align-items: center;
+}
+
+.merchant-wid-right span
+{
+   white-space: nowrap;
+   margin-right: 10px;
+}
+/* .merchant-withdrawal-table tbody tr td:nth-child(1),
+.merchant-withdrawal-table tbody tr td:nth-child(3),
+.merchant-withdrawal-table tbody tr td:nth-child(5) {
+  color: #A5A5A5 !important;
+} */
+/* .merchant-withdrawal-table tbody tr td:nth-child(4)
+{
+    color: #34C657 !important;
+} */
+
+.merchant_details-heading h3{
+    color: #000;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+.mercha {
+    padding-left: 0px;
+    display: flex;
+    align-items: center;
+}
+input[type="checkbox"] {
+    position: relative;
+    border: 0px;
+    border-radius: 2px;
+    background: #d9d9d9;
+    cursor: pointer;
+    line-height: 0;
+    margin: 0 0.6em 0 0;
+    outline: 0;
+    padding: 0 !important;
+    vertical-align: text-top;
+    height: 16px;
+    width: 16px;
+    -webkit-appearance: none;
+    opacity: 1;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: #fff;
+    background-image: url(../../../assets/img/wallet/notification-tick.png) !important;
+    border: 1px solid #1B86FE;
+    color: #1B86FE;
+    opacity: 1;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .user-go-back-main {
+    display: flex;
+  }
+  .green-tik-image img {
+    width: 100%;
+  }
+  .custom-modal-header2
+  {
+    text-align: right;
+  }
+  .small-modal-custom
+  {
+    width: 100%;
+    max-width: 350px;
+  }
+  .no-result-found {
+    text-align: center;
+    padding-top: 20px;
+  }
+  .button-block-yes-no {
+    text-align: center;
+    padding-top: 18px;
+}
+.btn-yes
+{
+  background-color: #1B86FE;
+  border: 1px solid #1B86FE;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 70px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+.btn-no
+{
+  background-color: #ffffff;
+  border: 1px solid #1B86FE;
+  color: #1B86FE;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 70px;
+  font-size: 14px;
+}
+/* Style for file input */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: 'Choose file';
+  display: inline-block;
+  background: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  padding: 8px 12px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.custom-file-input:hover::before {
+  background: #0056b3;
+}
+
+.custom-file-input:active::before {
+  background: #004286;
+}
+
+.custom-file-input:focus::before {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-file-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-yes:disabled,
+.btn.disabled,
+fieldset:disabled .disabled, .mark-complete-button.disabled,
+.btn-yes:disabled,
+.btn.disabled,
+.btn-apply:disabled .disabled, .btn-apply.disabled,
+.btn-apply:disabled,
+.btn-reset:disabled .disabled, .btn-reset.disabled, .btn-reset:disabled {
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+}
+
+  .btn-filters {
+    background-color: #ffffff;
+    color: #1B86FE;
+    border: 1px solid #1B86FE;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .btn-filters:hover {
+    background-color: #1B86FE;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .small-modal-dialog {
+    width: 100%;
+    max-width: 400px !important;
+  }
+  .custom-modal-header
+{
+  text-align: center;
+  position: relative;
+  margin-top: 10px;
+}
+.custom-modal-header .btn-close
+{
+  position: absolute;
+    right: -2px;
+    top: -15px;
+}
+.profile-upper-block {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+}
+.date-range-filter {
+  margin-top: 0px;
+}
+.date-range-filter label
+{
+display: block;
+font-size: 14px !important;
+    color: black !important;
+    margin-top: 15px !important;
+}
+.push-button-block2
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+.push-button-block2 .btn-apply
+{
+background-color: #1B86FE;
+color: #ffffff;
+border: 1px solid #1B86FE;
+border-radius: 5px;
+cursor: pointer;
+margin-right: 10px;
+padding: 5px 10px;
+}
+.priviewImageBlock {
+  margin: auto;
+  text-align: center;
+  max-width: 101px;
+}
+.priviewImageBlock img{
+  width: 100%;
+}
+.push-button-block2 .btn-reset
+{
+background-color: #ffffff;
+color: #1B86FE;
+border: 1px solid #1B86FE;
+border-radius: 5px;
+cursor: pointer;
+margin-right: 10px;
+padding: 5px 10px;
+}
+.business-category-filter label
+{
+display: block;
+font-size: 17px !important;
+color: black;
+margin-top: 31px;
+}
+.business-category-filter {
+  margin-top: 20px;
+}
+.date-range-filter input[type="date"], .business-category-filter select
+{
+width: 100%;
+padding: 10px 13px;
+    border-radius: 4px;
+    border: 1px solid #adadad;
+    outline: none;
+}
+.select-age-main label {
+  color: #000;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 0px;
+    margin-top: 20px;
+}
+  .user-go-back-main-inner {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #1B86FE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    cursor: pointer;
+  }
+  
+  .user-go-back-main-inner img {
+    width: 100%;
+    max-width: 12px;
+  }

@@ -1,0 +1,299 @@
+<div class="common-class">
+  <div class="common-class-left">
+    <span class="card-title new-title">Reviews
+    </span>
+    <div class="new-custom-button-for-mobile">
+      <a class="custom-button"
+        >Generate Report</a>
+    </div>
+  </div>
+  <div class="common-class-right">
+    <div class="dropdown">
+      <button class="btn btn-export dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Generate Report
+      </button>
+      <ul class="dropdown-menu">
+        <!-- <li><button (click)="exportCSV()">Export to CSV</button></li>
+        <li><button (click)="exportPDF()">Export to PDF</button></li>
+        <li><button (click)="exportToExcel()">Export to XLSX</button></li> -->
+        <li><a class="dropdown-item" (click)="exportCSV()">Export to CSV</a></li>
+        <li><a class="dropdown-item" (click)="exportPDF()">Export to PDF</a></li>
+        <li><a class="dropdown-item" (click)="exportToExcel()">Export to XLSX</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="card new-card other-pages" style="margin-top: 14px;">
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <h5 class="to-revies">Total Reviews</h5>
+        <h4 class="to-revies">{{users?.averageRating?.totalReviews}}</h4>
+        <p class="raing">Growth in reviews in this years</p>
+      </div>
+
+      <div class="col-sm-4">
+        <h5 class="to-revies">Average Rating</h5>
+        <h4 class="to-revies">
+          {{users?.averageRating?.averageRating}}
+          <ng-container *ngIf="users?.averageRating?.averageRating">
+            <ng-container *ngFor="let star of [1,2,3,4,5]">
+              <i class="fa fa-star" aria-hidden="true" [class.fa-star-o]="star > users?.averageRating?.averageRating"></i>
+            </ng-container>
+          </ng-container>
+          <!-- <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star-half-o" aria-hidden="true"></i> -->
+        </h4>
+        <p class="raing">Average rating of user</p>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="reviews-and-rating-bars">
+          <span class="reviews-and-rating-bars-inner">5
+        <i class="fa fa-star" aria-hidden="true"></i> </span>
+
+        <!-- <div class="progress progress1">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-valuenow="70"
+            style="width: 100%"
+          ></div>
+        </div> -->
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': percentages[4] + '%' }" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <span class="count-rating">{{formatNumber(users?.averageRating?.ratingCounts[5])}}</span>
+      </div>
+      <div class="reviews-and-rating-bars">
+        <span class="reviews-and-rating-bars-inner">4
+      <i class="fa fa-star" aria-hidden="true"></i> </span>
+
+      <!-- <div class="progress progress2">
+        <div
+          class="progress-bar yellow"
+          role="progressbar"
+          aria-valuenow="70"
+          style="width: 100%"
+        ></div>
+      </div> -->
+      <div class="progress">
+        <div class="progress-bar yellow" role="progressbar"  [ngStyle]="{ 'width': percentages[3] + '%' }" aria-valuenow="25"  aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <span class="count-rating">{{formatNumber(users?.averageRating?.ratingCounts[4])}}</span>
+    </div>
+    <div class="reviews-and-rating-bars">
+      <span class="reviews-and-rating-bars-inner">3
+    <i class="fa fa-star" aria-hidden="true"></i> </span>
+
+    <!-- <div class="progress progress3">
+      <div
+        class="progress-bar brown"
+        role="progressbar"
+        aria-valuenow="70"
+        style="width: 100%"
+      ></div>
+    </div> -->
+    <div class="progress">
+      <div class="progress-bar brown" role="progressbar"  [ngStyle]="{ 'width': percentages[2] + '%' }" aria-valuenow="25"  aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <span class="count-rating">{{formatNumber(users?.averageRating?.ratingCounts[3])}}</span>
+  </div>
+  <div class="reviews-and-rating-bars">
+    <span class="reviews-and-rating-bars-inner">2
+  <i class="fa fa-star" aria-hidden="true"></i> </span>
+
+  <!-- <div class="progress progress4">
+    <div
+      class="progress-bar orange"
+      role="progressbar"
+      aria-valuenow="70"
+      style="width: 100%"
+    ></div>
+  </div> -->
+  <div class="progress">
+    <div class="progress-bar orange" role="progressbar"  [ngStyle]="{ 'width': percentages[1] + '%' }" aria-valuenow="25"  aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+  <span class="count-rating">{{formatNumber(users?.averageRating?.ratingCounts[2])}}</span>
+</div>
+<div class="reviews-and-rating-bars">
+  <span class="reviews-and-rating-bars-inner">1
+<i class="fa fa-star" aria-hidden="true"></i> </span>
+
+<!-- <div class="progress progress5">
+  <div
+    class="progress-bar red"
+    role="progressbar"
+    aria-valuenow="70"
+    style="width: 100%"
+  ></div>
+</div> -->
+<div class="progress">
+  <div class="progress-bar red" role="progressbar" [ngStyle]="{ 'width': percentages[0] + '%' }" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<span class="count-rating">{{formatNumber(users?.averageRating?.ratingCounts[1])}}</span>
+</div>
+        
+
+      
+      </div>
+    </div>
+<div class="" *ngFor="let item of users.review">
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <div class="nav-profile-img profile">
+          <div class="reviewRatingImage">
+            <img  *ngIf="item?.profilePic" [src]="item?.profilePic" alt="image">
+            <img *ngIf="!item?.profilePic" src="./assets/img/faces/user.png" alt="image" />
+          </div>
+          <div class="reviewRatingData">
+          <div class="user-name-inner">{{item.name}}</div>
+          <div class="user-email-inner loyal">{{item?.manualUserId}}</div>
+          <div class="user-status-inner">{{item?.email}}</div>
+        </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <p class="text-title text-review">
+          {{item?.review}}
+        </p>
+        <p class="text-reply" *ngIf="item?.reply">
+          {{item?.reply}}
+          <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="#1B86FE" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m8 5l-5 5l5 5"/><path d="M3 10h8c5.523 0 10 4.477 10 10v1"/></g></svg></span>
+        </p>
+        <ng-container *ngIf="item.rating">
+          <ng-container *ngFor="let star of [1,2,3,4,5]">
+            <i class="fa fa-star" aria-hidden="true" [class.fa-star-o]="star > item.rating"></i>
+          </ng-container>
+        </ng-container>
+        <span class="rating-date"> {{item?.createdAt | date:'dd-MMM'}}</span>
+        <div class="button-section-outer">
+          <button class="edit-button-rating edit" (click)="editReviewAndRatings(item._id,item.review,'edit')"
+            ><a>Edit</a>
+          </button>
+          <button class="edit-button-rating res" (click)="editReviewAndRatings(item._id,item.review,'respont')"
+            ><a>Respond</a></button
+          >
+          <button class="edit-button-rating del" (click)="editReviewAndRatings(item._id,item.review,'delete')"
+            ><a>Delete</a></button
+          >
+          <button class="edit-button-rating rep" [disabled]="item.isReported" (click)="editReviewAndRatings(item._id,item.review,'report')"
+            ><a>Report</a></button
+          >
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+
+   
+  </div>
+</div>
+<div
+class="modal"
+id="documentModalSuccess"
+tabindex="-1"
+role="dialog"
+[style.display]="attachmentModelEditReview"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="custom-modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="attachmentModelEditReviewFunction()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="" *ngIf="showPopup === 'edit'">
+      <form [formGroup]="reviewForm" (ngSubmit)="onSubmit2()">
+        <div class="form-group">
+          <label for="review">Edit Review</label>
+          <textarea class="form-control" id="review" formControlName="review"></textarea>
+          <div *ngIf="reviewFormControl.review.invalid && (reviewFormControl.review.dirty || reviewFormControl.review.touched)" class="text-danger">
+            <div *ngIf="reviewFormControl.review.errors.required">
+              Review is required.
+            </div>
+            <div *ngIf="reviewFormControl.review.errors.maxlength">
+              Maximum 1000 characters allowed.
+            </div>
+          </div>
+        </div>
+        <div class="submitUpper">
+        <button type="submit" [disabled]="!reviewForm.valid" class="btn btnReviewSubmit">Submit</button>
+      </div>
+      </form>
+    </div>
+    <div class="" *ngIf="showPopup === 'respont'">
+      <form [formGroup]="respontForm" (ngSubmit)="onSubmit3()">
+        <div class="form-group">
+          <label for="respont">Reply</label>
+          <textarea class="form-control" id="respont" formControlName="respont"></textarea>
+          <div *ngIf="respontFormControl.respont.invalid && (respontFormControl.respont.dirty || respontFormControl.respont.touched)" class="text-danger">
+            <div *ngIf="respontFormControl.respont.errors.required">
+              Respont is required.
+            </div>
+            <div *ngIf="respontFormControl.respont.errors.maxlength">
+              Maximum 1000 characters allowed.
+            </div>
+          </div>
+        </div>
+        <div class="submitUpper">
+        <button type="submit" [disabled]="!respontForm.valid" class="btn btnReviewSubmit">Submit</button>
+      </div>
+      </form>
+    </div>
+    <div class="main-delete-block" *ngIf="showPopup === 'delete'">
+      <div class="delete-main-image">
+        <img src="../../assets/img/faces/material-symbols_delete.png" />
+      </div>
+      <p class="point-text2">
+        Oops! Do you really want to delete this review - ?
+      </p>
+      <div class="custom-delete-modal-footer">
+        <button
+          type="submit"
+          class="btn btn-cancel"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="attachmentModelEditReviewFunction()"
+        >
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-yes" (click)="deleteUser()">
+          Delete
+        </button>
+      </div>
+    </div>
+    <div class="main-delete-block" *ngIf="showPopup === 'report'">
+      <p class="point-text2">
+        Do you really want to report this review ?
+      </p>
+      <div class="custom-delete-modal-footer">
+        <button
+          type="submit"
+          class="btn btn-cancel"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="attachmentModelEditReviewFunction()"
+        >
+          No
+        </button>
+        <button type="submit" class="btn btn-yes" (click)="reprtedUser()">
+          Yes
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>

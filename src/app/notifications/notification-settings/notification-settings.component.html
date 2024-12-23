@@ -1,0 +1,624 @@
+<div class="common-class">
+  <!-- <span class="card-title new-title">Notifications</span>
+  <div class="new-custom-button config">
+    <a
+      href="http://localhost/e-wallet/analytics-sucees.php"
+      class="custom-button loyalty"
+      >Save
+    </a>
+  </div> -->
+  <div class="page-header">
+    <div class="header-responsive-block">
+      <h3 class="page-title">Notifications</h3>
+    </div>
+    <div class="custom-right-nav">
+      <button class="save-button" (click)="showPusher()"> Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="card new-card other-pages">
+  <div class="card-body pt-4">
+    <h5 class="notification-settings">Notification Settings</h5>
+    <p class="notification-settings-subHeading">Select the kind of notifications you get about your activities and recommendations</p>
+    <div class="row">
+      <!-- <div class="col-md-12"> -->
+        <!-- <div class="form-group row"> -->
+          <div class="col-md-4 mb-3">
+          <div class="notifications-block">
+            <div class="notifications-block-inner">
+            <div class="row">
+              <div class="col-md-9">
+                <div class="notifications-block-heading1">
+                  System Updates
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                  <div class="form-check form-switch custom-switch-checkbox">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SYSTEMUPDATE',0)" [checked]="pusher?.systemUpdates?.main"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-9">
+                <div class="notifications-block-heading1">
+                  Server Maintaince
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                   <div class="form-check form-switch custom-switch-checkbox">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SYSTEMUPDATE',1)" [checked]="pusher?.systemUpdates?.serverMaintenance"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-9">
+                <div class="notifications-block-heading1">
+                  Service Restored
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                   <div class="form-check form-switch custom-switch-checkbox">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SYSTEMUPDATE',2)" [checked]="pusher?.systemUpdates?.serviceRestored"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-9">
+                <div class="notifications-block-heading1">
+                  Email Notification 
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                   <div class="form-check form-switch custom-switch-checkbox">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SYSTEMUPDATE',3)" [checked]="pusher?.systemUpdates?.email"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-9">
+                <div class="notifications-block-heading1">
+                  Push Notification 
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                   <div class="form-check form-switch custom-switch-checkbox">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SYSTEMUPDATE',4)" [checked]="pusher?.systemUpdates?.push"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          </div>
+          
+            <div class="col-md-4 mb-3">
+              <div class="notifications-block">
+                <div class="notifications-block-inner">
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="notifications-block-heading1">
+                      Bill Remainders
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="">
+                      <div class="form-check form-switch custom-switch-checkbox">
+                        <div class="form-check form-switch custom-switch-checkbox">
+                          <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'BILLREMAINDERS',0)" [checked]="pusher?.billRemainders?.main"/>
+                        </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-9">
+                    <div class="notifications-block-heading1">
+                      Bill Dues
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="">
+                      <div class="form-check form-switch custom-switch-checkbox">
+                        <div class="form-check form-switch custom-switch-checkbox">
+                          <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'BILLREMAINDERS',9)" [checked]="pusher?.billRemainders?.billDues"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-9">
+                    <div class="notifications-block-heading1">
+                      Payment Confirmation
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="">
+                      <div class="form-check form-switch custom-switch-checkbox">
+                        <div class="form-check form-switch custom-switch-checkbox">
+                          <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'BILLREMAINDERS',8)" [checked]="pusher?.billRemainders?.paymentConfirmation"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-9">
+                    <div class="notifications-block-heading1">
+                      Email Notification 
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="">
+                      <div class="form-check form-switch custom-switch-checkbox">
+                        <div class="form-check form-switch custom-switch-checkbox">
+                          <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'BILLREMAINDERS',3)" [checked]="pusher?.billRemainders?.email"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-9">
+                    <div class="notifications-block-heading1">
+                      Push Notification 
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                    <div class="form-check form-switch custom-switch-checkbox">
+                      <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'BILLREMAINDERS',4)" [checked]="pusher?.billRemainders?.push"/>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              </div>
+             
+                <div class="col-md-4 mb-3">
+                  <div class="notifications-block">
+                    <div class="notifications-block-inner">
+                    <div class="row">
+                      <div class="col-md-9">
+                        <div class="notifications-block-heading1">
+                          Customer Support
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="">
+                          <div class="form-check form-switch custom-switch-checkbox">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'CUSTOMERSUPPORT',0)"  [checked]="pusher?.customerSupport?.main"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-9">
+                        <div class="notifications-block-heading1">
+                          Support Ticket Updates
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="">
+                          <div class="form-check form-switch custom-switch-checkbox">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'CUSTOMERSUPPORT',10)" [checked]="pusher?.customerSupport?.supportTicketUpdate"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-9">
+                        <div class="notifications-block-heading1">
+                          Support Availability
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="">
+                          <div class="form-check form-switch custom-switch-checkbox">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'CUSTOMERSUPPORT',11)" [checked]="pusher?.customerSupport?.supportAvailability"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-9">
+                        <div class="notifications-block-heading1">
+                          Email Notification 
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="">
+                          <div class="form-check form-switch custom-switch-checkbox">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'CUSTOMERSUPPORT',3)" [checked]="pusher?.customerSupport?.email"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-9">
+                        <div class="notifications-block-heading1">
+                          Push Notification 
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="">
+                          <div class="form-check form-switch custom-switch-checkbox">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'CUSTOMERSUPPORT',4)" [checked]="pusher?.customerSupport?.push"/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="notifications-block">
+                      <div class="notifications-block-inner">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <div class="notifications-block-heading1">
+                            Security alerts
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SECURITYALERTS',0)" [checked]="pusher?.securityAlerts?.main"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-md-9">
+                          <div class="notifications-block-heading1">
+                            Login Alerts
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SECURITYALERTS',12)" [checked]="pusher?.securityAlerts?.loginAlerts"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-md-9">
+                          <div class="notifications-block-heading1">
+                            Suspicious Activity
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SECURITYALERTS',13)" [checked]="pusher?.securityAlerts?.suspeciousActivity"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-md-9">
+                          <div class="notifications-block-heading1">
+                            Email Notification 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SECURITYALERTS',3)" [checked]="pusher?.securityAlerts?.email"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-md-9">
+                          <div class="notifications-block-heading1">
+                            Push Notification 
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="">
+                            <div class="form-check form-switch custom-switch-checkbox">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'SECURITYALERTS',4)"  [checked]="pusher?.securityAlerts?.push"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <div class="notifications-block">
+                        <div class="notifications-block-inner">
+                        <div class="row">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Feedback & Surveys
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'FEEDBACKANDSURVEYS',0)" [checked]="pusher?.feedBackAndSurveys?.main"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Feedback Req
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'FEEDBACKANDSURVEYS',14)" [checked]="pusher?.feedBackAndSurveys?.feedBackRequest"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Email Notification 
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'FEEDBACKANDSURVEYS',3)" [checked]="pusher?.feedBackAndSurveys?.email"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Push Notification 
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'FEEDBACKANDSURVEYS',4)" [checked]="pusher?.feedBackAndSurveys?.push" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      </div>
+                    <div class="col-md-4 mb-3">
+                      <div class="notifications-block">
+                        <div class="notifications-block-inner">
+                        <div class="row">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Offers Related
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'OFFERRELATED',0)" [checked]="pusher?.offerRelated?.main"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Special Offers Deals
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'OFFERRELATED',15)" [checked]="pusher?.offerRelated?.specialOfferDeals"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Email Notification 
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'OFFERRELATED',3)" [checked]="pusher?.offerRelated?.email"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-md-9">
+                            <div class="notifications-block-heading1">
+                              Push Notification 
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="">
+                              <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'OFFERRELATED',4)" [checked]="pusher?.offerRelated?.push"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <div class="notifications-block">
+                          <div class="notifications-block-inner">
+                          <div class="row">
+                            <div class="col-md-9">
+                              <div class="notifications-block-heading1">
+                                Transaction Updates
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="">
+                                 <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'TRANSACTIONUPDATE',0)" [checked]="pusher?.transactionUpdates?.main"/>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-md-9">
+                              <div class="notifications-block-heading1">
+                                Confirmation
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="">
+                                 <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'TRANSACTIONUPDATE',6)" [checked]="pusher?.transactionUpdates?.confirmation"/>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-md-9">
+                              <div class="notifications-block-heading1">
+                                Declined
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="">
+                                 <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'TRANSACTIONUPDATE',7)" [checked]="pusher?.transactionUpdates?.declined"/>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-md-9">
+                              <div class="notifications-block-heading1">
+                                Receipts
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="">
+                                 <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'TRANSACTIONUPDATE',5)" [checked]="pusher?.transactionUpdates?.reciepts"/>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-md-9">
+                              <div class="notifications-block-heading1">
+                                Email Notification 
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="">
+                                 <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'TRANSACTIONUPDATE',3)" [checked]="pusher?.transactionUpdates?.email"/>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-md-9">
+                              <div class="notifications-block-heading1">
+                                Push Notification 
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="">
+                                 <div class="form-check form-switch custom-switch-checkbox">
+                                <div class="form-check form-switch custom-switch-checkbox">
+                                  <input class="form-check-input" type="checkbox" (change)="pushTypeChange($event,'TRANSACTIONUPDATE',4)" [checked]="pusher?.transactionUpdates?.push"/>
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        </div>
+    </div>
+  </div>
+</div>

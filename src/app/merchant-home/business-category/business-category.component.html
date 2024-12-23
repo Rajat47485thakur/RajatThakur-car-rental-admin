@@ -1,0 +1,274 @@
+<div class="content-wrapper2">
+    <div class="page-header">
+        <div class="header-responsive-block">
+          <h3 class="page-title">Business Category <span style="color: black;" *ngIf="statusType==='ACTIVE'">- Active Category</span>
+            <span *ngIf="statusType==='INACTIVE'" style="color: red;">- Inactive Category</span>
+          </h3>
+          <button class="btn-new-category-mobile" (click)="createNewCategory()"> + Create New Category</button>
+        </div>
+        <div class="custom-right-nav">
+          <!-- <div class="search-field custom-search mr-3">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input type="text" class="form-control bg-transparent border-0" placeholder="Search here" (keydown)="restrickedWord($event)"
+                  (keyup)="seach($event)" />
+              </div>
+            </form>
+          </div> -->
+          <div class="search-field custom-search">
+            <form>
+              <div class="search-block-outer">
+                <div class="search-icon">
+                  <i class="mdi mdi-magnify"></i>
+                </div>
+                <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+                (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+                <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+                  <i class="mdi mdi-close"></i>
+                </div>
+              </div>
+            </form>
+          </div>
+          <button class="btn btn-create-new-category" (click)="createNewCategory()">+ Create New Category</button>
+          
+        </div>
+        <div class="three-dots-block">
+          <div class="btn-group dropstart">
+            <button type="button" class="btn btn-three-dots dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <ul class="icons2">
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="loadUsers('ALL')">All Category</a></li>
+              <li>
+                <a class="dropdown-item" (click)="loadUsers('ACTIVE')">Active Category</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="loadUsers('INACTIVE')">InActive Category</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-dsh new-card">
+          <div class="card-body">
+            <h4 class="card-title new-title">List of Category </h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th> Category Id</th>
+                      <th style="cursor: pointer;" class="custom-pedding-left" (click)="sorting('name')" class="custom-pointer">
+                        <span class="mdi mdi-unfold-more-horizontal custom-pointer-inner-icon"></span> Category Name</th>
+                    <th>Reg Date</th>
+                    <th>No. of Active Business</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let item of category">
+                  <td>{{item?.categoryId}}</td>
+                    <td>
+                             {{item?.categoryName}}
+                    </td>
+                    <td>{{item?.createdAt | date:'dd/MM/yyyy'}}</td>
+                    <td>{{item?.noOfActiveBusiness}}</td>
+                    <td> 
+                      <div class="" *ngIf="item?.noOfActiveBusiness == 0">
+                        <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveChange2('false',item._id)">
+                          <div class="toggle-on-circle"></div>
+                        </div>
+                        <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                          <div class="toggle-off-circle"></div>
+                        </div>
+                      </div>
+                      <div class="" *ngIf="item?.noOfActiveBusiness > 0">
+                        <div *ngIf="item.isActive" class="toggle-on" (click)="activeInactiveNotChange('false',item._id)">
+                          <div class="toggle-on-circle"></div>
+                        </div>
+                        <div *ngIf="!item.isActive" class="toggle-off" (click)="activeInactiveChange2('true',item._id)">
+                          <div class="toggle-off-circle"></div>
+                        </div>
+                      </div>
+                     
+                        </td>
+                        <td>
+                          <a
+                            class="pencile-green" (click)="editCategory(item)"
+                            ><i class="fa fa-pencil"></i
+                          ></a>
+                        </td>
+                 </tr>
+               
+                </tbody>
+              </table>
+              <div class="no-result-found" *ngIf="category?.length == 0">
+                No result found
+              </div>
+            </div>
+          </div>
+          <div class="next-previous-button-block">
+            <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+              Previous
+            </button>
+            <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+              *ngIf="totalPage > 1 && totalPage != currentPage">
+              Next
+            </button>
+          </div>
+          <div class="page-count" *ngIf="totalPage >= 1">
+            <p>Page {{ currentPage }} of {{ totalPage }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle">
+    <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-custom">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="attacmentCloseModel()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="category-popup">
+            <h5 *ngIf="!updateCategory">New Category</h5>
+            <h5 *ngIf="updateCategory">Update Category</h5>
+            
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+              <input type="text" placeholder="Category Name" formControlName="categoryName2">
+              <div *ngIf="categoryName2.invalid && (categoryName2.dirty || categoryName2.touched)">
+                <span class="error-block" *ngIf="categoryName2.errors?.required">Category name is required</span>
+                <span class="error-block" *ngIf="categoryName2.errors?.whitespace">Cannot start with whitespace</span>
+              </div>
+            
+              <button class="btn-save" type="submit" *ngIf="!updateCategory">Save</button>
+              <button class="btn-save" type="submit" *ngIf="updateCategory">Update</button>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle10">
+    <div class="modal-dialog small-modal-custom2 modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel10()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block" style="color: red;">
+                 {{messageWithArray}}
+                </div>
+                <div class="card-body">
+                  <div class="custom-table">
+                  <!-- <h4 class="card-title new-title">Category is linked with the following business </h4> -->
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Merchant Name</th>
+                          <th>Business Name</th>
+                          <th>Business Id</th>
+                          <th>Business Phone</th>
+                    
+                        </tr>
+                      </thead>
+                      <tbody>
+                       <tr *ngFor="let item of users">
+                          <td>
+                              <div style="cursor: pointer;" class="usert-img" >
+                                  <div class="usert-img-inner-text">
+                                    <p class="custom-user-name custom-open-link">{{item?.merchantName}}</p>
+                                  </div>
+                                </div>
+                          </td>
+                          <td>{{item?.businessName}}</td>
+                          <td>{{item?.businessId}}</td>
+                          <td>{{item?.phone}}</td>
+                        
+                        
+                       </tr>
+            
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="">
+                  <form [formGroup]="myForm" >
+                    <div class="form-group">
+                      <label for="reason">Reason</label>
+                      <textarea class="form-control" id="reason" formControlName="reason"></textarea>
+                      <div *ngIf="(f.reason.errors && (myForm.get('reason').dirty || myForm.get('reason').touched)) || (f.reason.errors&& isSubmited)">
+                        <small class="text-danger" *ngIf="f.reason.errors.required">Reason is required</small>
+                      </div>
+                    </div>
+                  
+                  
+                    <div class="button-block-yes-no">
+                      <button type="submit" class="btn-yes2" (click)="onSubmit2()">Forcefully Inactive</button>
+                      <button class="btn-no2" (click)="attacmentCloseModel10()">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+                </div>
+                <!-- <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+                <div class="profile-upper-block2">
+                  Are you sure you want to<br/> {{activeInactiveString}} this Category?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelForcefully">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attachmentModelForcefully2()"></button>
+        </div>
+        <div class="modal-body p-0">
+                <div class="profile-upper-block2" style="text-align: center;">
+                  Are you sure you want to Inactive all business forcefully?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="inActiveForcefully()">YES</button>
+                  <button class="btn-no" (click)="attachmentModelForcefully2()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

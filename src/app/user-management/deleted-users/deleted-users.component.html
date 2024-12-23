@@ -1,0 +1,116 @@
+<div class="common-class">
+    <div class="common-class-left">
+      <span class="card-title new-title">Deleted User
+      </span>
+    </div>
+    <div class="common-class-right">
+      <div class="search-field custom-search">
+        <form>
+          <div class="search-block-outer">
+            <div class="search-icon">
+              <i class="mdi mdi-magnify"></i>
+            </div>
+            <input #searchInput2 type="search" aria-label="Search" class="form-control bg-transparent border-0" [placeholder]="'Search By ' + placeholderText" [@slideInOut]
+            (input)="onSearchChange($event)"  (keydown)="restrickedWord($event)" />
+            <div class="close-search" *ngIf="isShowCross" (click)="closeSearch()">
+              <i class="mdi mdi-close"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card-dsh new-card other-pages">
+    <div class="card-body comman-scroll-block">
+      <div class="table-responsive user-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Customer Id</th>
+              <th>Name</th>
+              <th>Reason</th>
+              <th>Confirmed</th>
+              <th>Requested At</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of users">
+              <td style="white-space: nowrap !important;">{{ item.manualDelReqId}}</td>
+              <td>{{ item.manualUserId}}</td>
+                <td>
+                    <div class="usert-img">
+                      <div class="usert-img-inner" *ngIf="item?.profile === ''">
+                        <img
+                        src="../../assets/img/faces/user.png"
+                          alt="image"
+                        />
+                      </div>
+                      <div class="usert-img-inner" *ngIf="item?.profile !== ''">
+                        <img
+                          [src]="item?.profile"
+                          alt="image"
+                        />
+                      </div>
+                      <div class="usert-img-inner-text">
+                        <p class="custom-user-name">{{ item?.name }}</p>
+                        <p class="custom-user-email">{{ item?.email }}</p>
+                      </div>
+                    </div>
+                  </td>
+              <td>{{item?.reason}}</td>
+              <td [ngStyle]="getStrongStyle(item?.requestStatus)">{{ item?.requestStatus === 0 ? 'Pending' : 
+                item?.requestStatus === 2 ? 'No' : 
+                item?.requestStatus === 3 ? 'Yes' : 
+                '' }}</td>
+              <td style="white-space: nowrap;">{{item?.createdAt | date:'dd-MM-yyyy'}}</td>
+              <td style="white-space: nowrap;">
+                <button class="btn-approved mr-2"  [ngStyle]="{ 'opacity': item?.requestStatus === 2 ? 0.5 : 1 }" [disabled]="item?.requestStatus === 3 || item?.requestStatus === 2" (click)="activeInactiveChange2(item._id,true)">{{item?.requestStatus === 3?'Approved':'Approve'}}</button>
+                <button class="btn-rejected"  [ngStyle]="{ 'opacity': item?.requestStatus === 3 ? 0.5 : 1 }" [disabled]="item?.requestStatus === 2 || item?.requestStatus === 3" (click)="activeInactiveChange2(item._id,false)">{{item?.requestStatus === 2?'Rejected':'Reject'}}</button>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+        <div class="no-result-found" *ngIf="users?.length == 0">
+          No result found
+        </div>
+      </div>
+    </div>
+    <div class="next-previous-button-block">
+      <button class="btn btn-previous" *ngIf="currentPage > 1" (click)="paginationAndSorting('PREVIOUS')">
+        Previous
+      </button>
+      <button class="btn btn-next" (click)="paginationAndSorting('NEXT')"
+        *ngIf="totalPage > 1 && totalPage != currentPage">
+        Next
+      </button>
+    </div>
+    <div class="page-count" *ngIf="totalPage >= 1">
+      <p>Page {{ currentPage }} of {{ totalPage }}</p>
+    </div>
+  </div>
+  <div class="modal" id="documentModalSuccess" tabindex="-1" role="dialog" [style.display]="attachmentModelStyle3">
+    <div class="modal-dialog small-modal-custom modal-dialog-centered">
+      <div class="modal-content">
+        <div class="custom-modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="attacmentCloseModel3()"></button>
+        </div>
+        <div class="modal-body p-0">
+            
+                <div class="profile-upper-block" *ngIf="statusTypeDeleted">
+                  Are you sure you want to approve this delete account request?
+                </div>
+                <div class="profile-upper-block" *ngIf="!statusTypeDeleted">
+                  Are you sure you want to reject this delete account request?
+                </div>
+                <div class="button-block-yes-no">
+                  <button class="btn-yes" (click)="activeInactiveChange()">YES</button>
+                  <button class="btn-no" (click)="attacmentCloseModel3()">NO</button>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>

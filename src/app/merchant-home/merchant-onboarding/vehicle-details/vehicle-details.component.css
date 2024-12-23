@@ -1,0 +1,762 @@
+@media only screen and (max-width: 767px) {
+    .new-custom-button-for-mobile {
+        display: initial !important;
+    }
+
+    .new-custom-button {
+        display: none !important;
+    }
+
+    .common-class {
+        display: initial !important;
+    }
+
+    .common-class-left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 15px 0px;
+    }
+
+    .common-class-left span.card-title.new-title {
+        margin-left: 15px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .common-class-right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .three-dots-block {
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    .is-invalid {
+        border: 1px solid red !important;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-go-back-main-inner {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #1B86FE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.user-go-back-main-inner img {
+    width: 100%;
+    max-width: 12px;
+}
+
+.user-go-back-main {
+    display: flex;
+    align-items: center;
+}
+
+.document-left-block-heading {
+    margin-bottom: 10px;
+}
+
+.document-left-block-heading2 {
+    margin-bottom: 10px;
+    color: #000 !important;
+    opacity: 1;
+    font-weight: 600;
+}
+
+/*
+* View the Reason Start
+*/
+.common-class-right {
+    border-radius: 8px;
+    border: 1px solid gray;
+    padding: 4px;
+}
+
+.text-green {
+    color: green;
+    font-weight: bold;
+}
+
+.text-red {
+    color: red;
+    font-weight: bold;
+}
+
+.view-reason-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-reason-btn:hover {
+    background-color: #0056b3;
+}
+
+.model_width {
+    width: 400px;
+}
+
+.document-aadhar-block3 {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    margin: auto;
+    position: relative;
+    border: 1px solid gray;
+    border-radius: 6px;
+    min-height: 67px;
+}
+
+.reson_reject{
+    color: #007bff;
+}
+
+/*
+* View the Reason END
+*/
+
+/*
+Vehicle Details Start
+*/
+
+
+.vehicle_details {
+    margin-top: 20px;
+    min-height: 35vh;
+}
+
+.vehicle_imgs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.vehicle_info {
+    background-color: white;
+    padding: 20px;
+    height: 100%;
+
+}
+
+.vehicle_name {
+    gap: 4px;
+}
+
+.car_name {
+    font-weight: 600;
+    font-size: .9rem;
+    color: black;
+}
+
+.car_numb {
+    font-weight: 600;
+    font-size: .9rem;
+    color: gray;
+}
+
+.vehicle_img {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.vehicle_img img {
+    border-radius: 14px;
+    height: 150px;
+}
+
+.all_images {
+    display: flex;
+}
+
+.front,
+.back,
+.left,
+.right,
+.top {
+    display: flex;
+    justify-content: center;
+    margin: 3px;
+}
+
+.thumbnail {
+    border: 2px solid transparent;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.thumbnail img {
+    border-radius: 14px;
+    width: 55px;
+    height: 42px;
+    transition: height 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
+}
+
+.thumbnail.highlight {
+    border: 2px solid #007bff;
+    border-radius: 14px;
+}
+
+.thumbnail .highlightImg {
+    width: 76px !important;
+    height: 61px !important;
+}
+
+.vehicle_specification_heading {
+    font-weight: 600;
+}
+
+.vehicle_specification {
+    justify-content: space-around;
+    height: 100%;
+    padding: 20px 0
+}
+
+.model_year,
+.seating_capacity,
+.engine_capacity,
+.vehicle_type,
+.color,
+.odo_reading {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.vehicle_specification .title {
+    color: black;
+    font-size: .95rem;
+
+}
+
+.vehicle_specification .response {
+    color: gray;
+    font-size: .95rem;
+
+}
+
+/*
+Vehicle Details END
+*/
+
+
+/*
+Host Details
+*/
+.host_details {
+    background-color: white;
+    padding: 20px;
+    height: 100%;
+}
+
+.host_details_heading {
+    font-weight: 600;
+}
+
+.host_img img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: #bbb7b7;
+}
+
+.host_name {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name {
+    margin: 0 0 0 20px;
+    font-weight: 600;
+}
+
+.host_info {
+    margin-top: 20px;
+    box-shadow: 0px -1px 0px #979191;
+    padding-top: 6px;
+}
+
+.host_info .title {
+    font-weight: 600;
+    font-size: .9rem;
+    color: gray;
+}
+
+.host_info .response {
+    font-weight: 500;
+    font-size: .8rem;
+    color: gray;
+}
+
+.phone_email {
+    display: flex;
+    justify-content: space-between;
+}
+
+.phone_number,
+.email_address,
+.address {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+/*
+Host Details END
+*/
+
+
+/*
+DOC Info Start 
+*/
+.main_vehicle_docs {
+    min-height: 35vh;
+    margin-top: 20px;
+}
+
+.main_vehicle_docs_heading {
+    font-weight: 600;
+}
+
+.doc_info {
+    background-color: white;
+    height: 100%;
+    padding: 20px;
+}
+
+.mv_file_no,
+.registration_date,
+.registration_expiry {
+    margin-top: 20px;
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
+
+.doc_info .title {
+    color: black;
+    font-size: .95rem;
+
+}
+
+.doc_info .response {
+    color: gray;
+    font-size: .95rem;
+
+}
+
+/*
+DOC Info END 
+*/
+
+/*
+Doc Images Start
+*/
+.vehicle_doc_img {
+    padding: 20px;
+    background-color: white;
+    min-height: 100%;
+}
+
+.document_rows {
+    height: 100%;
+    margin-top: 20px;
+}
+
+.vehicle_doc_img_heading {
+    font-weight: 600;
+}
+
+.document-row {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.vehicle_doc_img .title {
+    /* font-weight: bold; */
+    color: black;
+}
+
+.view-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.view-button:hover {
+    background-color: #0056b3;
+}
+
+.img_count {
+    flex: 0 0 auto;
+    padding: 5px;
+    color: #c3c3c3;
+}
+
+
+
+/*
+Doc Images END
+*/
+
+
+/*
+Vehicle Pickup Related Start
+*/
+.pickup_price_related {
+    margin-top: 20px;
+    min-height: 35vh;
+}
+
+.pickup_location,
+.pickup_time {
+    margin-top: 20px;
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
+
+/*
+Vehicle Pickup Related END
+*/
+.vehicle_pickup {
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+}
+
+.vehicle_pickup_heading {
+    font-weight: 600;
+}
+
+.vehicle_pickup .title {
+    color: black;
+    font-size: .95rem;
+}
+
+.vehicle_pickup .response {
+    color: gray;
+    font-size: .95rem;
+}
+
+.weekly_availability_details {
+    margin-top: 20px;
+}
+
+.weekly_availability_heading {
+    font-weight: 600;
+}
+
+.weekly_availability {
+    display: flex;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 15px
+}
+
+.day {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/*
+Daily Availability
+*/
+.daily_availability_heading {
+    font-weight: 600;
+}
+
+.daily_availability_details {
+    margin-top: 20px;
+}
+
+.daily_availability {
+    display: flex;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.time {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.daily_availability_details .title {
+    color: black;
+    font-size: .95rem;
+}
+
+.daily_availability_details .response {
+    color: gray;
+    font-size: .95rem;
+}
+
+/*
+Vehicle Rental Charges Start
+*/
+
+.vehicle_rental_charges {
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+}
+
+.vehicle_rental_charges_heading {
+    font-weight: 600;
+}
+
+.charges_details {
+    display: flex;
+    flex-direction: column;
+}
+
+.charges_details .title {
+    font-size: .95rem;
+    color: black;
+}
+
+.charges_details .response {
+    font-size: .95rem;
+    color: gray;
+}
+
+.pricing_item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    margin-top: 20px;
+}
+
+/*
+Vehicle Rental Charges END
+*/
+
+/*
+Vehicle Addons Related Start
+*/
+.vehicle_addons_related {
+    width: 100%;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.vehicle_addons {
+    height: 100%;
+}
+
+.all_addons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.each_addon {
+    max-width: 15vw;
+}
+
+.vehicle_addons_heading {
+    font-weight: 600;
+}
+
+
+.addons {
+    background: azure;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 7px
+}
+
+.addons_title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addons .title {
+    color: black;
+    font-size: .95rem;
+}
+
+.addons .response {
+    color: gray;
+    font-size: .95rem;
+}
+
+/*
+Vehicle Addons Related END
+*/
+
+/*
+Vehicle Review Start
+*/
+
+.vehicle_approvel {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.vehicle-review-form {
+    font-family: Arial, sans-serif;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #343A40;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.approve-button,
+.reject-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+
+.approve-button {
+    background-color: #28a745;
+}
+
+.reject-button {
+    background-color: #dc3545;
+}
+
+.approve-button:hover {
+    background-color: #218838;
+}
+
+.reject-button:hover {
+    background-color: #c82333;
+}
+
+/*
+Vehicle Review END
+*/
+
+
+/*
+Vehicle 1st Dialog Start 
+
+*/
+
+.custom-modal-header {
+    width: 100%;
+    text-align: right;
+}
+
+.doc_id {
+    align-items: center;
+    gap: 11px;
+    margin: 0 0 15px;
+}
+
+.doc_no_style {
+    border-radius: 4px;
+    border: 1px solid #8f8b8b;
+    padding: 4px;
+    color: #8f8b8b;
+    min-width: 36%;
+}
+
+.document-aadhar-block2 {
+    display: flex !important;
+    justify-content: space-around;
+    width: 100%;
+    padding: 5px;
+    margin: auto;
+    position: relative;
+}
+
+.document-aadhar-block2 img {
+    width: 50%;
+    height: 400px;
+    max-width: 277px;
+    max-height: 300px;
+    object-fit: contain;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 14px;
+}
+
+
+
+.document-left-block-heading2 {
+    color: black;
+    text-align: center;
+    font-weight: 600;
+}
+
+/*
+Vehicle 1st Dialog END 
+*/

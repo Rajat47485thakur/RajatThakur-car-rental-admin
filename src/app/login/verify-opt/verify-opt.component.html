@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="main-login-block">
+    <div class="login-block-inner">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="login-image-block"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="login-contant-block-upper2">
+            <div class="login-contant-block">
+              <h3 class="login-merchant">OTP Verificaiton</h3>
+              <div class="form-style">
+                <form [formGroup]="verify_otp" (ngSubmit)="onSubmit()">
+                  <div class="form-group pb-3">
+                    <label>Verify OTP sent on {{ email }} </label>
+                    <input
+                      type="number"
+                      placeholder="OTP"
+                      class="form-control"
+                      aria-describedby="emailHelp"
+                      formControlName="otp"
+                      [ngClass]="{ 'is-invalid': submitted }"
+                    />
+                    <div
+                      *ngIf="
+                        submitted &&
+                        verify_otp.controls['otp'].hasError('required')
+                      "
+                    >
+                      Otp is required
+                    </div>
+                    <!-- <div *ngIf="verify_otp.controls['email'].hasError('email') && verify_otp.controls['email'].touched">
+                            Email must be a valid email address</div> -->
+                  </div>
+                  <div class="pb-2">
+                    <button
+                      type="submit"
+                      class="btn merchant-login w-100 font-weight-bold mt-2"
+                    >
+                      Verify OTP
+                    </button>
+                  </div>
+                  <!-- <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

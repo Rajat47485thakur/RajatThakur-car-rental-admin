@@ -1,0 +1,322 @@
+<div class="push-notification-main-card">
+  <div class="push-nitofication-heading">
+    <h4>Push Notifications</h4>
+    <div class="">
+      <button class="btn btn-filters" data-bs-toggle="modal" data-bs-target="#filters">
+        Filters
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-12 pr-0">
+      <div class="">
+        <p class="send-notification">Send Notifications</p>
+        <div class="row">
+          <div class="col-6 mb-3 col-md-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" (change)="pushTypeChange($event,'ALL')" [checked]="pusher.all">
+              <label class="form-check-label">
+                ALL
+              </label>
+            </div>
+          </div>
+          <div class="col-6 mb-3 col-md-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" (change)="pushTypeChange($event,'SMS')" [checked]="pusher.sms" />
+              <label class="form-check-label">
+                SMS
+              </label>
+            </div>
+          </div>
+          <div class="col-6 mb-3 col-md-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" (change)="pushTypeChange($event,'EMAIL')" [checked]="pusher.email" />
+              <label class="form-check-label">
+                Email
+              </label>
+            </div>
+          </div>
+          <div class="col-6 mb-3 col-md-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" (change)="pushTypeChange($event,'PUSH')" [checked]="pusher.push" />
+              <label class="form-check-label">
+                Push
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 col-12">
+      <div class="push-notification-inner-cart comman-scroll-block">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" [checked]="allSelected" (change)="isAllUser($event)" />
+                  Select All
+                </th>
+                <th>User ID</th>
+                <th>Location</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="users?.totalUsers?.length>0">
+              <tr *ngFor="let item of users.totalUsers">
+                <td>
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" [checked]="allSelectedList" (change)="singleUser($event,item)"/>
+                </td>
+                <td>{{ item.manualUserId }}</td>
+                <td>--</td>
+                <td>
+                  <div class="notification-userName-main">
+                    <img src="{{
+                        user?.picture?.profilePic
+                          ? user?.picture?.profilePic
+                          : './assets/img/faces/user.png'
+                      }}" />
+                    <div class="notification-userName-inner">
+                      <p class="notification-userName">
+                        {{ item?.name?.first }}
+                      </p>
+                      <p class="notification-email">{{ item?.email?.email }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>--</td>
+                <td>{{ item?.age ? item?.age : 0 }}</td>
+                <td>{{ item?.phone?.phoneNumber }}</td>
+                <td [ngStyle]="{ color: item.isActive ? '#00ed64' : 'red' }">
+                  {{ item.isActive ? "Active" : "Inactive" }}
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+          <div class="no-data-found" *ngIf="users?.totalUsers?.length <= 0">
+            No Data Found
+            </div>
+        </div>
+        
+      </div>
+      <div class="custom-pagintions">
+        <ngb-pagination [disabled]="false" [collectionSize]="users.userCount" [(page)]="currentPage"
+        [maxSize]="100" [rotate]="true" [pageSize]="10" [ellipses]="false" [boundaryLinks]="false" size="sm"
+        (pageChange)="pagination($event)">
+        <ng-template ngbPaginationFirst><i class="fa fa-angle-double-left"></i></ng-template>
+        <ng-template ngbPaginationPrevious><i class="fa fa-angle-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="fa fa-angle-right"></i></ng-template>
+        <ng-template ngbPaginationLast><i class="fa fa-angle-double-right"></i></ng-template>
+      </ngb-pagination>
+      </div>
+      <div class="title-block pt-0">
+        <label>Title</label>
+        <input type="text" class="title"  [(ngModel)]="title"/>
+        <div *ngIf="showErrorTitle" class="error-message" style="color: red;">Title is required.</div>
+      </div>
+      <div class="title-block">
+        <label>Message</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="body"></textarea>
+        <div *ngIf="showErrorMessage" class="error-message" style="color: red;">Message is required.</div>
+      </div>
+      <div class="push-button-block">
+        <button class="btn btn-save" (click)="sendPush()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal 5 document reject-->
+<div class="modal fade" id="filters" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog small-modal-dialog modal-dialog-centered">
+   
+      
+      <div class="modal-content modal-content-custom">
+        <div class="filter-main-block">
+        <div class="filter-main-block-inner">
+          <div class="filter-main-block-inner-first">
+            Filters
+          </div>
+          <!-- <div class="">
+            <div class="radio-labels2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked11" (change)="pushTypeChange2($event,'Location')" [checked]="pusher2.Location" />
+                <label class="form-check-label">
+                  Location
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked12" (change)="pushTypeChange2($event,'Badge')" [checked]="pusher2.Badge" />
+                <label class="form-check-label">
+                  Badge
+                </label>
+              </div>
+    
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked13" (change)="pushTypeChange2($event,'AgeGroup')" [checked]="pusher2.AgeGroup" />
+                <label class="form-check-label">
+                  Age Group
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked14" (change)="pushTypeChange2($event,'Birthday')" [checked]="pusher2.Badge" />
+                <label class="form-check-label">
+                  Birthday
+                </label>
+              </div>
+          </div>
+           </div> -->
+       <div class="">
+        <div class="radio-labels2">
+          <div class="form-check2">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="Location" (change)="loadMerchants('Location')" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Location 
+            </label>
+          </div>
+          <div class="form-check2">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="Badge" (change)="loadMerchants('Badge')" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Badge
+            </label>
+          </div>
+          <div class="form-check2">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="AgeGroup" (change)="loadMerchants('AgeGroup')" id="flexRadioDefault3">
+            <label class="form-check-label" for="flexRadioDefault3">
+              Age Group
+            </label>
+          </div>
+          <div class="form-check2">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" [(ngModel)]="statusType" value="Date" (change)="loadMerchants('Date')" id="flexRadioDefault4">
+            <label class="form-check-label" for="flexRadioDefault4">
+              Birthday
+            </label>
+          </div>
+      </div>
+       </div>
+        </div>
+        <div class="" style="width: 100%;">
+        <div class="custom-modal-header">
+          <label class="select-age" *ngIf="statusType==='Location'">Select Location</label>
+          <label class="select-age" *ngIf="statusType==='Badge'">Select Badge</label>
+          <label class="select-age" *ngIf="statusType==='AgeGroup'">Select Age</label>
+          <label class="select-age" *ngIf="statusType==='Date'">Enter Days</label>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="filters-main" *ngIf="statusType ==='AgeGroup'">
+            <div class="filters-main-select">
+              <div class="select-age-main">
+               
+                <div class="row">
+                  <div class="col-md-6">
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="fromAge">
+                      <option [ngValue]="undefined" disabled selected> From</option>
+                      <option *ngFor="let from of ageFrom" [value]="from">{{from}} </option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="toAge">
+                      <option [ngValue]="undefined" disabled selected>To</option>
+                      <option *ngFor="let to of ageTo" [value]="to">{{to}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="push-button-block2">
+              <button class="btn-save" (click)="applyFilter()">Save</button>
+              <button class="btn-reset" (click)="applyResetFilter()">Reset</button>
+            </div>
+          </div>
+          <div class="filters-main" *ngIf="statusType ==='Badge'">
+            <div class="filters-main-select">
+              <div class="select-age-main">
+               
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="end-date">Select Badge:</label>
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="fromBadge">
+                      <option [ngValue]="undefined" selected> select</option>
+                      <option *ngFor="let item of badgeArray" [value]="item.id">{{item.data}} </option>
+                    </select>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <label for="end-date">To:</label>
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="toBadge">
+                      <option [ngValue]="undefined" selected>To</option>
+                      <option *ngFor="let item of badgeArray" [value]="item.id">{{item.data}} </option>
+                    </select>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          
+            <div class="push-button-block2">
+              <button class="btn-save" (click)="applyFilter()">Save</button>
+              <button class="btn-reset" (click)="applyResetFilter()">Reset</button>
+            </div>
+          </div>
+          <div class="filters-main" *ngIf="statusType ==='Location'">
+            <div class="filters-main-select">
+              <div class="select-age-main">
+               
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="end-date">Select Location:</label>
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedLocation">
+                      <option [ngValue]="undefined" selected> select</option>
+                      <option *ngFor="let item of location" [value]="item.id">{{item.data}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <div class="push-button-block2">
+              <button class="btn-save" (click)="applyFilter()">Save</button>
+              <button class="btn-reset" (click)="applyResetFilter()">Reset</button>
+            </div>
+          </div>
+          <div class="date-range-picker" *ngIf="statusType==='Date'">
+            <form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+               
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="end-date">Birthday in upcoming X days:</label>
+                    <input 
+                      type="number" 
+                      id="number" 
+                      class="form-control"  
+                      placeholder="Enter days"
+                      formControlName="birthday">
+                    <!-- <div *ngIf="f.birthday.invalid && (f.birthday.dirty || f.birthday.touched)" class="invalid-feedback">
+                      <div class="invalid-feedback" *ngIf="f.birthday.errors?.required"> is required.</div>
+                      <div class="invalid-feedback" *ngIf="f.birthday.errors?.invalidDate">Date cannot be in the future.</div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="btn-submit-calender-upper">
+                <button type="submit" class="btn btn-submit-calender">Submit</button>
+                <button type="reset" class="btn btn-submit-reset ml-3" (click)="reset()">Reset</button>
+              </div> -->
+              <div class="push-button-block2">
+                <button class="btn-save submit" (click)="applyFilter()">Submit</button>
+                <button class="btn-reset reset" (click)="reset()">Reset</button>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+   
+  </div>
+</div>
